@@ -1,10 +1,10 @@
 {
-  "name": "authenticator_api",
+  "name": "daccred-api",
   "description": "",
   "license": "ISC",
-  "author": "Daric McFadden",
+  "author": "Andrew Miracle",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/entry.js",
   "scripts": {
     "build": "run-s build:clean build:code",
     "build:clean": "rimraf dist",
@@ -129,5 +129,8 @@
     "arrowParens": "always",
     "tabWidth": 2,
     "printWidth": 120
+  },
+  "engines" : { 
+    "node" : ">=14.18.0 <16.0.0" 
   }
 }
