@@ -23,10 +23,10 @@ export class User {
 }
 
 /**
- * @name Role
+ * @name List
  * @description A resource class to infer fields and conditions to roles API
  */
-export class Role {
+export class List {
   public userId!: string;
   public subscriberId!: string | null | undefined;
   public role: UserRoleEnum;
@@ -38,15 +38,15 @@ export class Role {
     this.role = options.role;
   }
   static get modelName() {
-    return ResourceModelSubject.ROLE;
+    return ResourceModelSubject.LIST;
   }
 }
 
 /**
- * @name Subscriber
- * @description A resource class to infer fields and conditions to Subscribers API
+ * @name Credential
+ * @description A resource class to infer fields and conditions to Credentials API
  */
-export class Subscriber {
+export class Credential {
   public ownerId!: string;
   public subscriberId!: string | null | undefined;
   public role: UserRoleEnum;
@@ -58,15 +58,15 @@ export class Subscriber {
     this.role = options.role;
   }
   static get modelName() {
-    return ResourceModelSubject.SUBSCRIBER;
+    return ResourceModelSubject.CREDENTIAL;
   }
 }
 
 /**
- * @name Employee
- * @description A resource class to infer fields and conditions to Employees API
+ * @name Team
+ * @description A resource class to infer fields and conditions to Teams API
  */
-export class Employee {
+export class Team {
   public invitedBy!: string;
   public subscriberId!: string | null | undefined;
   public role: UserRoleEnum;
@@ -80,24 +80,6 @@ export class Employee {
     this.userId = options.user_id;
   }
   static get modelName() {
-    return ResourceModelSubject.EMPLOYEE;
-  }
-}
-
-/**
- * @name PaymentMerchant
- * @description A resource class to infer fields and conditions to PaymentMerchant API
- */
-export class PaymentMerchant {
-  public subscriberId!: string | null | undefined;
-  public role: UserRoleEnum;
-
-  constructor(options: PolicyTemplateArgs) {
-    /* Assign variables for rule conditions */
-    this.subscriberId = options.subscriber_id;
-    this.role = options.role;
-  }
-  static get modelName() {
-    return ResourceModelSubject.PAYMENT_MERCHANT;
+    return ResourceModelSubject.TEAM;
   }
 }

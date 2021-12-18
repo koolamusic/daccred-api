@@ -18,15 +18,11 @@ function defineRulesForSuperAdmin(): RawRuleOf<AppAbility>[] {
   const { can, rules } = new AbilityBuilder(AppAbility);
 
   /* Define the rules for the Superadmin User */
-  can('crud', 'all');
-  can(['create', 'update', 'read_one', 'read_all', 'delete'], ResourceModelSubject.EMPLOYEE);
+  can(['create', 'update', 'read_one', 'read_all', 'delete'], ResourceModelSubject.CREDENTIAL);
   can(['create', 'update', 'read_one', 'read_all', 'delete'], ResourceModelSubject.POLICY);
-  can(['create', 'update', 'read_one', 'read_all', 'delete'], ResourceModelSubject.SUBSCRIBER);
-  can(['create', 'update', 'read_one', 'read_all', 'delete'], ResourceModelSubject.PAYMENT_MERCHANT);
+  can(['create', 'update', 'read_one', 'read_all', 'delete'], ResourceModelSubject.LIST);
   can(['create', 'update', 'read_one', 'read_all', 'delete'], ResourceModelSubject.USER);
-  can(['create', 'update', 'read_one', 'read_all', 'delete'], ResourceModelSubject.ROLE);
-  can(['create', 'update', 'read_one', 'read_all', 'delete'], ResourceModelSubject.SERVICE);
-  can(['create', 'update', 'read_one', 'read_all', 'delete'], 'all');
+  can(['create', 'update', 'read_one', 'read_all', 'delete'], ResourceModelSubject.TEAM);
 
   return rules;
 }
@@ -35,4 +31,4 @@ function defineRulesForSuperAdmin(): RawRuleOf<AppAbility>[] {
 const rules: SubjectRawRule<CRUD, SubjectType, MongoQuery<AnyObject>>[] = defineRulesForSuperAdmin();
 
 /* Export default policy rules with placeholder ID */
-export default { id: '8372d9ed', rules };
+export default { id: '2272d9f1', rules };

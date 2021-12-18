@@ -2,7 +2,7 @@
 
 /// Type Definitions
 import { MongoQuery, SubjectType } from '@casl/ability';
-import { PackRule } from '@casl/ability/dist/types/extra';
+// import { PackRule } from '@casl/ability/dist/types/extra';
 import { ResourceModelSubject } from './constants';
 
 type PropertyKey = string | number | symbol;
@@ -10,10 +10,9 @@ type AnyObject = Record<PropertyKey, unknown>;
 
 /* The type of rules we have amongst user account maping to the type of user accounts created */
 export enum UserRoleEnum {
-  CUSTOMER = 'customer',
-  BUSINESS = 'subscriber',
+  MEMBER = 'member',
+  OWNER = 'owner',
   SUPERADMIN = 'superadmin',
-  EMPLOYEE = 'employee',
 }
 
 /* policy arguments used to interpolate and generate permission rules */
@@ -53,50 +52,26 @@ export interface SubscriberPolicyInterface {
 }
 
 /* Subject Generic for IAM */
-export interface EmployeePolicyInterface {
-  subscriberId: string;
+export interface CredentialPolicyInterface {
+  workspaceId: string;
   role: UserRoleEnum;
+  ownerId: string;
   userId: string;
-  invitedBy: string;
 }
 
-/* Subject Generic for IAM */
-export interface MerchantPolicyInterface {
-  subscriberId: string;
-  role: UserRoleEnum;
-}
 
-/* Subject Generic for IAM */
-export interface ServicePolicyInterface {
-  userId: string;
-  role: UserRoleEnum;
-}
-
-/* Subject Generic for IAM */
-export interface CustomerPolicyInterface {
-  userId: string;
-  role: UserRoleEnum;
-}
 
 export interface IJWTClaim {
-  sub: 'userId' | string;
-  profile: {
-    email: string;
-    name: string;
-    role: UserRoleEnum;
-    // role: 'superadmin' | 'subscriber' | 'employee' | 'customer';
-    business: boolean;
-    user_id: string;
-    subscriber_id?: string | null | undefined;
-  };
-  scope: 'customer' | 'business' | 'titan';
-  permissions: PackRule<IAMPolicyRuleDefinition<unknown>>[];
+  sub: 'user_id' | string;
+  eth: string;
+  fingerprint: string;
+  scope: 'personal' | 'team';
 }
 export interface IJWTClaimConf {
   iat: Date;
   exp: Date;
-  aud: 'https://api.worldtreeconsulting.com' | string;
-  iss: 'https://api.worldtreeconsulting.com/authorizer' | string;
+  aud: 'https://api.daccred.co' | string;
+  iss: 'https://api.daccred.co/authorizer' | string;
 }
 
 export interface AuthorizerRule {
@@ -124,8 +99,11 @@ export interface GetAllRequestWithParams {
   previous: string; // The value to start querying previous page.
 }
 
+export type DoneCallback = jest.DoneCallback
+export type ProvidesCallback = ((cb: DoneCallback) => void | undefined) | (() => Promise<unknown>);
+export type ProvidesHookCallback = (() => any) | ProvidesCallback;
+
 /* use for connection classes: e.g. db or pub/sub in tests setup  */
-export type DoneCallback = (doneCallback: any) => Promise<any>;
 export type TCallbackFunction = () => Promise<any>;
 export interface ConnectDbInterface {
   connect: () => void;

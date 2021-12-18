@@ -8,13 +8,8 @@ import * as swaggerUiExpress from 'swagger-ui-express';
 /* App Utils, Controllers and Middlewares */
 import { LoggerMiddleware, HttpErrorHandler, CorsMiddleware } from './middlewares';
 import {
-  UserController,
-  CustomerController,
-  SubscriberController,
-  SubscriberEmployeeController,
-  PolicyController,
   AuthController,
-} from './app/controllers';
+} from './app/auth';
 import { swaggerSpecOptions } from './infra/openapi';
 import * as Authorization from './infra/authorization';
 import config from './infra/config';
@@ -22,11 +17,6 @@ import config from './infra/config';
 /* API Routes, Middlewares and Controllers */
 const routeControllerOptions: RoutingControllersOptions = {
   controllers: [
-    UserController,
-    CustomerController,
-    SubscriberController,
-    SubscriberEmployeeController,
-    PolicyController,
     AuthController,
   ],
   middlewares: [LoggerMiddleware, CorsMiddleware, HttpErrorHandler],

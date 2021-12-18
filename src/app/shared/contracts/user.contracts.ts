@@ -1,7 +1,7 @@
 import { PackRule } from '@casl/ability/extra';
 import { Type } from 'class-transformer';
-import { IsArray, IsBoolean, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
-import { IAMPolicyRuleDefinition, IJWTClaim, UserRoleEnum } from '../definitions';
+import { IsArray, IsEmail, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { IAMPolicyRuleDefinition } from '../definitions';
 
 export class UserProfileDTO {
   @IsEmail()
@@ -10,21 +10,15 @@ export class UserProfileDTO {
   @IsString()
   name!: string;
 
-  @IsEnum(UserRoleEnum)
-  role!: UserRoleEnum;
-
-  @IsBoolean()
-  business!: boolean;
-
   @IsString()
   @IsNotEmpty()
   user_id!: string;
 
-  @IsOptional()
-  subscriber_id?: string | null | undefined;
+  @IsString()
+  wsp_id!: string;
 }
 
-export class UserAccountResponseDTO implements IJWTClaim {
+export class UserAccountResponseDTO {
   @IsString()
   @IsNotEmpty()
   sub!: 'userId' | string;

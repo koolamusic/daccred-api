@@ -1,17 +1,12 @@
 import { UserRoleEnum } from '../definitions';
-import customerPolicy from './customer.iam';
-import employeePolicy from './employee.iam';
-import subscriberPolicy from './subscriber.iam';
-import superadminPolicy from './superadmin.iam';
+import policyForMember from './member.iam';
+import policyForOwner from './owner.iam';
 
-type TRole = 'customer' | 'employee' | 'subscriber' | 'superadmin';
+type TRole = 'member' | 'owner' | 'superadmin';
 
-const policies = new Map<TRole | UserRoleEnum, typeof customerPolicy | typeof superadminPolicy>();
-policies.set('customer', customerPolicy);
-policies.set('employee', employeePolicy);
-policies.set('subscriber', subscriberPolicy);
-policies.set('superadmin', superadminPolicy);
+const policies = new Map<TRole | UserRoleEnum, typeof policyForMember | typeof policyForOwner>();
+policies.set('member', policyForMember);
+policies.set('owner', policyForOwner);
 
 export default policies;
-export { customerPolicy, subscriberPolicy, employeePolicy, superadminPolicy };
 export * from './generate.roles';

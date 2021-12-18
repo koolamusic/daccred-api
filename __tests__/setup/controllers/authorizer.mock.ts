@@ -2,28 +2,28 @@ import { Get, Controller, CurrentUser, Authorized, Post, HttpCode } from 'routin
 import { ResourceModelSubject } from '../../../src/app/shared/constants';
 import { AuthorizerRule } from '../../../src/app/shared/definitions';
 
-const CAN_READ_ONE_EMPLOYEE: AuthorizerRule = {
+const CAN_READ_ONE_CREDENTIAL: AuthorizerRule = {
   action: 'read_one',
-  subject: ResourceModelSubject.EMPLOYEE,
+  subject: ResourceModelSubject.CREDENTIAL,
 };
-const CAN_DELETE_EMPLOYEE: AuthorizerRule = {
+const CAN_DELETE_CREDENTIAL: AuthorizerRule = {
   action: 'delete',
-  subject: ResourceModelSubject.EMPLOYEE,
+  subject: ResourceModelSubject.CREDENTIAL,
 };
 
-const CAN_READ_ONE_SUBSCRIBER: AuthorizerRule = {
+const CAN_READ_ONE_LIST: AuthorizerRule = {
   action: 'read_one',
-  subject: ResourceModelSubject.SUBSCRIBER,
+  subject: ResourceModelSubject.LIST,
 };
 
-const CAN_CREATE_EMPLOYEE: AuthorizerRule = {
+const CAN_CREATE_CREDENTIAL: AuthorizerRule = {
   action: 'create',
-  subject: ResourceModelSubject.EMPLOYEE,
+  subject: ResourceModelSubject.CREDENTIAL,
 };
 
-const CAN_CREATE_SERVICE: AuthorizerRule = {
+const CAN_CREATE_LIST: AuthorizerRule = {
   action: 'create',
-  subject: ResourceModelSubject.SERVICE,
+  subject: ResourceModelSubject.LIST,
 };
 
 const CAN_READ_ALL_POLICY: AuthorizerRule = {
@@ -43,7 +43,7 @@ export class MockAuthController {
 
   /* Test mock for Employee Rules to check */
   @Get('/employee')
-  @Authorized([CAN_READ_ONE_EMPLOYEE])
+  @Authorized([CAN_READ_ONE_CREDENTIAL])
   @HttpCode(200)
   getAuthorizedEmployee() {
     return {
@@ -53,7 +53,7 @@ export class MockAuthController {
   }
 
   @Post('/subscriber')
-  @Authorized([CAN_CREATE_EMPLOYEE])
+  @Authorized([CAN_CREATE_CREDENTIAL])
   @HttpCode(201)
   testAuthorizedSubscriber() {
     return {
@@ -63,7 +63,7 @@ export class MockAuthController {
   }
 
   @Post('/customer')
-  @Authorized([CAN_CREATE_SERVICE])
+  @Authorized([CAN_CREATE_LIST])
   @HttpCode(201)
   testAuthorizedCustomer() {
     return {
@@ -83,7 +83,7 @@ export class MockAuthController {
   }
 
   @Get('/fair-cluster')
-  @Authorized([CAN_READ_ONE_SUBSCRIBER, CAN_READ_ONE_EMPLOYEE])
+  @Authorized([CAN_READ_ONE_LIST, CAN_READ_ONE_CREDENTIAL])
   @HttpCode(200)
   testClusteredRulesDefinition() {
     return {
@@ -93,7 +93,7 @@ export class MockAuthController {
   }
 
   @Get('/unfair-cluster')
-  @Authorized([CAN_DELETE_EMPLOYEE, CAN_READ_ONE_EMPLOYEE, CAN_READ_ALL_POLICY])
+  @Authorized([CAN_DELETE_CREDENTIAL, CAN_READ_ONE_CREDENTIAL, CAN_READ_ALL_POLICY])
   @HttpCode(200)
   testUnfairClusteredRulesDefinition() {
     return {

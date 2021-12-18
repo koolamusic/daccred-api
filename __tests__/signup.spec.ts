@@ -7,7 +7,7 @@ import { TestDbConnection } from './setup/db';
 
 const db = new TestDbConnection();
 
-const businessMock: AuthSignupRequest = {
+const businessMock = {
   name: faker.name.firstName(),
   email: faker.internet.email(),
   phone: faker.phone.phoneNumber(),
@@ -24,7 +24,7 @@ const businessMock: AuthSignupRequest = {
   },
 };
 
-const customerMock: AuthSignupRequest = {
+const customerMock = {
   name: faker.name.firstName(),
   email: faker.internet.email(),
   phone: faker.phone.phoneNumber(),
@@ -38,18 +38,6 @@ const customerMock: AuthSignupRequest = {
     zip: faker.address.zipCode(),
   },
 };
-
-// const employeeMock: AuthSignupRequest = {
-//   name: faker.name.firstName(),
-//   email: faker.internet.email(),
-//   phone: faker.phone.phoneNumber(),
-//   password: faker.internet.password(),
-//   type: UserType.EMPLOYEE,
-//   employee: {
-//     inviteStatus: false,
-//     subscriberId: faker.datatype.uuid(),
-//   },
-// };
 
 /* ---------- Hooks ----------  */
 

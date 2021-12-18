@@ -1,15 +1,14 @@
 import { AuthorizerRule } from './definitions';
 import config from '../../infra/config';
 
-export const __WHOAMI__ = ` 
-'########:'####:'########::::'###::::'##::: ##:
-... ##..::. ##::... ##..::::'## ##::: ###:: ##:
-::: ##::::: ##::::: ##:::::'##:. ##:: ####: ##:
-::: ##::::: ##::::: ##::::'##:::. ##: ## ## ##:
-::: ##::::: ##::::: ##:::: #########: ##. ####:
-::: ##::::: ##::::: ##:::: ##.... ##: ##:. ###:
-::: ##::::'####:::: ##:::: ##:::: ##: ##::. ##:
-:::..:::::....:::::..:::::..:::::..::..::::..::
+export const __WHOAMI__ = `
+
+  █████   ██████  ██████ ██████  ███████ ██████  
+  ██   ██ ██      ██      ██   ██ ██      ██   ██ 
+  ███████ ██      ██      ██████  █████   ██   ██ 
+  ██   ██ ██      ██      ██   ██ ██      ██   ██ 
+  ██   ██  ██████  ██████ ██   ██ ███████ ██████  
+                                              
 ${config.serviceName}
 `;
 
@@ -24,72 +23,38 @@ ${config.serviceName}
  */
 
 export enum ResourceModelSubject {
-  USER = 'titan_authenticator_User',
-  ROLE = 'titan_authenticator_Role',
-  EMPLOYEE = 'titan_authenticator_Employee',
-  CUSTOMER = 'titan_authenticator_Customer',
-  SUBSCRIBER = 'titan_authenticator_Subscriber',
-  POLICY = 'titan_authenticator_Policy',
-  SERVICE = 'titan_services_Service',
-  NOTIFICATIONS = 'titan_notifications_Notifications',
-  PAYMENT_MERCHANT = 'titan_payment_PaymentMerchant',
+  USER = 'daccred:user',
+  CREDENTIAL = 'daccred:credential',
+  LIST = 'daccred:recipient_list',
+  TEAM = 'daccred:team',
+  POLICY = 'daccred:policy',
 }
 
 export const CAN_READ_ONE_USER: AuthorizerRule = { action: 'read_one', subject: ResourceModelSubject.USER };
 export const CAN_CREATE_USER: AuthorizerRule = { action: 'create', subject: ResourceModelSubject.USER };
 export const CAN_READ_ALL_POLICY: AuthorizerRule = { action: 'read_all', subject: ResourceModelSubject.POLICY };
 
-export const CAN_CREATE_EMPLOYEE: AuthorizerRule = {
+export const CAN_CREATE_CREDENTIAL: AuthorizerRule = {
   action: 'create',
-  subject: ResourceModelSubject.EMPLOYEE,
+  subject: ResourceModelSubject.CREDENTIAL,
 };
 
-export const CAN_READ_EMPLOYEE: AuthorizerRule = {
+export const CAN_READ_CREDENTIAL: AuthorizerRule = {
   action: 'read_one',
-  subject: ResourceModelSubject.EMPLOYEE,
+  subject: ResourceModelSubject.CREDENTIAL,
 };
 
-export const CAN_UPDATE_EMPLOYEE: AuthorizerRule = {
+export const CAN_UPDATE_CREDENTIAL: AuthorizerRule = {
   action: 'update',
-  subject: ResourceModelSubject.EMPLOYEE,
+  subject: ResourceModelSubject.CREDENTIAL,
 };
 
-export const CAN_DELETE_EMPLOYEE: AuthorizerRule = {
+export const CAN_DELETE_CREDENTIAL: AuthorizerRule = {
   action: 'delete',
-  subject: ResourceModelSubject.EMPLOYEE,
+  subject: ResourceModelSubject.CREDENTIAL,
 };
 
-export const CAN_READ_ALL_EMPLOYEES: AuthorizerRule = {
+export const CAN_READ_ALL_CREDENTIALS: AuthorizerRule = {
   action: 'read_all',
-  subject: ResourceModelSubject.EMPLOYEE,
-};
-
-export const CAN_CREATE_CUSTOMER: AuthorizerRule = {
-  action: 'create',
-  subject: ResourceModelSubject.CUSTOMER,
-};
-
-export const CAN_READ_CUSTOMER: AuthorizerRule = {
-  action: 'read_one',
-  subject: ResourceModelSubject.CUSTOMER,
-};
-
-export const CAN_UPDATE_CUSTOMER: AuthorizerRule = {
-  action: 'update',
-  subject: ResourceModelSubject.CUSTOMER,
-};
-
-export const CAN_CREATE_SUBSCRIBER: AuthorizerRule = {
-  action: 'create',
-  subject: ResourceModelSubject.SUBSCRIBER,
-};
-
-export const CAN_READ_SUBSCRIBER: AuthorizerRule = {
-  action: 'read_one',
-  subject: ResourceModelSubject.SUBSCRIBER,
-};
-
-export const CAN_UPDATE_SUBSCRIBER: AuthorizerRule = {
-  action: 'update',
-  subject: ResourceModelSubject.SUBSCRIBER,
+  subject: ResourceModelSubject.CREDENTIAL,
 };

@@ -1,6 +1,5 @@
 import 'reflect-metadata';
 import {
-  IsBoolean,
   IsDefined,
   IsEmail,
   IsEnum,
@@ -12,8 +11,6 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { UserCollection } from '../../models/user.model';
-import { DocumentType } from '@typegoose/typegoose';
 import { UserProfileDTO } from './user.contracts';
 
 export enum UserType {
@@ -75,7 +72,7 @@ export class AuthLoginResponse {
   @IsDefined()
   @IsNotEmpty()
   @IsString()
-  scope!: string; //  Add to Request Headers [x-titan-scope] - customer | business
+  scope!: string;
 
   @IsNotEmpty()
   @IsString()
@@ -116,26 +113,6 @@ export class CustomerAccountObject {
   phone?: string;
 }
 
-export class BusinessAccountObject extends CustomerAccountObject {
-  @IsNotEmpty()
-  @IsString()
-  rootEmail!: string;
-
-  @IsNotEmpty()
-  @IsString()
-  businessName!: string;
-}
-
-export class EmployeeAccountObject {
-  @IsBoolean()
-  inviteStatus!: boolean;
-
-  @IsNotEmpty()
-  @IsString()
-  @IsDefined()
-  subscriberId!: string;
-}
-
 export class AuthSignupResponse {
   @IsString()
   @IsNotEmpty()
@@ -171,80 +148,4 @@ export class AuthSignupRequest {
   @IsEnum(UserType)
   @IsNotEmpty()
   type!: UserType;
-
-  @ValidateNested()
-  @Type(() => BusinessAccountObject)
-  business?: BusinessAccountObject;
-
-  @ValidateNested()
-  @Type(() => CustomerAccountObject)
-  customer?: CustomerAccountObject;
-}
-
-/*------------------------------------------------------------- 
-  [Signup]: Types used for Event Publisher and Subscribers
--------------------------------------------------------------*/
-
-export interface IVerifyEmailNotification {
-  username: string;
-  handler: string;
-  verificationLink: string;
-}
-
-export interface IForgotPasswordNotification {
-  username: string;
-  handler: string;
-  token: string;
-  resetPasswordLink: string;
-}
-
-type UserMgtAccountInfo = BusinessAccountObject & CustomerAccountObject & EmployeeAccountObject;
-
-export interface IAccountSetupObject extends Partial<UserMgtAccountInfo> {
-  scope: UserType;
-  ownerId: keyof DocumentType<UserCollection>;
-  customerId?: string;
-  subscriberId?: string;
-}
-
-/*---------------------------------------------------------------------------- 
-  User Validation and Types for Activate Employee Workflow (used by openapi)
-----------------------------------------------------------------------------*/
-
-export class AuthOnboardEmployeeRequest {
-  @IsString()
-  @IsNotEmpty()
-  activationToken!: string;
-
-  @MinLength(8)
-  @IsNotEmpty()
-  password!: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @IsEmail()
-  email!: string;
-}
-
-export class AuthOnboardEmployeeResponse {
-  @IsString()
-  @IsNotEmpty()
-  id!: string;
-
-  @IsDefined()
-  @IsNotEmpty()
-  @IsString()
-  scope!: string;
-
-  @IsNotEmpty()
-  @IsString()
-  role!: string;
-
-  @IsNotEmpty()
-  @IsString()
-  accessToken!: string;
-
-  @ValidateNested()
-  @Type(() => UserProfileDTO)
-  profile!: UserProfileDTO;
 }
