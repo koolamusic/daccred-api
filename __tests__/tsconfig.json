@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "strict": false,
+        "esModuleInterop": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "types": [
+            "jest",
+            "node"
+        ]
+    },
+    "include": [
+        ".",
+        "**/*.spec.ts",
+        "**/*.mock.ts",
+    ]
+}
