@@ -5,8 +5,6 @@ import logger from './infra/logger';
 import config from './infra/config';
 import server, { routeControllerOptions } from './server';
 import database from './infra/database';
-import { setLogLevel, LogLevels } from '@typegoose/typegoose';
-setLogLevel(LogLevels.TRACE);
 
 async function bootstrap() {
   /* Who are we? */
