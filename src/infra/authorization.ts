@@ -44,7 +44,7 @@ const getClaimFromToken = (filterCallback: TFilterCallback) => async (req: Actio
     }
     return filterCallback(claim);
   } catch (error) {
-    const message = _.isEmpty(error) ? 'Bearer Token must be in authorization header' : error;
+    const message = _.isEmpty(error) ? 'Bearer Token must be in authorization header' : (error as string);
     logger.error(`Get Token from Claim: ${error}`);
     throw new UnauthorizedError(message);
   }

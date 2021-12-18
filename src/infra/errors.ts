@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpError as RouterError } from 'routing-controllers';
-export type TErrorOutput = Error & {
-  httpCode: number;
-  message: string;
-  metadata: Record<string, string & number>;
-  errors?: unknown;
-};
+export type TErrorOutput =
+  | (Error & {
+      httpCode: number;
+      message: string;
+      metadata: Record<string, string & number>;
+      errors?: unknown;
+    })
+  | any;
 
 /**
  * Exception for 409 HTTP error.

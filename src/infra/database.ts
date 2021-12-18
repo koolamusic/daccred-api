@@ -3,11 +3,8 @@ import config from './config';
 import logger from './logger';
 
 mongoose.connect(config.mongoUri, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-  dbName: 'authenticator',
-  useFindAndModify: false,
-  useCreateIndex: true,
+  dbName: 'daccred',
+  autoIndex: true,
 });
 
 const db = mongoose.connection;

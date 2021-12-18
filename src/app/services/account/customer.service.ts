@@ -19,7 +19,7 @@ export default class CustomerService {
       /* Create new customer and return to api controller */
       const result = await CustomerModel.create({
         ...data,
-        _id: mongoose.Types.ObjectId(),
+        _id: new mongoose.Types.ObjectId(),
       });
       return result;
     } catch (err) {
