@@ -11,7 +11,7 @@ const dev = {
   API_VERSION: '/v1',
   TEST_API_PREFIX: '/test',
   SECRET_KEY: 'H^shD^ModFvck!n9!N!gha',
-  JWT_ISSUER: 'https://auth.daccred.co/{{provider}}',
+  JWT_ISSUER: 'chain-credentials-app',
   JWT_AUD: 'https://app.daccred.co',
   JWT_ALGO: 'HS256',
   TOKEN_EXPIRE: 4.32e7,
