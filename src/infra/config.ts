@@ -6,7 +6,7 @@ require('dotenv').config({ debug: process.env.DEBUG });
 const dev = {
   serviceName: 'Accred Blockchain Credential',
   mongoUri: 'mongodb://localhost:27017',
-  PORT: 8080,
+  PORT: process.env.PORT || 8080,
   HOST: 'localhost',
   API_VERSION: '/v1',
   TEST_API_PREFIX: '/test',
@@ -21,6 +21,8 @@ const dev = {
 const prod = {
   ...dev,
   mongoUri: process.env.MONGO_URI as string,
+  SECRET_KEY: process.env.SECRET_KEY as string,
+  SUPERADMIN_TOKEN: process.env.SUPERADMIN_TOKEN as string,
 };
 
 const environment = {
