@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpError as RouterError } from 'routing-controllers';
+import logger from './logger';
+
 export type TErrorOutput =
   | (Error & {
       httpCode: number;
@@ -17,7 +20,8 @@ export class ConflictError implements RouterError {
   message: string;
   httpCode = 409;
 
-  constructor(message?: string) {
+  constructor(message?: unknown) {
+    //@ts-ignore
     throw new RouterError(this.httpCode, message || 'Please check your data.');
   }
 }
@@ -30,7 +34,8 @@ export class UnprocessableEntityError implements RouterError {
   message: string;
   httpCode = 422;
 
-  constructor(message?: string) {
+  constructor(message?: unknown) {
+    //@ts-ignore
     throw new RouterError(this.httpCode, message || 'Could not process or validate request body.');
   }
 }
@@ -43,22 +48,23 @@ export class NotImplementedError implements RouterError {
   message: string;
   httpCode = 501;
 
-  constructor(message?: string) {
+  constructor(message?: unknown) {
     this.name = 'Not Implemented Error';
+    //@ts-ignore
     throw new RouterError(this.httpCode, message || 'Resource not implemented.');
   }
 }
 
 /****
- * @name ErrorHandler
+ * @name ServerError
  * Error Message Handler for Try Catch Methods
  * Used in services and controllers to pipe error messages
  * into HttpError Instances
  *
  * */
-export default class ErrorHandler {
+export default class ServerError {
   constructor(error: TErrorOutput) {
-    // console.log(error, 'htis si the error tha tarrive');
+    logger.error(error, 'we can hook sentry or bugsnag here');
 
     /* Handler for Conflict Error Type */
     if (error instanceof ConflictError || error.httpCode === 409) {

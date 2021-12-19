@@ -2,6 +2,7 @@
 
 /// Type Definitions
 import { MongoQuery, SubjectType } from '@casl/ability';
+import { JwtPayload } from 'jsonwebtoken';
 // import { PackRule } from '@casl/ability/dist/types/extra';
 import { ResourceModelSubject } from './constants';
 
@@ -59,17 +60,17 @@ export interface CredentialPolicyInterface {
   userId: string;
 }
 
-
-
 export interface IJWTClaim {
   sub: 'user_id' | string;
   eth: string;
-  fingerprint: string;
+  signature: string /* This is the signature from web3 message signing */;
+  fingerprint: string /* This is the r:session Token from Moralis */;
   scope: 'personal' | 'team';
 }
-export interface IJWTClaimConf {
-  iat: Date;
-  exp: Date;
+
+export interface IJWTClaimConf extends JwtPayload {
+  iat: number;
+  exp: number;
   aud: 'https://api.daccred.co' | string;
   iss: 'https://api.daccred.co/authorizer' | string;
 }
@@ -99,7 +100,7 @@ export interface GetAllRequestWithParams {
   previous: string; // The value to start querying previous page.
 }
 
-export type DoneCallback = jest.DoneCallback
+export type DoneCallback = jest.DoneCallback;
 export type ProvidesCallback = ((cb: DoneCallback) => void | undefined) | (() => Promise<unknown>);
 export type ProvidesHookCallback = (() => any) | ProvidesCallback;
 

@@ -47,7 +47,7 @@ export class AuthResetPasswordRequest {
   @IsNotEmpty()
   @MinLength(6)
   @MaxLength(20)
-  confirmPassword!: string;
+  confirm_password!: string;
 }
 
 /*------------------------------------------------------------- 
@@ -67,20 +67,11 @@ export class AuthLoginRequest {
 export class AuthLoginResponse {
   @IsString()
   @IsNotEmpty()
-  id!: string;
-
-  @IsDefined()
-  @IsNotEmpty()
-  @IsString()
-  scope!: string;
+  user_id!: string;
 
   @IsNotEmpty()
   @IsString()
-  role!: string;
-
-  @IsNotEmpty()
-  @IsString()
-  accessToken!: string;
+  access_token!: string;
 
   @ValidateNested()
   @Type(() => UserProfileDTO)
@@ -90,28 +81,6 @@ export class AuthLoginResponse {
 /*------------------------------------------------------------- 
   Validation and Contract for Signup Workflow (used by openapi)
 -------------------------------------------------------------*/
-
-export class CustomerAccountObject {
-  @IsNotEmpty()
-  @IsString()
-  address!: string;
-
-  @IsNotEmpty()
-  @IsString()
-  city!: string;
-
-  @IsNotEmpty()
-  @IsString()
-  state!: string;
-
-  @IsNotEmpty()
-  @IsString()
-  zip!: string;
-
-  @IsDefined()
-  @IsNotEmpty()
-  phone?: string;
-}
 
 export class AuthSignupResponse {
   @IsString()
@@ -123,7 +92,7 @@ export class AuthSignupResponse {
   scope!: UserType;
 
   @IsUrl()
-  nextRoute!: string;
+  next_route!: string;
 }
 
 export class AuthSignupRequest {
@@ -148,4 +117,38 @@ export class AuthSignupRequest {
   @IsEnum(UserType)
   @IsNotEmpty()
   type!: UserType;
+}
+
+export class WalletAuthMessageResponse {
+  @IsString()
+  message!: string;
+}
+
+export class WalletAuthMessageRequest {
+  @IsNotEmpty()
+  @IsString()
+  public_address!: string;
+}
+
+export class WalletAuthorizationRequest {
+  @IsNotEmpty()
+  @IsString()
+  public_address!: string;
+
+  @IsNotEmpty()
+  @IsString()
+  signature!: string;
+
+  @IsNotEmpty()
+  @IsString()
+  session_token!: string;
+
+  @IsString()
+  object_id!: string;
+}
+
+export class WalletAuthorizationResponse {
+  @IsNotEmpty()
+  @IsString()
+  access_token!: string;
 }

@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { IsBoolean, IsDefined, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class BaseApiResponse<T extends unknown> {
+export class BaseApiResponse<T> {
   message!: 'success' | 'failure' | string;
   result!: T;
 }

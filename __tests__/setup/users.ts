@@ -3,7 +3,7 @@ export const subscriber = {
   scope: 'business',
   role: 'subscriber',
   profile: {
-    email: 'andew@worldtee.com',
+    email: 'andew@daccred.co',
     name: 'Andrew M',
     business: true,
     subscriber_id: 'subx2eDEYJM2zBFOv0UkHdufybR3',

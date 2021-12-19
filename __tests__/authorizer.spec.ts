@@ -103,7 +103,7 @@
 
 // describe('Authorization Guard with rules', () => {
 //   /*----------------------------------------------------------------------------*
-//    *  Here we mock controllers to test that an employee is 
+//    *  Here we mock controllers to test that an employee is
 //    *  is authorized to able to perform certain actions on the API
 //    ----------------------------------------------------------------------------*/
 //   describe('Authorized Employee', () => {
@@ -189,7 +189,7 @@
 //   });
 
 //   /*----------------------------------------------------------------------------*
-//    *  Here we mock controllers to test that a subscriber is 
+//    *  Here we mock controllers to test that a subscriber is
 //    *  is authorized to able to perform certain actions on the API
 //    ----------------------------------------------------------------------------*/
 //   describe('Authorized Subscriber', () => {
@@ -272,7 +272,7 @@
 //   });
 
 //   /*----------------------------------------------------------------------------*
-//    *  Here we mock controllers to test that a customer is 
+//    *  Here we mock controllers to test that a customer is
 //    *  is authorized to able to perform certain actions on the API
 //    -----------------------------------------------------------------------------*/
 //   describe('Authorized Customer', () => {

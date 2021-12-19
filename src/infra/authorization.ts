@@ -5,44 +5,40 @@
  * the authenticator service, with test suites passing and shared to other services.
  */
 
-import jwt from 'jsonwebtoken';
 import _ from 'lodash';
 import LRUCache from 'lru-cache';
 import { Action, UnauthorizedError } from 'routing-controllers';
-import { IJWTClaim, IJWTClaimConf, AuthDecoratorRule } from '../app/shared/definitions';
-import { unpackPermissionRules } from '../app/shared/utils/crypto.utils';
+import { AuthDecoratorRule, UserRoleEnum } from '../app/shared/definitions';
 import config from './config';
-import ErrorHandler from './errors';
+import ServerError from './errors';
 import logger from './logger';
 import { generateGrantsFor } from '../app/shared/iam';
+import { UserRepository } from '../app/shared/entities/user/user.repository';
+import { User } from '../app/shared/entities/user/user.model';
+import { defineRulesForOwner } from '../app/shared/iam/owner.iam';
+import { JwtStrategy } from '../app/auth/strategies/jwt.strategy';
 
 /* Module constants */
-type TClaim = IJWTClaim & IJWTClaimConf;
-type TFilterCallback = {
-  (claim: TClaim): Omit<TClaim, keyof IJWTClaimConf>;
-  (claim: TClaim): IJWTClaim;
-  (claim: TClaim): unknown;
-};
+const jwtStrategy = new JwtStrategy();
 const JWT_CACHE = new LRUCache(1000);
 
-const getClaimFromToken = (filterCallback: TFilterCallback) => async (req: Action['request']) => {
+const validateUserByToken = async (req: Action['request']): Promise<User> => {
   try {
     // Get the User Token from Header
-    let claim: TClaim;
     const token = req.headers['authorization'].split(' ')[1];
 
     /* Define if claim is cached else return result and cache token */
-    if (JWT_CACHE.has(token)) {
-      claim = JWT_CACHE.get(token) as TClaim;
-    } else {
-      claim = (await jwt.verify(token, config.SECRET_KEY, {
-        issuer: config.JWT_ISSUER,
-        audience: config.JWT_AUD,
-        algorithms: ['HS256'],
-      })) as TClaim;
-      JWT_CACHE.set(token, claim);
-    }
-    return filterCallback(claim);
+    if (JWT_CACHE.has(token)) return JWT_CACHE.get(token) as User;
+
+    /* Validate the user information based on signature and address */
+    const claim = await jwtStrategy.verify(token);
+    const user = await UserRepository.validateUserAccess({ public_address: claim.eth, signature: claim.signature });
+
+    console.log(user, 'Our user before setting to cache >>>>>>>>>>>>>>>>>>');
+
+    /* Set storage in cache */
+    JWT_CACHE.set(token, user);
+    return user;
   } catch (error) {
     const message = _.isEmpty(error) ? 'Bearer Token must be in authorization header' : (error as string);
     logger.error(`Get Token from Claim: ${error}`);
@@ -57,15 +53,12 @@ const getClaimFromToken = (filterCallback: TFilterCallback) => async (req: Actio
 
 export const getCurrentUser = async (action: Action) => {
   try {
-    /* Curry a lodash omit method to return particular keys in from claim object */
-    const user = await getClaimFromToken((claim: TClaim) => {
-      return _.omit(claim, ['iat', 'exp', 'aud', 'iss']);
-    })(action.request);
-
+    /* Get user from validation method */
+    const user = await validateUserByToken(action.request);
     return user;
   } catch (error) {
     logger.error(`Current User Checker: ${error}`);
-    throw new ErrorHandler(error);
+    throw new ServerError(error);
   }
 };
 
@@ -77,11 +70,11 @@ export const getCurrentUser = async (action: Action) => {
  */
 export const authGuard = async (action: Action, rules: AuthDecoratorRule): Promise<boolean> => {
   try {
-    const user = await getClaimFromToken(
-      (claim: TClaim): IJWTClaim => {
-        return _.omit(claim, ['iat', 'exp', 'aud', 'iss']);
-      }
-    )(action.request);
+    const user = await validateUserByToken(action.request);
+    const roleMap = {
+      personal: UserRoleEnum.OWNER,
+      team: UserRoleEnum.OWNER,
+    };
 
     // console.log('the claims I received in Auth', user.profile, rules);
 
@@ -89,17 +82,18 @@ export const authGuard = async (action: Action, rules: AuthDecoratorRule): Promi
     if (!user) throw new UnauthorizedError('You are not authorized. check that JWT token is valid');
 
     /* Use state switches to manage authorization logic based on entities */
-    switch (user.profile.role) {
-      case 'superadmin':
+    switch (roleMap[user.scope]) {
+      case UserRoleEnum.SUPERADMIN:
         /* Here we check for the superadmin token on request headers and assign the result to a variable */
-        // const superadminToken = action.request.headers['x-titan-admin'];
+        // const superadminToken = action.request.headers['x-daccred-admin'];
         /* We can then return a response based on whether this is a valid superadmin token */
-        return action.request.headers['x-titan-admin'] === config.SUPERADMIN_TOKEN;
+        return action.request.headers['x-daccred-admin'] === config.SUPERADMIN_TOKEN;
 
       default: {
         /* Handle Roles and permissions params for other users */
-        const permissions = unpackPermissionRules(user.permissions);
+        const permissions = defineRulesForOwner();
         const ability = generateGrantsFor(permissions);
+        console.log('<<<<<<<<<<<', ability, 'FROM AUTHORIZER >>>>>>>>>>>>>>>>>>>>>>>>>>>');
 
         // check if all of the required rules in the decorator evaluates to true and allow access
         const isAuthorized = await rules.every((rule) => ability.can(rule.action, rule.subject, rule.field));
@@ -108,6 +102,6 @@ export const authGuard = async (action: Action, rules: AuthDecoratorRule): Promi
     }
   } catch (error) {
     logger.error(`Authorization Guard: ${error}`);
-    throw new ErrorHandler(error);
+    throw new ServerError(error);
   }
 };

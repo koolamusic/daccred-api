@@ -1,58 +1,62 @@
-import { Body, Post, HttpCode, JsonController } from 'routing-controllers';
+import { Body, Post, HttpCode, JsonController, OnUndefined, Authorized } from 'routing-controllers';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
-import LoginUserService from './login.service';
 import {
-  AuthLoginRequest,
-  AuthLoginResponse,
-  // AuthForgotPasswordResponse,
-  // AuthResetPasswordRequest,
-  // AuthSignupRequest,
-  // AuthSignupResponse,
-} from '../shared/contracts/auth.contracts';
+  WalletAuthorizationRequest,
+  WalletAuthorizationResponse,
+  WalletAuthMessageResponse,
+  WalletAuthMessageRequest,
+} from '../shared/cables/auth.contracts';
+import { AuthService } from './auth.service';
+import { CAN_CREATE_CREDENTIAL } from '../shared/constants';
 
 @JsonController('/auth')
 @OpenAPI({
   description: 'Manage Login, Signup and Password Reset',
 })
 export class AuthController {
-  private loginService = new LoginUserService();
+  private authService = new AuthService();
 
-  // @Post('/signup')
-  // @HttpCode(201)
-  // @ResponseSchema(AuthSignupResponse)
-  // signup(@Body({ required: true, validate: true }) user: AuthSignupRequest): Promise<void | AuthSignupResponse> {
-  //   return this.signupService.signupUser(user);
-  // }
-
-  @Post('/login')
+  @Post('/passwordless')
   @HttpCode(201)
-  @ResponseSchema(AuthLoginResponse)
-  login(@Body({ required: true, validate: true }) user: AuthLoginRequest): Promise<AuthLoginResponse> {
-    return this.loginService.loginUser(user);
+  @OnUndefined(204)
+  @ResponseSchema(WalletAuthorizationResponse)
+  async passwordlessAuthorization(
+    @Body({ required: true, validate: true }) input: WalletAuthorizationRequest
+  ): Promise<WalletAuthorizationResponse> {
+    const result = await this.authService.validateOnMoralisAuth({
+      signature: input.signature,
+      public_address: input.public_address,
+      object_id: input.object_id,
+      session_token: input.object_id,
+    });
+
+    return {
+      access_token: result.token,
+    };
   }
 
-  // @HttpCode(201)
-  // @Post('/forgot-password')
-  // @ResponseSchema(AuthForgotPasswordResponse)
-  // @OpenAPI({ summary: 'Make a request to reset your password' })
-  // requestPasswordReset(@Body() data: Omit<AuthLoginRequest, 'password'>) {
-  //   return this.passwordService.requestResetPassword(data);
+  // authInvestorByMetamask(@Args('user') userInput: MetamaskRequestArg, @Context('req') ctx: RequestContext): Promise<AuthLoginResponse> {
+  //   const user = await this.authService.handleMetamaskAuthRequest({ userInput, ctx });
+
+  //   return {
+  //     token: user.token,
+  //     fingerprint: ctx.sessionID,
+  //   };
   // }
 
-  // @HttpCode(201)
-  // @Post('/reset-password')
-  // @OpenAPI({ summary: 'Reset a users password with generated token' })
-  // @ResponseSchema(AuthLoginResponse)
-  // resetPassword(@Body() data: AuthResetPasswordRequest) {
-  //   return this.passwordService.resetPassword(data);
-  // }
-
-  // /* Used to setup employee account */
-  // @HttpCode(201)
-  // @Post('/onboard-employee')
-  // @OpenAPI({ summary: 'Activate a Subscribers Employee Account' })
-  // @ResponseSchema(AuthOnboardEmployeeResponse)
-  // activateSubscribersEmployee(@Body() data: AuthOnboardEmployeeRequest): Promise<AuthOnboardEmployeeResponse> {
-  //   return this.onboardingService.onboardSubscriberEmployee(data);
-  // }
+  @Post('/nonce')
+  @HttpCode(201)
+  @OnUndefined(204)
+  @Authorized([CAN_CREATE_CREDENTIAL])
+  @ResponseSchema(WalletAuthMessageResponse)
+  async metamaskAuthMessage(
+    @Body({ required: true, validate: true }) input: WalletAuthMessageRequest
+  ): Promise<null | WalletAuthMessageResponse> {
+    const message = await this.authService.validateUserAndReturnNonce(input.public_address);
+    // const message = (await 'welcome') + input.public_address;
+    console.log(input);
+    return {
+      message,
+    };
+  }
 }

@@ -5,11 +5,7 @@
  */
 
 import { ResourceModelSubject } from '../constants';
-import {
-  CredentialPolicyInterface,
-  IAMPolicyRuleDefinition,
-  UserRoleEnum,
-} from '../definitions';
+import { CredentialPolicyInterface, IAMPolicyRuleDefinition, UserRoleEnum } from '../definitions';
 
 const userResourceRules: IAMPolicyRuleDefinition<any>[] = [
   {
@@ -66,10 +62,7 @@ const credentialResourceRules: IAMPolicyRuleDefinition<CredentialPolicyInterface
   },
 ];
 
-const rules: IAMPolicyRuleDefinition<unknown>[] = [
-  ...userResourceRules,
-  ...credentialResourceRules,
-];
+const rules: IAMPolicyRuleDefinition<unknown>[] = [...userResourceRules, ...credentialResourceRules];
 
 /* Export default policy rules with placeholder ID */
 export default { id: 'd862a09b', rules };

@@ -18,6 +18,22 @@ export const generateIdentifier = (length = 24) => {
   return nanoid();
 };
 
+/**
+ * @dev No Look Alike custom alphabet implementation
+ * Used with NANO ID for short url friendly ID
+ */
+export const noll = '346789ABCDEFGHJKLMNPQRTUVWXYabcdefghijkmnpqrtwxyz';
+
+/**
+ * @dev Generate a short id that can be used for nonce
+ * Short ID Tags etc.
+ * @param min - Minimum length of generated id
+ */
+export const generateRandomId = (min = 12) => customRandom(noll, min, random)();
+
+/* Specifically for generating Nonce */
+export const generateRandomNonce = (min = 32) => customRandom(noll, min, random)();
+
 export const packPermissionRules = (rules: string) => {
   const rulesObj = JSON.parse(rules);
   return packRules(rulesObj);

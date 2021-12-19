@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Ability, AbilityClass, AbilityTuple, MongoQuery, SubjectRawRule, SubjectType } from '@casl/ability';
 import { CRUD, IAMPolicyRuleDefinition, PolicyTemplateArgs } from '../definitions';
-import { AnyObject } from '@casl/ability/dist/types/types';
+import { AnyObject, ExtractSubjectType, Subject } from '@casl/ability/dist/types/types';
 
 export type AppAbility = Ability<AbilityTuple<CRUD>>;
 const AppAbility = Ability as AbilityClass<AppAbility>;
@@ -12,7 +12,9 @@ type Tsuperadmin = SubjectRawRule<CRUD, SubjectType, MongoQuery<AnyObject>>[];
     service layer including MongoDB models. 
     generates "policy.forbid" or "policy.allow" helper methods
 * -----------------------------------------------------------------------------*/
-export function generateGrantsFor(policy: IAMPolicyRuleDefinition<unknown>[]) {
+export function generateGrantsFor(
+  policy: SubjectRawRule<CRUD, ExtractSubjectType<Subject>, MongoQuery<AnyObject>>[] | undefined
+) {
   return new AppAbility(policy);
 }
 

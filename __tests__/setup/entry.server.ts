@@ -4,16 +4,11 @@ import { createExpressServer, RoutingControllersOptions } from 'routing-controll
 import { routeControllerOptions } from '../../src/server';
 import { TestingController } from './controllers/errors.mock';
 import { MockAuthController } from './controllers/authorizer.mock';
-import {  AuthController } from '../../src/app/auth/auth.controller';
-
+import { AuthController } from '../../src/app/auth/auth.controller';
 
 const options: RoutingControllersOptions = {
   ...routeControllerOptions,
-  controllers: [
-    TestingController,
-    MockAuthController,
-    AuthController,
-  ],
+  controllers: [TestingController, MockAuthController, AuthController],
   routePrefix: `${config.TEST_API_PREFIX}`,
 };
 

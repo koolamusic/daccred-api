@@ -47,9 +47,9 @@ export class InMemoryDatabase implements ConnectDbInterface {
     this.mongoose.Promise = Promise;
 
     /* Get Mongo Server URI and connect mongoose instance */
-    const _uri = this.mongoServer.getUri()
-    await this.mongoose.connect(_uri, {dbName: 'testdb_memory_mongo',});
-    
+    const _uri = this.mongoServer.getUri();
+    await this.mongoose.connect(_uri, { dbName: 'testdb_memory_mongo' });
+
     this.mongoose.connection.on('error', (e) => {
       if (e.message.code === 'ETIMEDOUT') {
         console.log(e);
@@ -57,12 +57,10 @@ export class InMemoryDatabase implements ConnectDbInterface {
       }
       console.log(e);
     });
-    
-    this.mongoose.connection.once('open', () => {
-        console.log(`MongoDB Memory Server successfully connected to ${_uri}`);
-    });
 
-    
+    this.mongoose.connection.once('open', () => {
+      console.log(`MongoDB Memory Server successfully connected to ${_uri}`);
+    });
   }
 
   async disconnect(doneCallback: TCallbackFunction) {

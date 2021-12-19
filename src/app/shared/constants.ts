@@ -11,6 +11,7 @@ export const __WHOAMI__ = `
                                               
 ${config.serviceName}
 `;
+export const SIGNING_MESSAGE_PREFIX = 'Authorize access to daccred.io with code:';
 
 /*  Constants of all API resources used to map to IAM roles and
  *  permissions Subjects to RESOURCES across the application. This should be shared and constantly

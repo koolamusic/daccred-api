@@ -6,28 +6,24 @@ import { routingControllersToSpec } from 'routing-controllers-openapi';
 import * as swaggerUiExpress from 'swagger-ui-express';
 
 /* App Utils, Controllers and Middlewares */
-import { LoggerMiddleware, HttpErrorHandler, CorsMiddleware } from './middlewares';
-import {
-  AuthController,
-} from './app/auth';
+import { LoggerMiddleware, HttpErrorHandler } from './middlewares';
+import { AuthController } from './app/auth';
 import { swaggerSpecOptions } from './infra/openapi';
 import * as Authorization from './infra/authorization';
 import config from './infra/config';
 
 /* API Routes, Middlewares and Controllers */
 const routeControllerOptions: RoutingControllersOptions = {
-  controllers: [
-    AuthController,
-  ],
-  middlewares: [LoggerMiddleware, CorsMiddleware, HttpErrorHandler],
+  controllers: [AuthController],
+  middlewares: [LoggerMiddleware, HttpErrorHandler],
   defaultErrorHandler: false,
   routePrefix: `${config.API_VERSION}`,
+  cors: '*',
   authorizationChecker: Authorization.authGuard,
   currentUserChecker: Authorization.getCurrentUser,
 };
 
 const server = express();
-
 
 /* Parse routing-controllers classes into OpenAPI spec: */
 const storage = getMetadataArgsStorage();

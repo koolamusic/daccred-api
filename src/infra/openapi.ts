@@ -2,7 +2,6 @@ import * as oa from 'openapi3-ts';
 import config from './config';
 import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
 import { defaultMetadataStorage } from 'class-transformer/storage';
-import { customerPolicy, employeePolicy, subscriberPolicy, superadminPolicy } from '../app/shared/iam';
 
 // Parse class-validator classes into JSON Schema:
 const schemas = validationMetadatasToSchemas({
@@ -22,12 +21,9 @@ export const swaggerSpecOptions: Partial<oa.OpenAPIObject> = {
         name: 'Authorization',
         flows: {
           implicit: {
-            authorizationUrl: 'http://services.dev.worldtreeconsulting.com:8080',
+            authorizationUrl: 'http://api.daccred.co',
             scopes: {
-              ...customerPolicy.rules,
-              ...subscriberPolicy.rules,
-              ...superadminPolicy.rules,
-              ...employeePolicy.rules,
+              privilege: ['daccred:personal', 'daccred:team'],
             },
           },
         },
@@ -39,7 +35,7 @@ export const swaggerSpecOptions: Partial<oa.OpenAPIObject> = {
       url: 'http://localhost:8080',
     },
     {
-      url: 'http://services.dev.worldtreeconsulting.com:8080',
+      url: 'http://api.daccred.co/v1',
     },
   ],
   info: {
@@ -65,7 +61,7 @@ export const swaggerSpecOptions: Partial<oa.OpenAPIObject> = {
         },
       },
     },
-    '/docs': {
+    '/openapi': {
       get: {
         tags: ['Test'],
         summary: 'Get Documentation',
