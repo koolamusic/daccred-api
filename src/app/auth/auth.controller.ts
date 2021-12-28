@@ -51,10 +51,8 @@ export class AuthController {
   @ResponseSchema(WalletAuthMessageResponse)
   async metamaskAuthMessage(
     @Body({ required: true, validate: true }) input: WalletAuthMessageRequest
-  ): Promise<null | WalletAuthMessageResponse> {
+  ): Promise<WalletAuthMessageResponse> {
     const message = await this.authService.validateUserAndReturnNonce(input.public_address);
-    // const message = (await 'welcome') + input.public_address;
-    console.log(input);
     return {
       message,
     };

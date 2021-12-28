@@ -34,6 +34,7 @@ export enum ResourceModelSubject {
 export const CAN_READ_ONE_USER: AuthorizerRule = { action: 'read_one', subject: ResourceModelSubject.USER };
 export const CAN_CREATE_USER: AuthorizerRule = { action: 'create', subject: ResourceModelSubject.USER };
 export const CAN_READ_ALL_POLICY: AuthorizerRule = { action: 'read_all', subject: ResourceModelSubject.POLICY };
+export const CAN_CREATE_POLICY: AuthorizerRule = { action: 'create', subject: ResourceModelSubject.POLICY };
 
 export const CAN_CREATE_CREDENTIAL: AuthorizerRule = {
   action: 'create',
