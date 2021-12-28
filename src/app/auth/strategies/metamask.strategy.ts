@@ -1,9 +1,11 @@
-/* //////// This package has some serious type issues @see ambient.d.ts /////// */
 import { BadRequestError, UnauthorizedError } from 'routing-controllers';
+
+/* //////// This package has some serious type issues @see ambient.d.ts /////// */
 import * as Accounts from 'web3-eth-accounts';
+/* /////////////////////////////////////////////////////////////////////////// */
+
 import { SIGNING_MESSAGE_PREFIX } from '../../shared/constants';
 import { UserRepository } from '../../shared/entities/user/user.repository';
-/* /////////////////////////////////////////////////////////////////////////// */
 
 /* ////// Setup the Web3 Accounts Utility /////// */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
