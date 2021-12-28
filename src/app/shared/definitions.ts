@@ -16,6 +16,16 @@ export enum UserRoleEnum {
   SUPERADMIN = 'superadmin',
 }
 
+/**
+ * @description The type of user / account interacting with the API
+ * Used to determine subscription limitation and product / feature visibility
+ */
+export enum UserType {
+  PERSONAL = 'personal',
+  ORGANIZATION = 'organization',
+  ENTERPRISE = 'enterprise',
+}
+
 /* policy arguments used to interpolate and generate permission rules */
 export interface PolicyTemplateArgs {
   user_id: string;

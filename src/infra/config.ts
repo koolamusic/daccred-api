@@ -7,7 +7,7 @@ const dev = {
   serviceName: 'Accred Blockchain Credential',
   mongoUri: 'mongodb://localhost:27017',
   PORT: process.env.PORT || 8080,
-  HOST: 'localhost',
+  HOST: process.env.HOST || 'localhost',
   API_VERSION: '/v1',
   TEST_API_PREFIX: '/test',
   SECRET_KEY: 'H^shD^ModFvck!n9!N!gha',

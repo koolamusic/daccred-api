@@ -1,9 +1,9 @@
 import { PackRule } from '@casl/ability/extra';
 import { Type } from 'class-transformer';
 import { IsArray, IsEmail, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
-import { IAMPolicyRuleDefinition } from '../definitions';
+import { IAMPolicyRuleDefinition } from '../../definitions';
 
-export class UserProfileDTO {
+export class UserProfileQueryResult {
   @IsEmail()
   email!: string;
 
@@ -18,14 +18,14 @@ export class UserProfileDTO {
   wsp_id!: string;
 }
 
-export class UserAccountResponseDTO {
+export class UserAccountQueryResult {
   @IsString()
   @IsNotEmpty()
   sub!: 'userId' | string;
 
   @ValidateNested()
-  @Type(() => UserProfileDTO)
-  profile!: UserProfileDTO;
+  @Type(() => UserProfileQueryResult)
+  profile!: UserProfileQueryResult;
 
   @IsString()
   scope!: 'customer' | 'business' | 'titan';

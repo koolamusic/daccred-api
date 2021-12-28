@@ -1,16 +1,20 @@
 import 'reflect-metadata';
 import { IsBoolean, IsDefined, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class BaseApiResponse<T> {
+export class BaseApiQuery<T> {
   message!: 'success' | 'failure' | string;
   result!: T;
 }
 
 /**
- * @name BaseResponseDTO
+ * @name BaseQueryDTO
  * @description Base response class for contracts in controller response
  */
-export class BaseResponseDTO {
+export class BaseQueryDTO {
+  @IsString()
+  @IsNotEmpty()
+  id!: string;
+
   @IsString()
   @IsNotEmpty()
   message = 'success';
@@ -24,7 +28,7 @@ export class BaseResponseDTO {
  * @name BaseQueryParamsDTO
  * @description Base query params arguement for Array results GET requests
  */
-export class BaseQueryParamsDTO {
+export class BaseQueryParams {
   @IsString()
   @IsOptional()
   sort!: string;

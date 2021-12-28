@@ -2,10 +2,10 @@ import { Body, Post, HttpCode, JsonController, OnUndefined, Authorized } from 'r
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 import {
   WalletAuthorizationRequest,
-  WalletAuthorizationResponse,
-  WalletAuthMessageResponse,
+  WalletAuthMessageQueryResult,
+  WalletAuthorizationQueryResult,
   WalletAuthMessageRequest,
-} from '../shared/cables/auth.contracts';
+} from '../shared/dals';
 import { AuthService } from './auth.service';
 import { CAN_CREATE_CREDENTIAL } from '../shared/constants';
 
@@ -19,10 +19,10 @@ export class AuthController {
   @Post('/passwordless')
   @HttpCode(201)
   @OnUndefined(204)
-  @ResponseSchema(WalletAuthorizationResponse)
+  @ResponseSchema(WalletAuthorizationQueryResult)
   async passwordlessAuthorization(
     @Body({ required: true, validate: true }) input: WalletAuthorizationRequest
-  ): Promise<WalletAuthorizationResponse> {
+  ): Promise<WalletAuthorizationQueryResult> {
     const result = await this.authService.validateOnMoralisAuth({
       signature: input.signature,
       public_address: input.public_address,
@@ -47,11 +47,11 @@ export class AuthController {
   @Post('/nonce')
   @HttpCode(201)
   @OnUndefined(204)
-  @Authorized([CAN_CREATE_CREDENTIAL])
-  @ResponseSchema(WalletAuthMessageResponse)
+  @Authorized([CAN_CREATE_CREDENTIAL]) // This is a stub to simply disable this action tempoarily
+  @ResponseSchema(WalletAuthMessageQueryResult)
   async metamaskAuthMessage(
     @Body({ required: true, validate: true }) input: WalletAuthMessageRequest
-  ): Promise<WalletAuthMessageResponse> {
+  ): Promise<WalletAuthMessageQueryResult> {
     const message = await this.authService.validateUserAndReturnNonce(input.public_address);
     return {
       message,

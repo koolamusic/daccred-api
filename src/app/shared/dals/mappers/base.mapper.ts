@@ -4,6 +4,9 @@
 
 export interface MapperGeneric<T> {
   toResponseDTO: () => Partial<T>;
+  toDTO: () => Partial<T>;
+  toDomain: () => Partial<T>;
+  topersistence: () => Partial<T>; // or toDAL for Data Access Logic/Layer
 }
 
 /* ////////////////////////////////////////////////////////////// */

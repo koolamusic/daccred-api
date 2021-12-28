@@ -1,17 +1,7 @@
 import 'reflect-metadata';
-import {
-  IsDefined,
-  IsEmail,
-  IsEnum,
-  IsNotEmpty,
-  IsString,
-  IsUrl,
-  MaxLength,
-  MinLength,
-  ValidateNested,
-} from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsString, MaxLength, MinLength, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
-import { UserProfileDTO } from './user.contracts';
+import { UserProfileQueryResult } from './user.query';
 
 export enum UserType {
   CUSTOMER = 'customer',
@@ -23,18 +13,7 @@ export enum UserType {
   User Validation and Types for Forgot Password Workflow (used by openapi)
 ----------------------------------------------------------------------------*/
 
-export class AuthForgotPasswordResponse {
-  @IsString()
-  @IsNotEmpty()
-  message!: string;
-
-  @IsDefined()
-  @IsNotEmpty()
-  @IsEmail()
-  email!: string;
-}
-
-export class AuthResetPasswordRequest {
+export class AuthResetPasswordQueryResult {
   @IsNotEmpty()
   @IsEmail()
   token!: string;
@@ -54,17 +33,7 @@ export class AuthResetPasswordRequest {
   User Validation and Types for Login Workflow (used by openapi)
 -------------------------------------------------------------*/
 
-export class AuthLoginRequest {
-  @IsNotEmpty()
-  @IsEmail()
-  email!: string;
-
-  @IsNotEmpty()
-  @IsString()
-  password!: string;
-}
-
-export class AuthLoginResponse {
+export class AuthLoginQueryResult {
   @IsString()
   @IsNotEmpty()
   user_id!: string;
@@ -74,28 +43,15 @@ export class AuthLoginResponse {
   access_token!: string;
 
   @ValidateNested()
-  @Type(() => UserProfileDTO)
-  profile!: UserProfileDTO;
+  @Type(() => UserProfileQueryResult)
+  profile!: UserProfileQueryResult;
 }
 
 /*------------------------------------------------------------- 
   Validation and Contract for Signup Workflow (used by openapi)
 -------------------------------------------------------------*/
 
-export class AuthSignupResponse {
-  @IsString()
-  @IsNotEmpty()
-  email!: string;
-
-  @IsEnum(UserType)
-  @IsNotEmpty()
-  scope!: UserType;
-
-  @IsUrl()
-  next_route!: string;
-}
-
-export class AuthSignupRequest {
+export class AuthSignupQueryResult {
   @IsString()
   @IsNotEmpty()
   name!: string;
@@ -119,35 +75,12 @@ export class AuthSignupRequest {
   type!: UserType;
 }
 
-export class WalletAuthMessageResponse {
+export class WalletAuthMessageQueryResult {
   @IsString()
   message!: string;
 }
 
-export class WalletAuthMessageRequest {
-  @IsNotEmpty()
-  @IsString()
-  public_address!: string;
-}
-
-export class WalletAuthorizationRequest {
-  @IsNotEmpty()
-  @IsString()
-  public_address!: string;
-
-  @IsNotEmpty()
-  @IsString()
-  signature!: string;
-
-  @IsNotEmpty()
-  @IsString()
-  session_token!: string;
-
-  @IsString()
-  object_id!: string;
-}
-
-export class WalletAuthorizationResponse {
+export class WalletAuthorizationQueryResult {
   @IsNotEmpty()
   @IsString()
   access_token!: string;

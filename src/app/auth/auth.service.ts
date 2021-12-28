@@ -3,7 +3,7 @@ import logger from '../../infra/logger';
 import { User, UserDocument } from '../shared/entities/user/user.model';
 import { UserRepository } from '../shared/entities/user/user.repository';
 import { generateRandomNonce } from '../shared/utils/crypto.utils';
-import { WalletAuthMessageRequest, WalletAuthorizationRequest } from '../shared/cables';
+import { WalletAuthMessageRequest, WalletAuthorizationRequest } from '../shared/dals';
 import { SIGNING_MESSAGE_PREFIX } from '../shared/constants';
 import { JwtStrategy } from './strategies/jwt.strategy';
 
