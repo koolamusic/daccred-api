@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import { customRandom, random } from 'nanoid';
 import { PackRule, packRules, unpackRules } from '@casl/ability/extra';
 import { IAMPolicyRuleDefinition } from '../definitions';
+import { uniqueNamesGenerator, Config, animals, countries, starWars, names } from 'unique-names-generator';
 
 export const encryptPassword = (password: string) => {
   const salt = bcrypt.genSaltSync(8);
@@ -19,17 +20,29 @@ export const generateIdentifier = (length = 24) => {
 };
 
 /**
+ * @dev Generate Random names to use for lists and docs
+ * uses the unique-names-generator node library
+ */
+
+const uniqueNameConfig: Config = {
+  dictionaries: [starWars, animals, countries, names],
+  separator: ' ',
+  length: 2,
+};
+export const generateUniqueName = () => uniqueNamesGenerator(uniqueNameConfig);
+
+/**
  * @dev No Look Alike custom alphabet implementation
  * Used with NANO ID for short url friendly ID
  */
 export const noll = '346789ABCDEFGHJKLMNPQRTUVWXYabcdefghijkmnpqrtwxyz';
 
 /**
- * @dev Generate a short id that can be used for nonce
+ * @dev Generate a short id that can be used for urls and other browser safe tags
  * Short ID Tags etc.
  * @param min - Minimum length of generated id
  */
-export const generateRandomId = (min = 12) => customRandom(noll, min, random)();
+export const generateUrlSlug = (min = 12) => customRandom(noll, min, random)();
 
 /* Specifically for generating Nonce */
 export const generateRandomNonce = (min = 32) => customRandom(noll, min, random)();

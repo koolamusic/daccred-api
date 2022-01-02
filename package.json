@@ -34,6 +34,7 @@
     "express": "^4.17.2",
     "helmet": "^4.6.0",
     "js-base64": "^3.7.2",
+    "json-schema": "^0.4.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "lru-cache": "^6.0.0",
@@ -45,6 +46,7 @@
     "routing-controllers": "^0.9.0",
     "routing-controllers-openapi": "^3.1.0",
     "swagger-ui-express": "^4.3.0",
+    "unique-names-generator": "^4.6.0",
     "web3-eth-accounts": "^1.6.1",
     "winston": "^3.3.3"
   },

@@ -71,11 +71,11 @@
 //       .post(routes.guardRoute)
 //       .send({})
 //       .set('Authorization', `Bearer ${superadminToken}`)
-//       .set('x-titan-admin', config.SUPERADMIN_TOKEN);
+//       .set('x-daccred-admin', config.SUPERADMIN_TOKEN);
 
 //     /* test requirements */
 //     expect(res.status).toEqual(201);
-//     expect(res.body.scope).toEqual('titan');
+//     expect(res.body.scope).toEqual('daccred');
 //     expect(res.body.profile.email).toBeDefined();
 //     expect(res.body.profile.business).toBeFalsy();
 //     expect(res.body.profile.user_id).toEqual(res.body.sub);
@@ -87,7 +87,7 @@
 //       .post(routes.guardRoute)
 //       .send({})
 //       .set('Authorization', `Bearer ${superadminToken}`)
-//       .set('x-titan-admin', '');
+//       .set('x-daccred-admin', '');
 
 //     /* test requirements */
 //     expect(res.status).toEqual(401);
@@ -329,14 +329,14 @@
 
 //   /*----------------------------------------------------------------------------*
 //    *  Here we mock controllers to test that a superadmin can perform all actions
-//    * Notice how we also must add the `x-titan-admin` key to headers
+//    * Notice how we also must add the `x-daccred-admin` key to headers
 //    ----------------------------------------------------------------------------*/
 
 //   describe('Authorized Superadmin', () => {
 //     it('is authorized to perform task within superadmin policy', async (done) => {
 //       const res = await req(server)
 //         .get(`${routes.guardRoute}/superadmin`)
-//         .set('x-titan-admin', config.SUPERADMIN_TOKEN)
+//         .set('x-daccred-admin', config.SUPERADMIN_TOKEN)
 //         .set('Authorization', `Bearer ${superadminToken}`);
 
 //       /* test requirements */
@@ -348,7 +348,7 @@
 //     it('is authorized to perform task within employee policy', async (done) => {
 //       const res = await req(server)
 //         .get(`${routes.guardRoute}/employee`)
-//         .set('x-titan-admin', config.SUPERADMIN_TOKEN)
+//         .set('x-daccred-admin', config.SUPERADMIN_TOKEN)
 //         .set('Authorization', `Bearer ${superadminToken}`);
 
 //       /* test requirements */
@@ -361,7 +361,7 @@
 //       const res = await req(server)
 //         .post(`${routes.guardRoute}/customer`)
 //         .send({})
-//         .set('x-titan-admin', config.SUPERADMIN_TOKEN)
+//         .set('x-daccred-admin', config.SUPERADMIN_TOKEN)
 //         .set('Authorization', `Bearer ${superadminToken}`);
 
 //       /* test requirements */
@@ -374,7 +374,7 @@
 //       const res = await req(server)
 //         .post(`${routes.guardRoute}/subscriber`)
 //         .send({})
-//         .set('x-titan-admin', config.SUPERADMIN_TOKEN)
+//         .set('x-daccred-admin', config.SUPERADMIN_TOKEN)
 //         .set('Authorization', `Bearer ${superadminToken}`);
 
 //       /* test requirements */
@@ -388,7 +388,7 @@
 //       const res = await req(server)
 //         .get(`${routes.guardRoute}/unfair-cluster`)
 //         .send({})
-//         .set('x-titan-admin', config.SUPERADMIN_TOKEN)
+//         .set('x-daccred-admin', config.SUPERADMIN_TOKEN)
 //         .set('Authorization', `Bearer ${superadminToken}`);
 
 //       /* test requirements */

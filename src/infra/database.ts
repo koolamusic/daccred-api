@@ -11,7 +11,7 @@ const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', () => {
-  logger.debug('connected to titan database');
+  logger.debug('connected to daccred database');
 });
 
 export default db;

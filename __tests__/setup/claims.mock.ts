@@ -114,7 +114,7 @@
 // /*----------------------------------------------------------*
 //  * Mock for authorized superadmin JWT token with roles
 //  *----------------------------------------------------------*/
-// // Create signed JWT for super admin === add x-titan-superadmin:token
+// // Create signed JWT for super admin === add x-daccred-superadmin:token
 // const superadminId = faker.datatype.uuid();
 
 // const superadmin: Omit<IJWTClaim, 'scope' | 'role' | 'permissions'> = {
@@ -135,7 +135,7 @@
 // });
 
 // export const superadminClaim: IJWTClaim = {
-//   scope: 'titan',
+//   scope: 'daccred',
 //   permissions: packRules(JSON.parse(superadminRole)),
 //   ...superadmin,
 // };
