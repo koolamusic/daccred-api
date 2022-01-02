@@ -33,7 +33,7 @@ export class DocsController {
     return undefined;
   }
 
-  @Patch('/metadata')
+  @Patch('/meta')
   @HttpCode(200)
   @OnUndefined(204)
   @Authorized([CAN_CREATE_CREDENTIAL]) // This is a stub to simply disable this action tempoarily

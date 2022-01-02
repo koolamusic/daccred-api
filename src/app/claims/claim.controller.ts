@@ -24,11 +24,12 @@ export class ClaimController {
     return undefined;
   }
 
+  /* This would be done after a user has already claimed their certificate:: should actually interact directly with Web3 */
   @Get('/validate/:claim')
   @HttpCode(200)
   @OnUndefined(204)
   @ResponseSchema(class FClass {})
-  async validateAClaimBasedOnProvidedInfo(): Promise<undefined> {
+  async validateAClaimBasedOnProvidedInfoExperimental(): Promise<undefined> {
     return undefined;
   }
 }

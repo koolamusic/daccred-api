@@ -27,6 +27,7 @@ export enum ResourceModelSubject {
   USER = 'daccred:user',
   CREDENTIAL = 'daccred:credential',
   LIST = 'daccred:recipient_list',
+  LIST_ENTRY = 'daccred:list_entry',
   TEAM = 'daccred:team',
   POLICY = 'daccred:policy',
 }

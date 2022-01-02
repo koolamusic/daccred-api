@@ -127,3 +127,8 @@ typings/
 
 
 # End of https://www.gitignore.io/api/node,macos
+
+# from redis instance run
+dump.rdb
+# from run-rs mongodb instance
+/data 

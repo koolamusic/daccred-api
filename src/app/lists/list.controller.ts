@@ -34,7 +34,7 @@ export class ListController {
     return undefined;
   }
 
-  @Get('/schema/:slug')
+  @Get('/ingress/:slug')
   @HttpCode(200)
   @OnUndefined(204)
   @ResponseSchema(class FClass {})
@@ -42,11 +42,11 @@ export class ListController {
     return undefined;
   }
 
-  @Post('/datasource/forms')
+  @Post('/ingress/forms')
   @HttpCode(201)
   @OnUndefined(204)
   @ResponseSchema(class XClassP {})
-  async AddRecipientToListFromFormDatasource(@Body({ required: true, validate: true }) input: any): Promise<any> {
+  async AddRecipientToListFromFormIngressMethod(@Body({ required: true, validate: true }) input: any): Promise<any> {
     return undefined;
   }
 }
