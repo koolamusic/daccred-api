@@ -6,34 +6,48 @@
 
 interface IResult<T> {
   message: string;
-  status: number;
   result: T;
 }
 
-export default class HttpResult<T> implements IResult<T> {
-  result: T;
-  message: string;
-  status: number;
+export default class HttpResult {
+  name: string;
 
-  constructor(options: IResult<T>) {
-    this.result = options.result;
-    this.message = options?.message;
-    this.status = options?.status;
+  constructor(options: { name: string }) {
+    this.name = options.name;
   }
 
-  public 201() {
+  public post<T>(result: T): IResult<T> {
     return {
-      status: this.status || 201,
-      message: this.message || 'successful post',
-      result: this.result,
+      message: `OK(Successfully created a new ${this.name})`,
+      result: result,
     };
   }
 
-  public 200() {
+  public patch<T>(result: T): IResult<T> {
     return {
-      status: this.status || 201,
-      message: this.message || 'successful post',
-      result: this.result,
+      message: `Successfully updated a ${this.name}`,
+      result: result,
+    };
+  }
+
+  public delete<T>(result: T): IResult<T> {
+    return {
+      message: `Successfully deleted a ${this.name}`,
+      result: result,
+    };
+  }
+
+  public get<T>(result: T): IResult<T> {
+    return {
+      message: `Successfully returned a ${this.name}`,
+      result: result,
+    };
+  }
+
+  public list<T>(result: T): IResult<T> {
+    return {
+      message: `Successfully returned a list of ${this.name}s`,
+      result: result,
     };
   }
 }

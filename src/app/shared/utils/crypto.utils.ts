@@ -25,8 +25,9 @@ export const generateIdentifier = (length = 24) => {
  */
 
 const uniqueNameConfig: Config = {
-  dictionaries: [starWars, animals, countries, names],
+  dictionaries: [animals, countries, names],
   separator: ' ',
+  style: 'lowerCase',
   length: 2,
 };
 export const generateUniqueName = () => uniqueNamesGenerator(uniqueNameConfig);
@@ -35,14 +36,14 @@ export const generateUniqueName = () => uniqueNamesGenerator(uniqueNameConfig);
  * @dev No Look Alike custom alphabet implementation
  * Used with NANO ID for short url friendly ID
  */
-export const noll = '346789ABCDEFGHJKLMNPQRTUVWXYabcdefghijkmnpqrtwxyz';
+export const noll = '3456789ABCDEFGHJKLMNPQRTUVWXYabcdefghijkmnpqrtvwxyz';
 
 /**
  * @dev Generate a short id that can be used for urls and other browser safe tags
  * Short ID Tags etc.
  * @param min - Minimum length of generated id
  */
-export const generateUrlSlug = (min = 12) => customRandom(noll, min, random)();
+export const generateUrlSlug = (min = 16) => customRandom(noll, min, random)();
 
 /* Specifically for generating Nonce */
 export const generateRandomNonce = (min = 32) => customRandom(noll, min, random)();

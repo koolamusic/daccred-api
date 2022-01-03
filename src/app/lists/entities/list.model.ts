@@ -12,10 +12,6 @@ export interface ListProp {
 
 // Create a Schema corresponding to the document interface.
 const schema = new Schema<ListProp>({
-  _id: {
-    type: Schema.Types.ObjectId,
-    default: new Types.ObjectId(),
-  },
   name: {
     type: String, // Should be dynamically generated from document name or using a name package
     required: true,
@@ -46,7 +42,7 @@ const schema = new Schema<ListProp>({
 });
 
 /* Create the Mongoose Model for Certificate Claims / Broadcast List */
-export const ListModel = model<ListProp>('List', schema);
+export const ListModel = model<ListProp>('recipient_list', schema);
 
 /**
  * @see HydratedDocument<T> represents a hydrated Mongoose document,

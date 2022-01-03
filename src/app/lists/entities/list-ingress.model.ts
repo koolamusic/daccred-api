@@ -34,7 +34,7 @@ const schema = new Schema<ListIngressProp>({
 });
 
 /* Create the Mongoose Model for Certificate Claims / Broadcast List */
-export const ListIngressModel = model<ListIngressProp>('list-recipients', schema);
+export const ListIngressModel = model<ListIngressProp>('recipient', schema);
 
 /**
  * @see HydratedDocument<T> represents a hydrated Mongoose document,

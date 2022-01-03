@@ -1,7 +1,8 @@
 import { ListModel, ListProp, ListDocument } from './list.model';
 import { JSONSchema7 } from 'json-schema';
-import {} from './list_ingress.model';
+import {} from './list-ingress.model';
 import { generateUniqueName, generateUrlSlug } from '../../shared/utils';
+import { CreateListCommand } from '../../shared/dals/command/list.command';
 
 export class ListRepository extends ListModel {
   /**
@@ -57,20 +58,19 @@ export class ListRepository extends ListModel {
    * @param ListProp
    *
    * @example
-   * await this.createNewListRecord({ public_address, signature })
+   * await this.createNewListRecord({ documents, ownerId })
    *
    */
-  static async createNewListRecord(payload: ListProp): Promise<ListDocument | unknown> {
+  static async createNewListRecord(payload: CreateListCommand): Promise<ListDocument> {
     try {
       const list = await this.create({
         name: generateUniqueName(),
-        slug: generateUrlSlug(),
+        slug: `lisf${generateUrlSlug()}`,
         schema: this._schema,
-        documents: payload.documents,
+        documents: [payload.documentId],
         ownerId: payload.ownerId,
       });
 
-      if (!list) throw new Error('cannot create list');
       return list;
     } catch (error) {
       console.error(error, `error log from [createNewListRecord]`);

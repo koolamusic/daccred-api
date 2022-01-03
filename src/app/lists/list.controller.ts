@@ -1,18 +1,34 @@
 import { Body, Post, Get, HttpCode, JsonController, OnUndefined, Authorized, Patch } from 'routing-controllers';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
-import { CAN_CREATE_CREDENTIAL } from '../shared/constants';
+import HttpResult from '../../infra/result';
+import { CAN_CREATE_CREDENTIAL, CAN_CREATE_LIST } from '../shared/constants';
+import { CreateListCommand, CreateListCommandResponse } from '../shared/dals/command/list.command';
+import { ListService } from './list.service';
 
 @JsonController('/lists')
 @OpenAPI({
   description: 'Handle the creation of documents that represent accreditations and certificates',
 })
 export class ListController {
+  private listService = new ListService();
+  private result = new HttpResult({ name: 'Recipient List' });
+
   @Post()
   @HttpCode(201)
   @OnUndefined(204)
-  @ResponseSchema(class XClassP {})
-  async createNewRecipientListWithEntry(@Body({ required: true, validate: true }) input: any): Promise<any> {
-    return undefined;
+  @Authorized([CAN_CREATE_LIST])
+  @ResponseSchema(CreateListCommandResponse)
+  async createNewRecipientListWithSchema(@Body({ required: true, validate: true }) input: CreateListCommand) {
+    const handler = await this.listService.createRecipientList(input);
+    const result = {
+      id: handler.id,
+      name: handler.name,
+      slug: handler.slug,
+      schema: JSON.stringify(handler.schema),
+    };
+
+    /* Return response from Controller using HttpResult format */
+    return this.result.post<CreateListCommandResponse>(result);
   }
 
   @Get('/:id')
@@ -20,7 +36,7 @@ export class ListController {
   @OnUndefined(204)
   @Authorized([CAN_CREATE_CREDENTIAL]) // This is a stub to simply disable this action tempoarily
   @ResponseSchema(class FClass {})
-  async getListMetadataWithRecipientsById(@Body({ required: true, validate: true }) input: any): Promise<any> {
+  async getAllListRecipientsWithListMeta(@Body({ required: true, validate: true }) input: any): Promise<any> {
     /* Add condition to handle if the request also wants the aggregate of recipient data... else return only list metadat or return list with all recorded recipients  */
     return undefined;
   }

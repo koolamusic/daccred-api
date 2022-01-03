@@ -22,6 +22,7 @@ export function defineRulesForOwner(): RawRuleOf<AppAbility>[] {
   can(['create', 'update', 'read_one'], ResourceModelSubject.USER);
   can(['create', 'update', 'read_one', 'read_all'], ResourceModelSubject.CREDENTIAL);
   can(['create', 'update', 'read_one', 'read_all', 'delete'], ResourceModelSubject.LIST);
+  can(['create', 'update', 'read_one', 'read_all', 'delete'], ResourceModelSubject.LIST_ENTRY);
   can(['create', 'update', 'read_one', 'read_all', 'delete'], ResourceModelSubject.TEAM);
 
   return rules;

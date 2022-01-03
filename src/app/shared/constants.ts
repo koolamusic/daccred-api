@@ -37,26 +37,47 @@ export const CAN_CREATE_USER: AuthorizerRule = { action: 'create', subject: Reso
 export const CAN_READ_ALL_POLICY: AuthorizerRule = { action: 'read_all', subject: ResourceModelSubject.POLICY };
 export const CAN_CREATE_POLICY: AuthorizerRule = { action: 'create', subject: ResourceModelSubject.POLICY };
 
+/* ---------------------------------- */
+/*    Hold all Create Policies       */
+/* -------------------------------- */
+
+export const CAN_CREATE_LIST: AuthorizerRule = {
+  action: 'create',
+  subject: ResourceModelSubject.LIST,
+};
+
 export const CAN_CREATE_CREDENTIAL: AuthorizerRule = {
   action: 'create',
   subject: ResourceModelSubject.CREDENTIAL,
 };
 
+/* ---------------------------------- */
+/*    Hold all Read Policies       */
+/* -------------------------------- */
 export const CAN_READ_CREDENTIAL: AuthorizerRule = {
   action: 'read_one',
   subject: ResourceModelSubject.CREDENTIAL,
 };
 
+/* ---------------------------------- */
+/*    Hold all Update Policies       */
+/* -------------------------------- */
 export const CAN_UPDATE_CREDENTIAL: AuthorizerRule = {
   action: 'update',
   subject: ResourceModelSubject.CREDENTIAL,
 };
 
+/* ---------------------------------- */
+/*    Hold all Delete Policies       */
+/* -------------------------------- */
 export const CAN_DELETE_CREDENTIAL: AuthorizerRule = {
   action: 'delete',
   subject: ResourceModelSubject.CREDENTIAL,
 };
 
+/* ---------------------------------- */
+/*    Hold all Read Many Policies    */
+/* -------------------------------- */
 export const CAN_READ_ALL_CREDENTIALS: AuthorizerRule = {
   action: 'read_all',
   subject: ResourceModelSubject.CREDENTIAL,
