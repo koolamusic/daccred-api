@@ -33,8 +33,8 @@ const schema = new Schema<ListIngressProp>({
   },
 });
 
-/* Create the Mongoose Model for Certificate Claims / Broadcast List */
-export const ListIngressModel = model<ListIngressProp>('recipient', schema);
+/* Create the Mongoose Model for Certificate Recipients */
+export const RecipientModel = model<ListIngressProp>('recipient', schema);
 
 /**
  * @see HydratedDocument<T> represents a hydrated Mongoose document,
@@ -42,4 +42,4 @@ export const ListIngressModel = model<ListIngressProp>('recipient', schema);
  *
  * https://mongoosejs.com/docs/typescript.html
  */
-export type ListIngressDocument = HydratedDocument<ListIngressProp>;
+export type RecipientDocument = HydratedDocument<ListIngressProp>;

@@ -13,6 +13,15 @@ export class ListController {
   private listService = new ListService();
   private result = new HttpResult({ name: 'Recipient List' });
 
+  @Patch('/:id')
+  @HttpCode(200)
+  @OnUndefined(204)
+  @Authorized([CAN_CREATE_CREDENTIAL]) // This is a stub to simply disable this action tempoarily
+  @ResponseSchema(class FClass {})
+  async updateListMetadata(@Body({ required: true, validate: true }) input: any): Promise<any> {
+    return undefined;
+  }
+
   @Post()
   @HttpCode(201)
   @OnUndefined(204)
@@ -38,15 +47,6 @@ export class ListController {
   @ResponseSchema(class FClass {})
   async getAllListRecipientsWithListMeta(@Body({ required: true, validate: true }) input: any): Promise<any> {
     /* Add condition to handle if the request also wants the aggregate of recipient data... else return only list metadat or return list with all recorded recipients  */
-    return undefined;
-  }
-
-  @Patch('/:id')
-  @HttpCode(200)
-  @OnUndefined(204)
-  @Authorized([CAN_CREATE_CREDENTIAL]) // This is a stub to simply disable this action tempoarily
-  @ResponseSchema(class FClass {})
-  async updateListMetadata(@Body({ required: true, validate: true }) input: any): Promise<any> {
     return undefined;
   }
 

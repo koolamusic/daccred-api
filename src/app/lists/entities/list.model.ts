@@ -1,4 +1,4 @@
-import { HydratedDocument, Types, Schema, model } from 'mongoose';
+import { HydratedDocument, Schema, model } from 'mongoose';
 import { generateUrlSlug } from '../../shared/utils/crypto.utils';
 
 export interface ListProp {

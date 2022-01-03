@@ -1,6 +1,5 @@
 import { ListModel, ListProp, ListDocument } from './list.model';
 import { JSONSchema7 } from 'json-schema';
-import {} from './list-ingress.model';
 import { generateUniqueName, generateUrlSlug } from '../../shared/utils';
 import { CreateListCommand } from '../../shared/dals/command/list.command';
 
@@ -65,7 +64,7 @@ export class ListRepository extends ListModel {
     try {
       const list = await this.create({
         name: generateUniqueName(),
-        slug: `lisf${generateUrlSlug()}`,
+        slug: `lqf${generateUrlSlug()}`,
         schema: this._schema,
         documents: [payload.documentId],
         ownerId: payload.ownerId,

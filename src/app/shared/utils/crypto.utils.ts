@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import { customRandom, random } from 'nanoid';
 import { PackRule, packRules, unpackRules } from '@casl/ability/extra';
 import { IAMPolicyRuleDefinition } from '../definitions';
-import { uniqueNamesGenerator, Config, animals, countries, starWars, names } from 'unique-names-generator';
+import { uniqueNamesGenerator, Config, animals, countries, names } from 'unique-names-generator';
 
 export const encryptPassword = (password: string) => {
   const salt = bcrypt.genSaltSync(8);
