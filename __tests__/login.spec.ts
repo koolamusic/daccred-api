@@ -1,11 +1,12 @@
-import { AuthLoginResponse, AuthSignupRequest, UserType } from '../src/app/shared/contracts/auth.contracts';
+// import { AuthLoginResponse, AuthSignupRequest, UserType } from '../src/app/shared/contracts/auth.contracts';
 // import jwt from 'jsonwebtoken';
 import req from 'supertest';
 import faker from 'faker/locale/en';
 import server from './setup/entry.server';
 import * as route from './setup/routes';
-import { IJWTClaim, IJWTClaimConf } from '../src/app/shared/definitions';
+import { IJWTClaim, IJWTClaimConf, UserType } from '../src/app/shared/definitions';
 import { TestDbConnection } from './setup/db';
+import { AuthLoginQueryResult } from '../src/app/shared/dals';
 
 const db = new TestDbConnection();
 export type TClaim = IJWTClaim & IJWTClaimConf;
@@ -15,7 +16,7 @@ const user = {
   email: faker.internet.email(),
   phone: faker.phone.phoneNumber(),
   password: faker.internet.password(),
-  type: UserType.CUSTOMER,
+  type: UserType.PERSONAL,
   customer: {
     address: faker.address.streetAddress(),
     state: faker.address.state(),
@@ -28,7 +29,7 @@ const businessAcc = {
   ...user,
   email: faker.internet.email(),
   password: faker.internet.password(),
-  type: UserType.BUSINESS,
+  type: UserType.ORGANIZATION,
   business: {
     ...user.customer,
     businessName: faker.company.companyName(),
@@ -71,11 +72,11 @@ describe('User Login Workflow', () => {
   it('should successfully login customer with correct credentials', async (done) => {
     const { email, password } = user;
     const res = await req(server).post(route.loginRoute).send({ email, password });
-    const body = res.body as AuthLoginResponse;
+    const body = res.body as AuthLoginQueryResult;
 
-    expect(body.accessToken).toBeDefined();
-    expect(body.accessToken).toBeTruthy();
-    expect(body.scope).toEqual(user.type);
+    expect(body.access_token).toBeDefined();
+    expect(body.user_id).toBeTruthy();
+    expect(body.profile).toEqual(user.type);
     done();
   });
 

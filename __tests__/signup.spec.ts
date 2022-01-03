@@ -1,9 +1,10 @@
-import { AuthSignupRequest, UserType } from '../src/app/shared/contracts/auth.contracts';
+// import { AuthSignupRequest, UserType } from '../src/app/shared/contracts/auth.contracts';
 import req from 'supertest';
 import server from './setup/entry.server';
 import faker from 'faker/locale/en';
 import { signupRoute as route } from './setup/routes';
 import { TestDbConnection } from './setup/db';
+import { UserType } from '../src/app/shared/definitions';
 
 const db = new TestDbConnection();
 
@@ -12,7 +13,7 @@ const businessMock = {
   email: faker.internet.email(),
   phone: faker.phone.phoneNumber(),
   password: faker.internet.password(),
-  type: UserType.BUSINESS,
+  type: UserType.ENTERPRISE,
   business: {
     address: faker.address.streetAddress(),
     businessName: faker.company.companyName(),
@@ -29,7 +30,7 @@ const customerMock = {
   email: faker.internet.email(),
   phone: faker.phone.phoneNumber(),
   password: faker.internet.password(),
-  type: UserType.CUSTOMER,
+  type: UserType.PERSONAL,
   customer: {
     address: faker.address.streetAddress(),
     state: faker.address.state(),

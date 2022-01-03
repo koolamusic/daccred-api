@@ -1,4 +1,13 @@
-import { Body, Post, Get, HttpCode, JsonController, OnUndefined, Authorized, Patch } from 'routing-controllers';
+import {
+  // Body,
+  Post,
+  Get,
+  HttpCode,
+  JsonController,
+  OnUndefined,
+  Authorized,
+  Patch,
+} from 'routing-controllers';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 import { CAN_CREATE_CREDENTIAL } from '../shared/constants';
 
@@ -11,7 +20,8 @@ export class DocsController {
   @HttpCode(201)
   @OnUndefined(204)
   @ResponseSchema(class XClassP {})
-  async createNewDocument(@Body({ required: true, validate: true }) input: any): Promise<any> {
+  async createNewDocument(): // @Body({ required: true, validate: true }) input: any
+  Promise<undefined> {
     return undefined;
   }
 
@@ -20,7 +30,8 @@ export class DocsController {
   @OnUndefined(204)
   @Authorized([CAN_CREATE_CREDENTIAL]) // This is a stub to simply disable this action tempoarily
   @ResponseSchema(class FClass {})
-  async getSingleDocument(@Body({ required: true, validate: true }) input: any): Promise<any> {
+  async getSingleDocument(): // @Body({ required: true, validate: true }) input: any
+  Promise<undefined> {
     return undefined;
   }
 
@@ -29,7 +40,8 @@ export class DocsController {
   @OnUndefined(204)
   @Authorized([CAN_CREATE_CREDENTIAL]) // This is a stub to simply disable this action tempoarily
   @ResponseSchema(class FClass {})
-  async getAllDocumentsForAccount(@Body({ required: true, validate: true }) input: any): Promise<any> {
+  async getAllDocumentsForAccount(): // @Body({ required: true, validate: true }) input: any
+  Promise<undefined> {
     return undefined;
   }
 
@@ -38,7 +50,8 @@ export class DocsController {
   @OnUndefined(204)
   @Authorized([CAN_CREATE_CREDENTIAL]) // This is a stub to simply disable this action tempoarily
   @ResponseSchema(class FClass {})
-  async updateMetadataForDocument(@Body({ required: true, validate: true }) input: any): Promise<any> {
+  async updateMetadataForDocument(): // @Body({ required: true, validate: true }) input: any
+  Promise<undefined> {
     return undefined;
   }
 }

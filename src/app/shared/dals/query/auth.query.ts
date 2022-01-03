@@ -2,12 +2,7 @@ import 'reflect-metadata';
 import { IsEmail, IsEnum, IsNotEmpty, IsString, MaxLength, MinLength, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { UserProfileQueryResult } from './user.query';
-
-export enum UserType {
-  CUSTOMER = 'customer',
-  BUSINESS = 'business',
-  EMPLOYEE = 'employee',
-}
+import { UserType } from '../../definitions';
 
 /*---------------------------------------------------------------------------- 
   User Validation and Types for Forgot Password Workflow (used by openapi)

@@ -1,4 +1,4 @@
-import { ListModel, ListProp, ListDocument } from './list.model';
+import { ListModel, ListDocument } from './list.model';
 import { JSONSchema7 } from 'json-schema';
 import { generateUniqueName, generateUrlSlug } from '../../shared/utils';
 import { CreateListCommand } from '../../shared/dals/command/list.command';

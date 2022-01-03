@@ -1,4 +1,11 @@
-import { Body, Post, Get, HttpCode, JsonController, OnUndefined } from 'routing-controllers';
+import {
+  // Body,
+  Post,
+  Get,
+  HttpCode,
+  JsonController,
+  OnUndefined,
+} from 'routing-controllers';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 // import { CAN_CREATE_CREDENTIAL } from '../shared/constants';
 
@@ -35,7 +42,8 @@ export class ClaimController {
   @HttpCode(201)
   @OnUndefined(204)
   @ResponseSchema(class XClassP {})
-  async claimCredentialWithEmail(@Body({ required: true, validate: true }) input: any): Promise<undefined> {
+  async claimCredentialWithEmail(): // @Body({ required: true, validate: true }) input: any
+  Promise<undefined> {
     return undefined;
   }
 
@@ -43,7 +51,8 @@ export class ClaimController {
   @HttpCode(201)
   @OnUndefined(204)
   @ResponseSchema(class FClass {})
-  async claimCredentialWithWalletAddress(@Body({ required: true, validate: true }) input: any): Promise<undefined> {
+  async claimCredentialWithWalletAddress(): // @Body({ required: true, validate: true }) input: any
+  Promise<undefined> {
     return undefined;
   }
 
@@ -51,7 +60,8 @@ export class ClaimController {
   @HttpCode(201)
   @OnUndefined(204)
   @ResponseSchema(class FClass {})
-  async prepareRecipientClaimWithWallet(@Body({ required: true, validate: true }) input: any): Promise<undefined> {
+  async prepareRecipientClaimWithWallet(): // @Body({ required: true, validate: true }) input: any
+  Promise<undefined> {
     return undefined;
   }
 
