@@ -1,8 +1,9 @@
 import { HydratedDocument, Types, Schema, model } from 'mongoose';
+import { DataIngress } from '../../definitions';
 
 export interface ListIngressProp {
   _id: Schema.Types.ObjectId;
-  pipeline: 'forms' | 'csv' | 'contacts'; // where the data is coming from
+  pipeline: DataIngress; // where the data is coming from  'forms' | 'csv'
   listId: Schema.Types.ObjectId;
   listOwnerId: Schema.Types.ObjectId; // For the Team managing the credential
   jsonResponse: object;
@@ -16,8 +17,8 @@ const schema = new Schema<ListIngressProp>({
   pipeline: {
     type: String,
     required: true,
-    default: 'forms',
-    enum: ['forms', 'csv', 'contacts'],
+    default: DataIngress.FORMS,
+    enum: [DataIngress.CSV_EXCEL, DataIngress.FORMS, DataIngress.GOOGLE_CONTACTS_IMPORT],
   },
   listId: {
     type: Schema.Types.ObjectId,

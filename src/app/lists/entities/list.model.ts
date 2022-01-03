@@ -1,4 +1,5 @@
 import { HydratedDocument, Schema, model } from 'mongoose';
+import { DataIngress } from '../../shared/definitions';
 import { generateUrlSlug } from '../../shared/utils/crypto.utils';
 
 export interface ListProp {
@@ -6,6 +7,7 @@ export interface ListProp {
   name: string;
   slug: string;
   schema: object;
+  integrations: DataIngress;
   documents: Schema.Types.ObjectId[];
   ownerId: Schema.Types.ObjectId;
 }
@@ -25,6 +27,12 @@ const schema = new Schema<ListProp>({
   schema: {
     type: Object,
     required: true,
+  },
+  integrations: {
+    type: String,
+    required: true,
+    default: DataIngress.FORMS,
+    enum: [DataIngress.CSV_EXCEL, DataIngress.FORMS, DataIngress.GOOGLE_CONTACTS_IMPORT],
   },
   /**
    * @description a lists of all the documents to be affiliated with this list

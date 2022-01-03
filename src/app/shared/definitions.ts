@@ -6,6 +6,19 @@ import { JwtPayload } from 'jsonwebtoken';
 // import { PackRule } from '@casl/ability/dist/types/extra';
 import { ResourceModelSubject } from './constants';
 
+/**
+ * @dev Integrations datasource
+ * The idea is that the data for recipients will come from various sources,
+ * currently we have forms, csv and excel imports
+ *
+ * But as we progress, we need to track all list data ingress integration
+ */
+export enum DataIngress {
+  FORMS = 'forms',
+  CSV_EXCEL = 'csv_excel',
+  GOOGLE_CONTACTS_IMPORT = 'contacts_google',
+}
+
 type PropertyKey = string | number | symbol;
 type AnyObject = Record<PropertyKey, unknown>;
 
