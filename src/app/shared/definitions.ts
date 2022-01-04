@@ -7,8 +7,8 @@ import { JwtPayload } from 'jsonwebtoken';
 import { ResourceModelSubject } from './constants';
 
 /**
- * @dev Integrations datasource
- * The idea is that the data for recipients will come from various sources,
+ * @dev Data Ingress Methods
+ * The idea is that the data for recipients will come from various integration sources,
  * currently we have forms, csv and excel imports
  *
  * But as we progress, we need to track all list data ingress integration

@@ -1,17 +1,19 @@
-import bcrypt from 'bcrypt';
 import { customRandom, random } from 'nanoid';
 import { PackRule, packRules, unpackRules } from '@casl/ability/extra';
 import { IAMPolicyRuleDefinition } from '../definitions';
 import { uniqueNamesGenerator, Config, animals, countries, names } from 'unique-names-generator';
 
-export const encryptPassword = (password: string) => {
-  const salt = bcrypt.genSaltSync(8);
-  return bcrypt.hashSync(password, salt);
-};
-
-export const validPassword = (password: string, encodedPassword: string) => {
-  return bcrypt.compareSync(password, encodedPassword);
-};
+/* ----------------------------------------------------------------------------\\\
+/ import bcrypt from 'bcrypt';
+/ export const encryptPassword = (password: string) => {
+/  const salt = bcrypt.genSaltSync(8);
+/  return bcrypt.hashSync(password, salt);
+/ };
+/ 
+/ export const validPassword = (password: string, encodedPassword: string) => {
+/  return bcrypt.compareSync(password, encodedPassword);
+/ };
+/ ------------ BCRYPT ---------------------------------------------------------- \ */
 
 export const generateIdentifier = (length = 24) => {
   const alphabet = '123456789ACDEFGHIJKLNOPQSTUVWXYZabcdefghijklmnopqrstuvwxyz';
