@@ -28,13 +28,13 @@ export class RecipientRepository extends RecipientModel {
       };
       const options = {
         limit: parseInt(limit),
-        offset: parseInt(offset) || 0,
+        offset: parseInt(offset),
       };
 
       const collection = await RecipientModel.paginate(query, options);
       // if (isEmpty(collection.docs)) throw new NotFoundError('Recipients not found');
 
-      console.log(collection);
+      console.log(collection.result);
       /* Handle response */
       return collection;
     } catch (error) {
@@ -53,11 +53,8 @@ export class RecipientRepository extends RecipientModel {
         listOwnerId: ownerId,
       };
       const options = {
-        limit: limit,
-        offset: offset,
-        customLabels: {
-          docs: 'result',
-        },
+        limit: parseInt(limit),
+        offset: parseInt(offset),
       };
 
       const collection = await RecipientModel.paginate(query, options);
