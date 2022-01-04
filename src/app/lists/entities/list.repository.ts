@@ -1,7 +1,8 @@
-import { ListModel, ListDocument } from './list.model';
 import { JSONSchema7 } from 'json-schema';
-import { generateUniqueName, generateUrlSlug } from '../../shared/utils';
-import { CreateListCommand } from '../../shared/dals/command/list.command';
+import ServerError, { ConflictError } from '../../../infra/errors';
+import { ListModel, ListDocument } from './list.model';
+import { generateUniqueName, generateUrlSlug, isValidJSONResponse } from '../../shared/utils';
+import { CreateListCommand, FormIngressCommandInput } from '../../shared/dals/command/list.command';
 
 export class ListRepository extends ListModel {
   /**
@@ -67,13 +68,38 @@ export class ListRepository extends ListModel {
         slug: `lqf${generateUrlSlug()}`,
         schema: this._schema,
         documents: [payload.documentId],
-        ownerId: payload.ownerId,
+        ownerId: payload.publicAddress,
       });
 
       return list;
     } catch (error) {
       console.error(error, `error log from [createNewListRecord]`);
       throw new Error(error as undefined);
+    }
+  }
+
+  /**
+   * Validate the recipient entry from a single ingress route using the slug
+   * ensure the jsonResponse validates against the current lists schema
+   *
+   * @params jsonResponse - the JSON response from client
+   * @params slug - the url Slug to identify a list
+   * @returns ListDocument
+   */
+  static async validateRecipientEntryBySlug({ jsonResponse, slug }: FormIngressCommandInput): Promise<ListDocument> {
+    try {
+      /* handle retrieving the list doc */
+      const list = await this.getListByUrlSlug(slug);
+      if (!list) throw new Error('We cannot get the waitlist');
+
+      /* Ensure the recipient input is valid against JSON schema object */
+      if (isValidJSONResponse({ schema: list.schema, json: jsonResponse })) {
+        return list;
+      }
+      throw new ConflictError('input validation failed');
+    } catch (error) {
+      console.error(error, `error log from [ListRepository:validateRecipientEntryBySlug]`);
+      throw new ServerError(error);
     }
   }
 }

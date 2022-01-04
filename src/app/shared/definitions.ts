@@ -19,6 +19,17 @@ export enum DataIngress {
   GOOGLE_CONTACTS_IMPORT = 'contacts_google',
 }
 
+/**
+ * @name ListUniqueIdentifier
+ * We need unique values for recipients in a list, so we enable the users
+ * to define what stays unique, wallet address or email and lock it to the list definition
+ */
+export enum ListUniqueIdentifier {
+  EMAIL = 'email',
+  WALLET_ADDRESS = 'wallet_address',
+  EMAIL_AND_WALLET = 'email_wallet_address',
+}
+
 type PropertyKey = string | number | symbol;
 type AnyObject = Record<PropertyKey, unknown>;
 

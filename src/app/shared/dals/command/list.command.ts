@@ -13,7 +13,7 @@ import { IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator'
 import { BaseQueryResult } from '../base';
 
 /*---------------------------------------------------------------------------- 
-        API Command to create a new recipients lists
+  API Command to create a new recipients lists
 ----------------------------------------------------------------------------*/
 
 export class CreateListCommand {
@@ -25,9 +25,10 @@ export class CreateListCommand {
   // @IsNotEmpty()
   // schema!: string;
 
+  /* The main wallet address associated with this accounts JWT */
   @IsNotEmpty()
   @IsString()
-  ownerId!: string;
+  publicAddress!: string;
 }
 
 /*---------------------------------------------------------------------------- 

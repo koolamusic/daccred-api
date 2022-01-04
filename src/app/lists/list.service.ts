@@ -46,14 +46,26 @@ export class ListService {
    * ingress method, mostly forms for now
    *
    * @param payload - an object that has the recipient JSON and list slug_id
+   *
+   * We want to handle this by validating the json-schema against the jsonResponse input
+   * Then ensure that we dont have an existing recipient with the two most important identifier
+   * wallet_address or email_address, before we then persist them to the collection
    */
   async handleSingleEntityIngress(payload: FormIngressCommandInput) {
     try {
       // const result = await ListRepository.getListByUrlSlug(slug);
-      return await ListRepository.getListByUrlSlug(payload.slug);
+      return await ListRepository.validateRecipientEntryBySlug(payload);
       // if (!result) throw new NotFoundError('Waitlist not found');
+      /* --------------------- */
+
+      /* <> Handle in list repository <> */
       // use slug to get list document from repository
+      // Validate the jsonResponse <> Against the JSON Schema [onc]
+
+      /* <> Handle in recipient repository <> */
+      // Validate that recipient email or wallet address is not a key in an existing List.
       // build recipient payload with listOwnerId and listId
+
       // save recipient
       // return id to controller
       return undefined;

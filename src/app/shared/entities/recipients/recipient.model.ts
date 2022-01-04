@@ -1,5 +1,6 @@
-import { HydratedDocument, Types, Schema, model } from 'mongoose';
+import { HydratedDocument, Types, Schema, model, PaginateModel } from 'mongoose';
 import { DataIngress } from '../../definitions';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 export interface ListIngressProp {
   _id: Schema.Types.ObjectId;
@@ -7,6 +8,7 @@ export interface ListIngressProp {
   listId: Schema.Types.ObjectId;
   listOwnerId: Schema.Types.ObjectId; // For the Team managing the credential
   jsonResponse: object;
+  // paginate:
 }
 
 const schema = new Schema<ListIngressProp>({
@@ -34,8 +36,14 @@ const schema = new Schema<ListIngressProp>({
   },
 });
 
+/**
+ * @see database.ts for global pagination configurations
+ * Integrate pagination plugin into model before model setup
+ */
+schema.plugin(mongoosePaginate);
+
 /* Create the Mongoose Model for Certificate Recipients */
-export const RecipientModel = model<ListIngressProp>('recipient', schema);
+export const RecipientModel = model<ListIngressProp, PaginateModel<ListIngressProp>>('recipient', schema);
 
 /**
  * @see HydratedDocument<T> represents a hydrated Mongoose document,

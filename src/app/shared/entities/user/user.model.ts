@@ -14,6 +14,11 @@ export interface User {
 // 2. Create a Schema corresponding to the document interface.
 const schema = new Schema<User>({
   email: String,
+  /**
+   * @property publicAddress
+   * This is the address from the user wallet (metamask, portic etc)
+   * We also use this as the reference to this account in `ownerId` of other collections
+   */
   publicAddress: {
     type: String,
     required: true,

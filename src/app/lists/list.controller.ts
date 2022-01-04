@@ -78,9 +78,7 @@ export class ListController {
   @HttpCode(201)
   @OnUndefined(204)
   @ResponseSchema(FormIngressCommandResponse)
-  async addRecipientToListByFormIngressMethod(
-    @Body({ required: true, validate: true }) input: FormIngressCommandInput
-  ) {
+  async addRecipientToListByFormIngressMethod(@Body({ validate: true }) input: FormIngressCommandInput) {
     const handler = await this.listService.handleSingleEntityIngress(input);
 
     /* Return response from Controller using HttpResult format */
