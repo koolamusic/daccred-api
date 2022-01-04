@@ -4,13 +4,13 @@
 / 
 / Use Query to for query type requests
 / Use QueryParams when it's a REST /:id or ?id= paramaeter
-/ Extend the BaseQueryResult for Response type DTOs
+/ Extend the BaseResponseDTO for Response type DTOs
 /********************************************************************* */
 
 import 'reflect-metadata';
 import { Type } from 'class-transformer';
 import { IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
-import { BaseQueryResult } from '../base';
+import { BaseResponseDTO } from '../base';
 
 /*---------------------------------------------------------------------------- 
   API Command to create a new recipients lists
@@ -52,7 +52,7 @@ export class CreateListCommandOutput {
   schema!: string;
 }
 
-export class CreateListCommandResponse extends BaseQueryResult {
+export class CreateListCommandResponse extends BaseResponseDTO {
   @ValidateNested()
   @Type(() => CreateListCommandOutput)
   result!: CreateListCommandOutput;
@@ -76,7 +76,7 @@ export class FormIngressCommandOutput {
   operationId!: string;
 }
 
-export class FormIngressCommandResponse extends BaseQueryResult {
+export class FormIngressCommandResponse extends BaseResponseDTO {
   @ValidateNested()
   @Type(() => FormIngressCommandOutput)
   result!: FormIngressCommandOutput;

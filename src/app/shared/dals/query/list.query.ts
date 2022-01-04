@@ -4,12 +4,12 @@
 / 
 / Use Query to for query type requests
 / Use QueryParams when it's a REST /:id or ?id= paramaeter
-/ Extend the BaseQueryResult for Response type DTOs
+/ Extend the BaseResponseDTO for Response type DTOs
 /********************************************************************* */
 
 import 'reflect-metadata';
 import { IsNotEmpty, IsNumber, IsString, ValidateNested } from 'class-validator';
-import { BaseQueryResult } from '../base';
+import { BaseResponseDTO } from '../base';
 import { Type } from 'class-transformer';
 
 /*---------------------------------------------------------------------------- 
@@ -57,7 +57,7 @@ export class ListSlugQueryOutput {
   schema!: string;
 }
 
-export class ListSlugQueryResponse extends BaseQueryResult {
+export class ListSlugQueryResponse extends BaseResponseDTO {
   @ValidateNested()
   @Type(() => ListSlugQueryOutput)
   result!: ListSlugQueryOutput;

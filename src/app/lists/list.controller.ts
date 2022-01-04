@@ -56,7 +56,8 @@ export class ListController {
   @Authorized([CAN_CREATE_CREDENTIAL]) // This is a stub to simply disable this action tempoarily
   @ResponseSchema(class FClass {})
   async getAllListRecipientsWithListMeta(@Body({ required: true, validate: true }) _input: any): Promise<any> {
-    /* Add condition to handle if the request also wants the aggregate of recipient data... else return only list metadat or return list with all recorded recipients  */
+    /* Add condition to handle if the request also wants the aggregate of recipient data... 
+    else return only list metadata or return list with all recorded recipients  */
     return undefined;
   }
 

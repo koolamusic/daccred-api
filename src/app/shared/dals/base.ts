@@ -1,9 +1,46 @@
 import 'reflect-metadata';
-import { IsBoolean, IsDefined, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsDefined, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class BaseQueryResult {
+export class BaseResponseDTO {
   @IsString()
   message?: string;
+}
+
+export class BaseQueryResponseDTO {
+  @IsString()
+  message?: string;
+
+  @IsNumber()
+  @IsDefined()
+  offset!: number;
+
+  @IsNumber()
+  @IsDefined()
+  limit!: number;
+
+  @IsNumber()
+  @IsDefined()
+  pages!: number;
+
+  @IsNumber()
+  @IsDefined()
+  current!: number;
+
+  @IsBoolean()
+  @IsDefined()
+  hasPrevPage!: boolean;
+
+  @IsBoolean()
+  @IsDefined()
+  hasNextPage!: boolean;
+
+  @IsString()
+  @IsDefined()
+  next!: number;
+
+  @IsString()
+  @IsDefined()
+  prev!: number;
 }
 
 /**
@@ -31,24 +68,24 @@ export class BaseQueryDTO {
 export class BaseQueryParams {
   @IsString()
   @IsOptional()
-  sort!: string;
+  offset!: number;
 
   @IsDefined()
-  limit!: string;
+  limit!: number;
 
-  @IsString()
-  @IsOptional()
-  sortField!: string;
+  // @IsString()
+  // @IsOptional()
+  // sortField!: string;
 
-  @IsBoolean()
-  @IsOptional()
-  sortAscending!: boolean;
+  // @IsBoolean()
+  // @IsOptional()
+  // sortAscending!: boolean;
 
-  @IsString()
+  @IsNumber()
   @IsOptional()
-  next!: string;
+  next!: number;
 
-  @IsString()
+  @IsNumber()
   @IsOptional()
-  previous!: string;
+  prev!: number;
 }

@@ -6,6 +6,7 @@ import { CreateListCommand, FormIngressCommandInput } from '../shared/dals/comma
 import { NotFoundError } from 'routing-controllers';
 import { RecipientRepository } from '../shared/entities';
 import { DataIngress } from '../shared/definitions';
+import { RecipientListQueryParams } from '../shared/dals/query/list.query';
 
 export class ListService {
   private logger = logger;
@@ -71,5 +72,13 @@ export class ListService {
       this.logger.error(`${error} - [ListService:handleSingleEntityIngress]`);
       throw new ServerError(error);
     }
+  }
+
+  /**
+   * Retrieve all recipients in a list, using paginate params
+   * @param RecipientListQueryParams
+   */
+  async getAllListRecipients() {
+    return undefined;
   }
 }
