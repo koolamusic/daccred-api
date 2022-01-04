@@ -1,7 +1,31 @@
 import { customRandom, random } from 'nanoid';
-import { PackRule, packRules, unpackRules } from '@casl/ability/extra';
-import { IAMPolicyRuleDefinition } from '../definitions';
 import { uniqueNamesGenerator, Config, animals, countries, names } from 'unique-names-generator';
+import * as crypto from 'crypto';
+
+/**
+ * Generate an Random UUID using the inbuilt crypto module
+ * @returns string
+ * @example 19f65256-d94b-40e0-8e40-17673c01d6c0
+ */
+export const uuidGen = () => crypto.randomUUID();
+
+/**
+ * Generate a RandomByte Token, HEX Safe using the Crypto Module
+ * @returns string(20) - string of length 20
+ * @example a928e1fac39b07b64ccced42fe514839d57d5b8a
+ */
+export const randomByte = (length = 20) => crypto.randomBytes(length).toString('hex');
+
+/**
+ * Generate a SHA256 Hash using a randomGenerateString
+ * We use SHA256 because it looks almost similar to BIP-Addresses (ETH, BSC etc)
+ * as well as Keccak-256
+ *
+ * @param length
+ * @returns string
+ * @example 64298fd6a518013a4c4ea3b91ae9938d2b6051468f4de6fc107af0f2f74db441
+ */
+export const createSHA256Hash = () => crypto.createHash('sha256').update(randomByte()).digest('hex');
 
 /* ----------------------------------------------------------------------------\\\
 / import bcrypt from 'bcrypt';
@@ -49,14 +73,3 @@ export const generateUrlSlug = (min = 16) => customRandom(noll, min, random)();
 
 /* Specifically for generating Nonce */
 export const generateRandomNonce = (min = 32) => customRandom(noll, min, random)();
-
-export const packPermissionRules = (rules: string) => {
-  const rulesObj = JSON.parse(rules);
-  return packRules(rulesObj);
-};
-
-export const unpackPermissionRules = (
-  rules: PackRule<IAMPolicyRuleDefinition<unknown>>[]
-): IAMPolicyRuleDefinition<unknown>[] => {
-  return unpackRules(rules);
-};
