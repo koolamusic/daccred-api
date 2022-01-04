@@ -1,9 +1,9 @@
 import 'reflect-metadata';
 import { IsBoolean, IsDefined, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class BaseApiQuery<T> {
-  message!: 'success' | 'failure' | string;
-  result!: T;
+export class BaseQueryResult {
+  @IsString()
+  message?: string;
 }
 
 /**

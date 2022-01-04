@@ -1,9 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Body, Post, Get, HttpCode, JsonController, OnUndefined, Authorized, Patch } from 'routing-controllers';
+import { Body, Post, Get, Param, HttpCode, JsonController, OnUndefined, Authorized, Patch } from 'routing-controllers';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 import HttpResult from '../../infra/result';
 import { CAN_CREATE_CREDENTIAL, CAN_CREATE_LIST } from '../shared/constants';
-import { CreateListCommand, CreateListCommandResponse } from '../shared/dals/command/list.command';
+import {
+  CreateListCommand,
+  CreateListCommandOutput,
+  CreateListCommandResponse,
+} from '../shared/dals/command/list.command';
+import { ListSlugQueryOutput, ListSlugQueryResponse } from '../shared/dals/query/list.query';
 import { ListService } from './list.service';
 
 @JsonController('/lists')
@@ -39,7 +44,7 @@ export class ListController {
     };
 
     /* Return response from Controller using HttpResult format */
-    return this.result.post<CreateListCommandResponse>(result);
+    return this.result.post<CreateListCommandOutput>(result);
   }
 
   @Get('/:id')
@@ -55,16 +60,23 @@ export class ListController {
   @Get('/ingress/:slug')
   @HttpCode(200)
   @OnUndefined(204)
-  @ResponseSchema(class FClass {})
-  async returnPublicListSchemaByRouteSlug(@Body({ required: true, validate: true }) _input: any): Promise<any> {
-    return undefined;
+  @ResponseSchema(ListSlugQueryResponse)
+  async returnPublicListSchemaByRouteSlug(@Param('slug') slug: string) {
+    const handler = await this.listService.getSchemaFromSlug(slug);
+    const result = {
+      slug: handler.slug,
+      schema: JSON.stringify(handler.schema),
+    };
+
+    /* Return response from Controller using HttpResult format */
+    return this.result.get<ListSlugQueryOutput>(result);
   }
 
   @Post('/ingress/forms')
   @HttpCode(201)
   @OnUndefined(204)
-  @ResponseSchema(class XClassP {})
-  async AddRecipientToListFromFormIngressMethod(@Body({ required: true, validate: true }) _input: any): Promise<any> {
+  @ResponseSchema(ListSlugQueryResponse)
+  async addRecipientToListByFormIngressMethod(@Body({ required: true, validate: true }) _input: any): Promise<any> {
     return undefined;
   }
 }
