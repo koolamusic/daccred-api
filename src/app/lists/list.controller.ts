@@ -83,7 +83,7 @@ export class ListController {
 
     /* Return response from Controller using HttpResult format */
     return this.result.post<FormIngressCommandOutput>({
-      operationId: handler?.id,
+      operationId: handler.id,
     });
   }
 }

@@ -12,23 +12,19 @@ import logger from './logger';
 // Edit: we attempted fixing this in ambient.d.ts and includes in tsconfig.json
 const paginateOptionLabels = {
   totalDocs: 'total',
-  // docs: 'result',
+  docs: 'result',
   page: 'current',
   nextPage: 'next',
   prevPage: 'prev',
   totalPages: 'pages',
 };
 
-const options = {
+/* Set paginate options globally */
+query.paginate.options = {
   page: 1,
   limit: 20,
   offset: 0,
   customLabels: paginateOptionLabels,
-};
-
-/* Set paginate options globally */
-query.paginate.options = {
-  ...options,
 };
 
 mongoose.connect(config.mongoUri, {

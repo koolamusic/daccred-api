@@ -1,8 +1,17 @@
 import { isEmpty } from 'lodash';
 import { NotFoundError } from 'routing-controllers';
 import { RecipientDocument } from '..';
-import ServerError from '../../../../infra/errors';
+import ServerError, { UnprocessableEntityError } from '../../../../infra/errors';
+import { ListDocument } from '../../../lists';
+import { RecipientListQueryParams } from '../../dals/query/list.query';
+import { DataIngress } from '../../definitions';
 import { ListIngressProp, RecipientModel } from './recipient.model';
+
+export interface RecipientIngressOptions {
+  jsonResponse: object;
+  listDocument: ListDocument;
+  medium: DataIngress;
+}
 
 export class RecipientRepository extends RecipientModel {
   /**
@@ -21,20 +30,19 @@ export class RecipientRepository extends RecipientModel {
    * @name getRecipientsByListId
    * @return [RecipientDocument] - a list of recipients that belong to a recipient list
    */
-  static async getRecipientsByListId({ listId, limit, offset }) {
+  static async getRecipientsByListId({ listId, limit, offset }: RecipientListQueryParams) {
     try {
       const query: Partial<ListIngressProp> = {
         listId: listId,
       };
       const options = {
-        limit: parseInt(limit),
-        offset: parseInt(offset),
+        limit: limit ?? 10,
+        offset: offset ?? 0,
       };
 
       const collection = await RecipientModel.paginate(query, options);
-      // if (isEmpty(collection.docs)) throw new NotFoundError('Recipients not found');
+      if (isEmpty(collection.result)) throw new NotFoundError('Recipients not found');
 
-      console.log(collection.result);
       /* Handle response */
       return collection;
     } catch (error) {
@@ -47,14 +55,14 @@ export class RecipientRepository extends RecipientModel {
    * @name getRecipientsByOwner
    * @return [RecipientDocument] - a list of recipients by wallet addres / workspace
    */
-  static async getRecipientsByOwner({ ownerId, limit, offset }) {
+  static async getRecipientsByOwner({ ownerId, limit, offset }: RecipientListQueryParams) {
     try {
       const query: Partial<ListIngressProp> = {
         listOwnerId: ownerId,
       };
       const options = {
-        limit: parseInt(limit),
-        offset: parseInt(offset),
+        limit: limit ?? 10,
+        offset: offset ?? 0,
       };
 
       const collection = await RecipientModel.paginate(query, options);
@@ -71,22 +79,35 @@ export class RecipientRepository extends RecipientModel {
 
   /**
    * @todo Validate that email or wallet_address does not exist in a list collection
-   * according to the defined uniqueIdentifier in the List Collection.
+   * according to the defined uniqueIdentifier in the List Collection and JSON Schema
    *  // build recipient payload with listOwnerId and listId
    *
    * @params jsonResponse - the JSON response from client
-   * @params slug - the url Slug to identify a list
-   * @returns ListDocument
-   *
-   * @returns ListModel
-   * @param ListProp
+   * @params listDocument - The mongo list document that recipient belongs to
+   * @returns string - id of the recipient document
    *
    * @example
-   * await this.createNewListRecord({ documents, ownerId })
+   * await this.addOneNewRecipientToList({
+   *    listDocument: list,
+   *    jsonResponse: payload.jsonResponse,
+   *    medium: DataIngress.FORMS
+   *  })
    */
-  static async addOneNewRecipientToList() {
+  static async addOneNewRecipientToList({ listDocument, medium, jsonResponse }: RecipientIngressOptions) {
     try {
-      /* handle retrieving the list doc */
+      /* build the recipient create payload */
+      const recipient: Partial<ListIngressProp> = {};
+
+      recipient.listId = listDocument.id;
+      recipient.listOwnerId = listDocument.ownerId;
+      recipient.jsonResponse = jsonResponse;
+      recipient.pipeline = medium;
+
+      /* Add recipient to collection */
+      const operation = await RecipientModel.create(recipient);
+
+      if (!operation) throw new UnprocessableEntityError('Cannot process operation');
+      return operation;
     } catch (error) {
       console.error(error, `error log from [ListRepository:addNewRecipientToList]`);
       throw new ServerError(error);

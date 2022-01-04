@@ -8,13 +8,27 @@
 /********************************************************************* */
 
 import 'reflect-metadata';
-import { IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, ValidateNested } from 'class-validator';
 import { BaseQueryResult } from '../base';
 import { Type } from 'class-transformer';
 
 /*---------------------------------------------------------------------------- 
-        API Command to create a new recipients lists
+        API query to list
 ----------------------------------------------------------------------------*/
+
+export class RecipientListQueryParams {
+  @IsString()
+  ownerId!: string | undefined;
+
+  @IsString()
+  listId!: string | undefined;
+
+  @IsNumber()
+  limit!: number;
+
+  @IsNumber()
+  offset!: number;
+}
 
 export class SingleListQueryResult {
   @IsNotEmpty()
@@ -31,7 +45,7 @@ export class SingleListQueryResult {
 }
 
 /*---------------------------------------------------------------------------- 
-    DTO for create list command response
+    DTO for list query response
 ----------------------------------------------------------------------------*/
 
 export class ListSlugQueryOutput {

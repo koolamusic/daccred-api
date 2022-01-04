@@ -1,21 +1,16 @@
-import { HydratedDocument, Types, Schema, model, PaginateModel } from 'mongoose';
+import { HydratedDocument, Schema, model, PaginateModel } from 'mongoose';
 import { DataIngress } from '../../definitions';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
 export interface ListIngressProp {
-  _id: Schema.Types.ObjectId;
+  _id?: Schema.Types.ObjectId | string;
   pipeline: DataIngress; // where the data is coming from  'forms' | 'csv'
-  listId: Schema.Types.ObjectId;
-  listOwnerId: Schema.Types.ObjectId; // For the Team managing the credential
+  listId: Schema.Types.ObjectId | string;
+  listOwnerId: Schema.Types.ObjectId | string; // For the Team managing the credential
   jsonResponse: object;
-  // paginate:
 }
 
 const schema = new Schema<ListIngressProp>({
-  _id: {
-    type: Schema.Types.ObjectId,
-    default: new Types.ObjectId(),
-  },
   pipeline: {
     type: String,
     required: true,

@@ -90,7 +90,7 @@ export class ListRepository extends ListModel {
     try {
       /* handle retrieving the list doc */
       const list = await this.getListByUrlSlug(slug);
-      if (!list) throw new Error('We cannot get the waitlist');
+      if (!list) throw new Error('Recipient list not found');
 
       /* Ensure the recipient input is valid against JSON schema object */
       if (isValidJSONResponse({ schema: list.schema, json: jsonResponse })) {

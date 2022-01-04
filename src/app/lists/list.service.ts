@@ -5,6 +5,7 @@ import logger from '../../infra/logger';
 import { CreateListCommand, FormIngressCommandInput } from '../shared/dals/command/list.command';
 import { NotFoundError } from 'routing-controllers';
 import { RecipientRepository } from '../shared/entities';
+import { DataIngress } from '../shared/definitions';
 
 export class ListService {
   private logger = logger;
@@ -54,23 +55,18 @@ export class ListService {
    */
   async handleSingleEntityIngress(payload: FormIngressCommandInput) {
     try {
-      // const result = await ListRepository.getListByUrlSlug(slug);
+      /* Get parent list and validate json response */
       const list = await ListRepository.validateRecipientEntryBySlug(payload);
-      // if (!result) throw new NotFoundError('Waitlist not found');÷
-      /* --------------------- */
 
-      console.log(await RecipientRepository.getRecipientsByListId(list.id));
-      /* <> Handle in list repository <> */
-      // use slug to get list document from repository
-      // Validate the jsonResponse <> Against the JSON Schema [onc]
+      /* Build payload and create new recipient */
+      const result = await RecipientRepository.addOneNewRecipientToList({
+        listDocument: list,
+        jsonResponse: payload.jsonResponse,
+        medium: DataIngress.FORMS,
+      });
 
-      /* <> Handle in recipient repository <> */
-      // Validate that recipient email or wallet address is not a key in an existing List.
-      // build recipient payload with listOwnerId and listId
-
-      // save recipient
-      // return id to controller
-      return undefined;
+      /* Return the recipient id back to client */
+      return result;
     } catch (error) {
       this.logger.error(`${error} - [ListService:handleSingleEntityIngress]`);
       throw new ServerError(error);
