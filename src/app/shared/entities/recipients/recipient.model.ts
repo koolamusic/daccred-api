@@ -1,4 +1,4 @@
-import { HydratedDocument, Types, Schema, model, PaginateModel } from 'mongoose';
+import { HydratedDocument, Types, Schema, model, PaginateModel, PaginateResult } from 'mongoose';
 import { DataIngress } from '../../definitions';
 import mongoosePaginate from 'mongoose-paginate-v2';
 

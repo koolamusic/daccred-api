@@ -27,15 +27,12 @@ export class RecipientRepository extends RecipientModel {
         listId: listId,
       };
       const options = {
-        limit: limit,
-        offset: offset,
-        customLabels: {
-          docs: 'result',
-        },
+        limit: parseInt(limit),
+        offset: parseInt(offset) || 0,
       };
 
       const collection = await RecipientModel.paginate(query, options);
-      if (isEmpty(collection.docs)) throw new NotFoundError('Recipients not found');
+      // if (isEmpty(collection.docs)) throw new NotFoundError('Recipients not found');
 
       console.log(collection);
       /* Handle response */
@@ -76,40 +73,25 @@ export class RecipientRepository extends RecipientModel {
   }
 
   /**
-   * @dev
-   * Creates a new list item for an account using the current documentId as master
-   * We also stub the list with a default predefined JSONSchema7 Schema object to define
-   * the shape of the data we expect from the list
+   * @todo Validate that email or wallet_address does not exist in a list collection
+   * according to the defined uniqueIdentifier in the List Collection.
+   *  // build recipient payload with listOwnerId and listId
+   *
+   * @params jsonResponse - the JSON response from client
+   * @params slug - the url Slug to identify a list
+   * @returns ListDocument
    *
    * @returns ListModel
    * @param ListProp
    *
    * @example
    * await this.createNewListRecord({ documents, ownerId })
-   *
    */
-  static async createNewListRecord() {
-    try {
-      console.log('working');
-    } catch (error) {
-      console.error(error, `error log from [createNewListRecord]`);
-      throw new Error(error as undefined);
-    }
-  }
-
-  /**
-   * Validate the recipient entry from a single ingress route using the slug
-   * ensure the jsonResponse validates against the current lists schema
-   *
-   * @params jsonResponse - the JSON response from client
-   * @params slug - the url Slug to identify a list
-   * @returns ListDocument
-   */
-  static async validateRecipientEntryBySlug() {
+  static async addOneNewRecipientToList() {
     try {
       /* handle retrieving the list doc */
     } catch (error) {
-      console.error(error, `error log from [ListRepository:validateRecipientEntryBySlug]`);
+      console.error(error, `error log from [ListRepository:addNewRecipientToList]`);
       throw new ServerError(error);
     }
   }

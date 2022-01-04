@@ -4,6 +4,7 @@ import ServerError from '../../infra/errors';
 import logger from '../../infra/logger';
 import { CreateListCommand, FormIngressCommandInput } from '../shared/dals/command/list.command';
 import { NotFoundError } from 'routing-controllers';
+import { RecipientRepository } from '../shared/entities';
 
 export class ListService {
   private logger = logger;
@@ -54,10 +55,11 @@ export class ListService {
   async handleSingleEntityIngress(payload: FormIngressCommandInput) {
     try {
       // const result = await ListRepository.getListByUrlSlug(slug);
-      return await ListRepository.validateRecipientEntryBySlug(payload);
-      // if (!result) throw new NotFoundError('Waitlist not found');
+      const list = await ListRepository.validateRecipientEntryBySlug(payload);
+      // if (!result) throw new NotFoundError('Waitlist not found');÷
       /* --------------------- */
 
+      console.log(await RecipientRepository.getRecipientsByListId(list.id));
       /* <> Handle in list repository <> */
       // use slug to get list document from repository
       // Validate the jsonResponse <> Against the JSON Schema [onc]
