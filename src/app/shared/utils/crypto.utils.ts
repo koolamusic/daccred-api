@@ -19,13 +19,21 @@ export const randomByte = (length = 20) => crypto.randomBytes(length).toString('
 /**
  * Generate a SHA256 Hash using a randomGenerateString
  * We use SHA256 because it looks almost similar to BIP-Addresses (ETH, BSC etc)
- * as well as Keccak-256
+ * as well as Keccak-256 / intention is to use this for the certificate document_id
  *
  * @param length
  * @returns string
  * @example 64298fd6a518013a4c4ea3b91ae9938d2b6051468f4de6fc107af0f2f74db441
  */
-export const createSHA256Hash = () => crypto.createHash('sha256').update(randomByte()).digest('hex');
+export const createSHA256Hash = (uniqueByte: string) => {
+  /**
+   * We want to use a unique byte like [documentId + docName]
+   * Or any other combination we have to generate the hashToken, else we
+   * use the randomBytes if uniqueBytes is undefined or null
+   */
+  const hashToken = !uniqueByte ? randomByte() : uniqueByte;
+  return crypto.createHash('sha256').update(hashToken).digest('hex');
+};
 
 /* ----------------------------------------------------------------------------\\\
 / import bcrypt from 'bcrypt';

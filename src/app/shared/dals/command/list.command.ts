@@ -9,7 +9,7 @@
 
 import 'reflect-metadata';
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
 import { BaseQueryResult } from '../base';
 
 /*---------------------------------------------------------------------------- 
@@ -55,4 +55,28 @@ export class CreateListCommandResponse extends BaseQueryResult {
   @ValidateNested()
   @Type(() => CreateListCommandOutput)
   result!: CreateListCommandOutput;
+}
+
+/*---------------------------------------------------------------------------- 
+    DTO for add recipient to list using form ingress entry
+----------------------------------------------------------------------------*/
+
+export class FormIngressCommandInput {
+  @IsString()
+  slug!: string;
+
+  /* The JSON object from field values in user submitted form */
+  @IsObject()
+  jsonResponse!: object;
+}
+
+export class FormIngressCommandOutput {
+  @IsString()
+  operationId!: string;
+}
+
+export class FormIngressCommandResponse extends BaseQueryResult {
+  @ValidateNested()
+  @Type(() => FormIngressCommandOutput)
+  result!: FormIngressCommandOutput;
 }

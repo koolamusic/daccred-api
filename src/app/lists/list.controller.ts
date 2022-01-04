@@ -1,12 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import HttpResult from '../../infra/result';
 import { Body, Post, Get, Param, HttpCode, JsonController, OnUndefined, Authorized, Patch } from 'routing-controllers';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
-import HttpResult from '../../infra/result';
 import { CAN_CREATE_CREDENTIAL, CAN_CREATE_LIST } from '../shared/constants';
 import {
   CreateListCommand,
   CreateListCommandOutput,
   CreateListCommandResponse,
+  FormIngressCommandInput,
+  FormIngressCommandOutput,
+  FormIngressCommandResponse,
 } from '../shared/dals/command/list.command';
 import { ListSlugQueryOutput, ListSlugQueryResponse } from '../shared/dals/query/list.query';
 import { ListService } from './list.service';
@@ -63,20 +66,26 @@ export class ListController {
   @ResponseSchema(ListSlugQueryResponse)
   async returnPublicListSchemaByRouteSlug(@Param('slug') slug: string) {
     const handler = await this.listService.getSchemaFromSlug(slug);
-    const result = {
-      slug: handler.slug,
-      schema: JSON.stringify(handler.schema),
-    };
 
     /* Return response from Controller using HttpResult format */
-    return this.result.get<ListSlugQueryOutput>(result);
+    return this.result.get<ListSlugQueryOutput>({
+      slug: handler.slug,
+      schema: JSON.stringify(handler.schema),
+    });
   }
 
   @Post('/ingress/forms')
   @HttpCode(201)
   @OnUndefined(204)
-  @ResponseSchema(ListSlugQueryResponse)
-  async addRecipientToListByFormIngressMethod(@Body({ required: true, validate: true }) _input: any): Promise<any> {
-    return undefined;
+  @ResponseSchema(FormIngressCommandResponse)
+  async addRecipientToListByFormIngressMethod(
+    @Body({ required: true, validate: true }) input: FormIngressCommandInput
+  ) {
+    const handler = await this.listService.handleSingleEntityIngress(input);
+
+    /* Return response from Controller using HttpResult format */
+    return this.result.post<FormIngressCommandOutput>({
+      operationId: handler?.id,
+    });
   }
 }
