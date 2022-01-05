@@ -10,7 +10,7 @@
 import 'reflect-metadata';
 import { Type } from 'class-transformer';
 import { IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
-import { BaseResponseDTO } from '../base';
+import { BaseResponseDTO } from '../base.dal';
 
 /*---------------------------------------------------------------------------- 
   API Command to create a new recipients lists

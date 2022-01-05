@@ -8,7 +8,7 @@ export * from './command/list.command';
 /*---------------------------------------------------------------------------- 
 Export all DAL Queries, Query Parameters and QueryResult DTOs
 ----------------------------------------------------------------------------*/
-export * from './base';
+export * from './base.dal';
 export * from './query/auth.query';
 export * from './query/user.query';
 export * from './query/list.query';

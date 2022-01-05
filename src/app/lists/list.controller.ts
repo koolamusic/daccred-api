@@ -14,6 +14,10 @@ import {
 import { ListSlugQueryOutput, ListSlugQueryResponse } from '../shared/dals/query/list.query';
 import { ListService } from './list.service';
 
+class ResponseClass {
+  message!: string;
+}
+
 @JsonController('/lists')
 @OpenAPI({
   description: 'Handle the creation of documents that represent accreditations and certificates',
@@ -26,7 +30,7 @@ export class ListController {
   @HttpCode(200)
   @OnUndefined(204)
   @Authorized([CAN_CREATE_CREDENTIAL]) // This is a stub to simply disable this action tempoarily
-  @ResponseSchema(class FClass {})
+  @ResponseSchema(ResponseClass)
   async updateListMetadata(): // @Body({ required: true, validate: true }) input: any
   Promise<undefined> {
     return undefined;
@@ -54,7 +58,7 @@ export class ListController {
   @HttpCode(200)
   @OnUndefined(204)
   @Authorized([CAN_CREATE_CREDENTIAL]) // This is a stub to simply disable this action tempoarily
-  @ResponseSchema(class FClass {})
+  @ResponseSchema(ResponseClass)
   async getAllListRecipientsWithListMeta(@Body({ required: true, validate: true }) _input: any): Promise<any> {
     /* Add condition to handle if the request also wants the aggregate of recipient data... 
     else return only list metadata or return list with all recorded recipients  */

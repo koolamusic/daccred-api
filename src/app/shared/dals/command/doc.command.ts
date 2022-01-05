@@ -10,7 +10,7 @@
 import 'reflect-metadata';
 import { Type } from 'class-transformer';
 import { IsEnum, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
-import { BaseResponseDTO } from '../base';
+import { BaseResponseDTO } from '../base.dal';
 import { DocumentStatus } from '../../definitions';
 
 /*---------------------------------------------------------------------------- 

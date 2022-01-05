@@ -9,6 +9,10 @@ import {
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 // import { CAN_CREATE_CREDENTIAL } from '../shared/constants';
 
+class ResponseClass {
+  message!: string;
+}
+
 /**
  * @decription
  * This controller is supposed to be used for validation the user claim requests
@@ -41,7 +45,7 @@ export class ClaimController {
   @Post('/with-email')
   @HttpCode(201)
   @OnUndefined(204)
-  @ResponseSchema(class XClassP {})
+  @ResponseSchema(ResponseClass)
   async claimCredentialWithEmail(): // @Body({ required: true, validate: true }) input: any
   Promise<undefined> {
     return undefined;
@@ -50,7 +54,7 @@ export class ClaimController {
   @Post('/with-wallet')
   @HttpCode(201)
   @OnUndefined(204)
-  @ResponseSchema(class FClass {})
+  @ResponseSchema(ResponseClass)
   async claimCredentialWithWalletAddress(): // @Body({ required: true, validate: true }) input: any
   Promise<undefined> {
     return undefined;
@@ -59,7 +63,7 @@ export class ClaimController {
   @Post('/prepare-wallet')
   @HttpCode(201)
   @OnUndefined(204)
-  @ResponseSchema(class FClass {})
+  @ResponseSchema(ResponseClass)
   async prepareRecipientClaimWithWallet(): // @Body({ required: true, validate: true }) input: any
   Promise<undefined> {
     return undefined;
@@ -73,7 +77,7 @@ export class ClaimController {
   @Get('/validate/:claimURI')
   @HttpCode(200)
   @OnUndefined(204)
-  @ResponseSchema(class FClass {})
+  @ResponseSchema(ResponseClass)
   async validateAClaimBasedOnProvidedInfoExperimental(): Promise<undefined> {
     return undefined;
   }
