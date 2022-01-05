@@ -62,6 +62,10 @@ export class DocumentCommandOutput {
   @IsString()
   @IsOptional()
   publishDate?: Date;
+
+  @IsString()
+  @IsOptional()
+  recipientListId?: string;
 }
 
 export class CreateDocumentCommand {

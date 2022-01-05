@@ -1,11 +1,12 @@
 import { HydratedDocument, Schema, model } from 'mongoose';
+import { UserType } from '../../definitions';
 
 // 1. Create an interface representind this mongoose document
 export interface User {
   publicAddress: string;
   nonce: string;
   locked: boolean;
-  scope: 'personal' | 'team';
+  scope: UserType;
   previousNonce?: string;
   email?: string;
   moralisUserId?: string;
@@ -35,7 +36,7 @@ const schema = new Schema<User>(
     },
     scope: {
       type: String,
-      default: 'personal',
+      default: UserType.PERSONAL,
     },
     locked: Boolean,
     previousNonce: String,

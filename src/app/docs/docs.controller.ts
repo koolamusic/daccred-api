@@ -18,7 +18,7 @@ import {
   CreateDocumentCommandResponse,
   DocumentCommandOutput,
 } from '../shared/dals/command/doc.command';
-import { IJWTClaim } from '../shared/definitions';
+import { User } from '../shared/entities';
 
 @JsonController('/docs')
 @OpenAPI({
@@ -35,16 +35,27 @@ export class DocsController {
   @ResponseSchema(CreateDocumentCommandResponse)
   async createNewDocument(
     @Body({ required: true, validate: true }) input: CreateDocumentCommand,
-    @CurrentUser({ required: true }) user: IJWTClaim
+    @CurrentUser({ required: true }) user: User
   ) {
     const handler = await this.documentService.bootstrapNewAccredDocument({
-      owner: user.eth,
+      owner: user.publicAddress,
       payload: input,
     });
 
+    console.log(handler);
+
     /* Return response from Controller using HttpResult format */
-    this.result.post<DocumentCommandOutput>({
-      ...handler,
+    return this.result.post<DocumentCommandOutput>({
+      name: handler.name,
+      slug: handler.slug,
+      status: handler.status,
+      owner: handler.owner,
+      networkId: handler.networkId,
+      description: handler.description,
+      networkName: handler.networkName,
+      editorSchema: handler.editorSchema,
+      deployerAddress: handler.deployerAddress,
+      recipientListId: handler.recipientsListId.toString(),
     });
   }
 

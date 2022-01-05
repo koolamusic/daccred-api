@@ -90,17 +90,17 @@ export class DocumentRepository extends AccredModel {
   static async createAccredDocument({ owner, payload }: MutateDocumentProps): Promise<AccredDocument> {
     try {
       /* Build payload for creating new document */
-      const createNewDocInput = {
+      const createNewDocInput: Partial<AccredDocProp> = {
         name: payload.name,
-        decription: payload.description,
+        description: payload.description,
         editorSchema: payload.editorSchema,
         networkName: payload.networkName,
         networkId: payload.networkId,
-        deployerAddress: payload.deployerAddress,
+        deployerAddress: payload.deployerAddress || owner,
       };
 
       /* Handle doc creation to persistence */
-      const doc = await AccredModel.findOne({
+      const doc = await AccredModel.create({
         ...createNewDocInput,
         owner: owner,
       });

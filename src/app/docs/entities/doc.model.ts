@@ -9,14 +9,14 @@ export interface AccredDocProp {
   description: string;
   slug: string;
   status: DocumentStatus;
-  editorSchema: object;
+  editorSchema: string;
   contractAddress: string;
   deployerAddress: string;
   transactionHash: string;
   networkName: string;
   networkId: string; // '0x0' = Ethereum
   publishDate: Date;
-  recipientsListId: Schema.Types.ObjectId[];
+  recipientsListId: Schema.Types.ObjectId;
   owner: string;
 }
 
@@ -72,15 +72,12 @@ const schema = new Schema<AccredDocProp>(
       index: true,
     },
     publishDate: Date,
-    editorSchema: {
-      type: Object,
-      required: true,
-    },
+    editorSchema: String,
     /**
      * @description a lists of all the recipient lists that we make eligible for this certificate
      */
     recipientsListId: {
-      type: [Schema.Types.ObjectId],
+      type: Schema.Types.ObjectId,
     },
     owner: {
       type: String,

@@ -1,17 +1,17 @@
 import { JSONSchema7 } from 'json-schema';
 import { HydratedDocument, Schema, model } from 'mongoose';
-import { DataIngress, ListUniqueIdentifier } from '../../shared/definitions';
 import { generateUrlSlug } from '../../shared/utils/crypto.utils';
+import { DataIngress, ListUniqueIdentifier } from '../../shared/definitions';
 
 export interface ListProp {
   _id: Schema.Types.ObjectId;
   name: string;
   slug: string;
+  owner: string;
   schema: JSONSchema7;
   identifier: ListUniqueIdentifier;
   integrations: DataIngress;
   documents: Schema.Types.ObjectId[];
-  owner: Schema.Types.ObjectId;
 }
 
 /* Custom config for timestamps, etc */
@@ -63,7 +63,7 @@ const schema = new Schema<ListProp>(
       required: true,
     },
     owner: {
-      type: Schema.Types.ObjectId,
+      type: String,
       required: true,
     },
   },
