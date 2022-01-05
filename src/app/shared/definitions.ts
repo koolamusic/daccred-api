@@ -51,12 +51,21 @@ export enum UserRoleEnum {
 }
 
 /**
+ * TRoleMap maintains a mapping of UserType to UserRoleEnum for Authorizer
+ */
+export type TRoleMap = {
+  personal: UserRoleEnum;
+  team: UserRoleEnum;
+  enterprise: UserRoleEnum;
+};
+
+/**
  * @description The type of user / account interacting with the API
  * Used to determine subscription limitation and product / feature visibility
  */
 export enum UserType {
   PERSONAL = 'personal',
-  ORGANIZATION = 'organization',
+  TEAM = 'team',
   ENTERPRISE = 'enterprise',
 }
 
@@ -109,7 +118,7 @@ export interface IJWTClaim {
   eth: string;
   signature: string /* This is the signature from web3 message signing */;
   fingerprint: string /* This is the r:session Token from Moralis */;
-  scope: 'personal' | 'team';
+  scope: UserType;
 }
 
 export interface IJWTClaimConf extends JwtPayload {

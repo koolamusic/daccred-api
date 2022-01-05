@@ -29,7 +29,7 @@ const businessAcc = {
   ...user,
   email: faker.internet.email(),
   password: faker.internet.password(),
-  type: UserType.ORGANIZATION,
+  type: UserType.TEAM,
   business: {
     ...user.customer,
     businessName: faker.company.companyName(),

@@ -11,6 +11,7 @@ export interface AccredDocProp {
   status: DocumentStatus;
   editorSchema: object;
   contractAddress: string;
+  deployerAddress: string;
   transactionHash: string;
   networkName: string;
   networkId: string; // '0x0' = Ethereum
@@ -56,6 +57,11 @@ const schema = new Schema<AccredDocProp>(
       type: String,
       index: true,
     },
+    /**
+     * @property deployerAddress
+     * sometimes the deployer address is different from the account owner (Metamask Address Switch)
+     */
+    deployerAddress: String,
     transactionHash: String,
     networkName: {
       type: String,

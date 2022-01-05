@@ -28,7 +28,7 @@ export class UserAccountQueryResult {
   profile!: UserProfileQueryResult;
 
   @IsString()
-  scope!: 'personal' | 'organization' | 'enterprise';
+  scope!: 'personal' | 'team' | 'enterprise';
 
   @IsArray()
   permissions!: PackRule<IAMPolicyRuleDefinition<unknown>>[];

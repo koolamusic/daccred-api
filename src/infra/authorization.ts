@@ -8,7 +8,7 @@
 import _ from 'lodash';
 import LRUCache from 'lru-cache';
 import { Action, UnauthorizedError } from 'routing-controllers';
-import { AuthDecoratorRule, UserRoleEnum } from '../app/shared/definitions';
+import { AuthDecoratorRule, TRoleMap, UserRoleEnum, UserType } from '../app/shared/definitions';
 import config from './config';
 import ServerError from './errors';
 import logger from './logger';
@@ -71,9 +71,10 @@ export const getCurrentUser = async (action: Action) => {
 export const authGuard = async (action: Action, rules: AuthDecoratorRule): Promise<boolean> => {
   try {
     const user = await validateUserByToken(action.request);
-    const roleMap = {
+    const roleMap: TRoleMap = {
       personal: UserRoleEnum.OWNER,
       team: UserRoleEnum.OWNER,
+      enterprise: UserRoleEnum.OWNER,
     };
 
     // console.log('the claims I received in Auth', user.profile, rules);
@@ -93,7 +94,7 @@ export const authGuard = async (action: Action, rules: AuthDecoratorRule): Promi
         /* Handle Roles and permissions params for other users */
         const permissions = defineRulesForOwner();
         const ability = generateGrantsFor(permissions);
-        console.log('<<<<<<<<<<<', ability, 'FROM AUTHORIZER >>>>>>>>>>>>>>>>>>>>>>>>>>>');
+        // console.log('<<<<<<<<<<<', ability, 'FROM AUTHORIZER >>>>>>>>>>>>>>>>>>>>>>>>>>>');
 
         // check if all of the required rules in the decorator evaluates to true and allow access
         const isAuthorized = await rules.every((rule) => ability.can(rule.action, rule.subject, rule.field));

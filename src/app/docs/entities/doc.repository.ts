@@ -64,13 +64,14 @@ export class DocumentRepository extends AccredModel {
 
       /* Create the update payload and populate document */
       doc.name = payload.name || doc.name;
-      doc.description = payload.description || doc.description;
       doc.status = payload.status || doc.status;
+      doc.networkId = payload.networkId || doc.networkId;
+      doc.description = payload.description || doc.description;
+      doc.networkName = payload.networkName || doc.networkName;
+      doc.publishDate = payload.publishDate || doc.publishDate;
       doc.editorSchema = payload.editorSchema || doc.editorSchema;
       doc.contractAddress = payload.contractAddress || doc.contractAddress;
-      doc.networkName = payload.networkName || doc.networkName;
-      doc.networkId = payload.networkId || doc.networkId;
-      doc.publishDate = payload.publishDate || doc.publishDate;
+      doc.deployerAddress = payload.deployerAddress || doc.deployerAddress;
 
       /* Save document after manual population */
       return await doc.save();
@@ -95,6 +96,7 @@ export class DocumentRepository extends AccredModel {
         editorSchema: payload.editorSchema,
         networkName: payload.networkName,
         networkId: payload.networkId,
+        deployerAddress: payload.deployerAddress,
       };
 
       /* Handle doc creation to persistence */
