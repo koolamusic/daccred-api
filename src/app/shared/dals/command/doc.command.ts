@@ -9,7 +9,7 @@
 
 import 'reflect-metadata';
 import { Type } from 'class-transformer';
-import { IsEnum, IsNotEmpty, IsObject, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { BaseResponseDTO } from '../base';
 import { DocumentStatus } from '../../definitions';
 
@@ -56,15 +56,6 @@ export class DocumentCommandOutput {
 
   @IsString()
   @IsOptional()
-  contractAddress?: string;
-
-  // <> transactionHash: string;
-  @IsString()
-  @IsOptional()
-  publishDate?: Date;
-
-  @IsString()
-  @IsOptional()
   recipientListId?: string;
 }
 
@@ -93,8 +84,6 @@ export class CreateDocumentCommand {
   @IsNotEmpty()
   @IsString()
   deployerAddress!: string;
-  // <> transactionHash: string;
-  // <> publishDate: Date;
 }
 
 export class CreateDocumentCommandResponse extends BaseResponseDTO {
@@ -107,22 +96,22 @@ export class CreateDocumentCommandResponse extends BaseResponseDTO {
     DTO for add recipient to list using form ingress entry
 ----------------------------------------------------------------------------*/
 
-export class FormIngressCommandInput {
-  @IsString()
-  slug!: string;
+// export class FormIngressCommandInput {
+//   @IsString()
+//   slug!: string;
 
-  /* The JSON object from field values in user submitted form */
-  @IsObject()
-  jsonResponse!: object;
-}
+//   /* The JSON object from field values in user submitted form */
+//   @IsObject()
+//   jsonResponse!: object;
+// }
 
-export class FormIngressCommandOutput {
-  @IsString()
-  operationId!: string;
-}
+// export class FormIngressCommandOutput {
+//   @IsString()
+//   operationId!: string;
+// }
 
-export class FormIngressCommandResponse extends BaseResponseDTO {
-  @ValidateNested()
-  @Type(() => FormIngressCommandOutput)
-  result!: FormIngressCommandOutput;
-}
+// export class FormIngressCommandResponse extends BaseResponseDTO {
+//   @ValidateNested()
+//   @Type(() => FormIngressCommandOutput)
+//   result!: FormIngressCommandOutput;
+// }

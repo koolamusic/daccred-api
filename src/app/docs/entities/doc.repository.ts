@@ -3,6 +3,7 @@ import { NotFoundError } from 'routing-controllers';
 import ServerError, { ConflictError } from '../../../infra/errors';
 import { GetDocumentQueryParams, ListDocumentsQueryParams } from '../../shared/dals/query/doc.query';
 import { AccredDocProp, AccredDocument, AccredModel } from './doc.model';
+import { createSHA256Hash } from '../../shared/utils/crypto.utils';
 
 export interface MutateDocumentProps {
   owner: string;
@@ -14,8 +15,8 @@ export class DocumentRepository extends AccredModel {
    * @name getDocumentByHash
    * Return a single document by ID.
    */
-  static async getDocumentByHash({ slug, owner }: GetDocumentQueryParams): Promise<AccredDocument> {
-    const document = await AccredModel.findOne({ slug, owner });
+  static async getDocumentByHash({ hash, owner }: GetDocumentQueryParams): Promise<AccredDocument> {
+    const document = await AccredModel.findOne({ slug: hash, owner });
     if (!document) throw new NotFoundError('Cannot find credential');
 
     /* All checks out, we have the document */
@@ -97,6 +98,7 @@ export class DocumentRepository extends AccredModel {
         networkName: payload.networkName,
         networkId: payload.networkId,
         deployerAddress: payload.deployerAddress || owner,
+        slug: createSHA256Hash(`${payload.name?.replace(/\s/g, '')}-${payload.networkName}`),
       };
 
       /* Handle doc creation to persistence */

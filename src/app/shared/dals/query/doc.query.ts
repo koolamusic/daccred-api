@@ -8,9 +8,10 @@
 /********************************************************************* */
 
 import 'reflect-metadata';
-import { IsNotEmpty, IsNumber, IsString, ValidateNested } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { BaseResponseDTO } from '../base';
 import { Type } from 'class-transformer';
+import { DocumentStatus } from '../../definitions';
 
 /*---------------------------------------------------------------------------- 
         API query to document
@@ -23,7 +24,7 @@ export class GetDocumentQueryParams {
 
   @IsString()
   @IsNotEmpty()
-  slug!: string;
+  hash!: string;
 }
 
 export class ListDocumentsQueryParams {
@@ -44,17 +45,66 @@ export class ListDocumentsQueryParams {
     DTO for list query response
 ----------------------------------------------------------------------------*/
 
-export class ListSlugQueryOutput {
+export class DocumentQueryOutput {
+  @IsNotEmpty()
+  @IsString()
+  id!: string;
+
+  @IsNotEmpty()
+  @IsString()
+  name!: string;
+
+  @IsString()
+  description!: string;
+
+  /* JSON stringified Design Editor Schema */
+  @IsString()
+  @IsNotEmpty()
+  editorSchema!: string;
+
+  @IsNotEmpty()
+  @IsString()
+  networkName!: string;
+
+  @IsNotEmpty()
+  @IsString()
+  networkId!: string; // 0x0 = Ethereum
+
+  /* Sometimes the deployer address could be seperate from the owned account */
+  @IsNotEmpty()
+  @IsString()
+  deployerAddress!: string;
+
   @IsNotEmpty()
   @IsString()
   slug!: string;
 
+  @IsNotEmpty()
   @IsString()
-  schema!: string;
+  owner!: string;
+
+  @IsEnum(DocumentStatus)
+  status!: DocumentStatus;
+
+  @IsString()
+  @IsOptional()
+  contractAddress?: string;
+
+  @IsString()
+  @IsOptional()
+  publishDate?: Date;
+
+  @IsString()
+  @IsOptional()
+  transactionHash?: Date;
+
+  @IsString()
+  @IsOptional()
+  recipientListId?: string;
 }
 
-export class ListSlugQueryResponse extends BaseResponseDTO {
+export class DocumentQueryResponse extends BaseResponseDTO {
   @ValidateNested()
-  @Type(() => ListSlugQueryOutput)
-  result!: ListSlugQueryOutput;
+  @Type(() => DocumentQueryOutput)
+  result!: DocumentQueryOutput;
 }

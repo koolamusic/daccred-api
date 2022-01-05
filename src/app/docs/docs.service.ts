@@ -1,8 +1,10 @@
-import ServerError, { UnprocessableEntityError } from '../../infra/errors';
 import logger from '../../infra/logger';
 import { ListRepository } from '../lists';
+import ServerError, { UnprocessableEntityError } from '../../infra/errors';
 import { CreateDocumentCommand } from '../shared/dals/command/doc.command';
 import { DocumentRepository } from './entities/doc.repository';
+import { AccredDocument } from './entities/doc.model';
+import { GetDocumentQueryParams } from '../shared/dals';
 
 export interface BoostrapDocumentOpts {
   owner: string;
@@ -38,15 +40,29 @@ export class DocumentService {
     }
   }
 
-  async getAllDocumentsForAccount({ owner, query }) {
-    return undefined;
+  async getAllDocumentsForAccount(): // { owner, query }
+  Promise<undefined[]> {
+    try {
+      return [undefined];
+    } catch (error) {
+      this.logger.error(`${error} - [DocumentService:getAllDocumentsForAccount]`);
+      throw new ServerError(error);
+    }
   }
 
   async updateDocumentMetadata({ owner, payload }) {
     return undefined;
   }
 
-  async getOneAccredDocument({ owner, documentHash }) {
-    return undefined;
+  async getOneAccredDocument({ owner, hash }: GetDocumentQueryParams): Promise<AccredDocument> {
+    try {
+      return await DocumentRepository.getDocumentByHash({
+        hash: hash,
+        owner: owner,
+      });
+    } catch (error) {
+      this.logger.error(`${error} - [DocumentService:getOneAccredDocument]`);
+      throw new ServerError(error);
+    }
   }
 }

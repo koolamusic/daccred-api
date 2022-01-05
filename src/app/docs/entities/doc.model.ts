@@ -1,5 +1,4 @@
 import { HydratedDocument, Schema, model, PaginateModel } from 'mongoose';
-import { createSHA256Hash } from '../../shared/utils/crypto.utils';
 import mongoosePaginate from 'mongoose-paginate-v2';
 import { DocumentStatus } from '../../shared/definitions';
 
@@ -38,7 +37,6 @@ const schema = new Schema<AccredDocProp>(
     description: String,
     slug: {
       type: String,
-      default: createSHA256Hash(),
       index: true,
       unique: true,
     },
@@ -96,7 +94,7 @@ const schema = new Schema<AccredDocProp>(
 schema.plugin(mongoosePaginate);
 
 /* Create the Mongoose Model for Certificate Claims / Broadcast List */
-export const AccredModel = model<AccredDocProp, PaginateModel<AccredDocProp>>('accreddoc', schema);
+export const AccredModel = model<AccredDocProp, PaginateModel<AccredDocProp>>('accred_doc', schema);
 
 /**
  * @see HydratedDocument<T> represents a hydrated Mongoose document,

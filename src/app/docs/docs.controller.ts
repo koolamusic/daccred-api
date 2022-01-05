@@ -8,16 +8,19 @@ import {
   Authorized,
   Patch,
   CurrentUser,
+  Param,
 } from 'routing-controllers';
-import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 import HttpResult from '../../infra/result';
+import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 import { CAN_CREATE_CREDENTIAL } from '../shared/constants';
 import { DocumentService } from './docs.service';
 import {
   CreateDocumentCommand,
   CreateDocumentCommandResponse,
   DocumentCommandOutput,
-} from '../shared/dals/command/doc.command';
+  DocumentQueryResponse,
+  DocumentQueryOutput,
+} from '../shared/dals';
 import { User } from '../shared/entities';
 
 @JsonController('/docs')
@@ -42,8 +45,6 @@ export class DocsController {
       payload: input,
     });
 
-    console.log(handler);
-
     /* Return response from Controller using HttpResult format */
     return this.result.post<DocumentCommandOutput>({
       name: handler.name,
@@ -59,21 +60,43 @@ export class DocsController {
     });
   }
 
-  @Get('/:id')
-  @HttpCode(201)
+  @Get('/:slug')
+  @HttpCode(200)
   @OnUndefined(204)
   @Authorized()
-  @ResponseSchema()
-  async getSingleDocument(): // @Body({ required: true, validate: true }) input: any
-  Promise<undefined> {
-    return undefined;
+  @ResponseSchema(DocumentQueryResponse)
+  async getSingleDocument(
+    @CurrentUser({ required: true }) user: User,
+    @Param('slug') slug: string
+  ): Promise<DocumentQueryResponse> {
+    const handler = await this.documentService.getOneAccredDocument({
+      owner: user.publicAddress,
+      hash: slug,
+    });
+
+    console.log(handler);
+
+    /* Return response from Controller using HttpResult format */
+    return this.result.get<DocumentQueryOutput>({
+      id: handler.id,
+      name: handler.name,
+      slug: handler.slug,
+      status: handler.status,
+      owner: handler.owner,
+      networkId: handler.networkId,
+      description: handler.description,
+      networkName: handler.networkName,
+      editorSchema: handler.editorSchema,
+      deployerAddress: handler.deployerAddress,
+      recipientListId: handler.recipientsListId.toString(),
+    });
   }
 
   @Get()
   @HttpCode(200)
   @OnUndefined(204)
   @Authorized()
-  @ResponseSchema()
+  @ResponseSchema(CreateDocumentCommandResponse)
   async getAllDocumentsForAccount(): // @Body({ required: true, validate: true }) input: any
   Promise<undefined> {
     return undefined;
@@ -83,7 +106,7 @@ export class DocsController {
   @HttpCode(200)
   @OnUndefined(204)
   @Authorized()
-  @ResponseSchema()
+  @ResponseSchema(CreateDocumentCommandResponse)
   async updateMetadataForDocument(): // @Body({ required: true, validate: true }) input: any
   Promise<undefined> {
     return undefined;

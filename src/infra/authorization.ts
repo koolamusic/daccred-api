@@ -8,7 +8,7 @@
 import _ from 'lodash';
 import LRUCache from 'lru-cache';
 import { Action, UnauthorizedError } from 'routing-controllers';
-import { AuthDecoratorRule, TRoleMap, UserRoleEnum, UserType } from '../app/shared/definitions';
+import { AuthDecoratorRule, TRoleMap, UserRoleEnum } from '../app/shared/definitions';
 import config from './config';
 import ServerError from './errors';
 import logger from './logger';

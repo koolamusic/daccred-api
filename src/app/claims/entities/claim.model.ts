@@ -50,7 +50,7 @@ const schema = new Schema<ClaimsProp>(
 );
 
 /* Create the Mongoose Model for Certificate Claims / Broadcast List */
-export const AccredModel = model<ClaimsProp>('accred_doc', schema);
+export const ClaimModel = model<ClaimsProp>('recipient_claim', schema);
 
 /**
  * @see HydratedDocument<T> represents a hydrated Mongoose document,
@@ -58,4 +58,4 @@ export const AccredModel = model<ClaimsProp>('accred_doc', schema);
  *
  * https://mongoosejs.com/docs/typescript.html
  */
-export type AccredDocument = HydratedDocument<ClaimsProp>;
+export type ClaimDocument = HydratedDocument<ClaimsProp>;

@@ -27,11 +27,12 @@ export const randomByte = (length = 20) => crypto.randomBytes(length).toString('
  */
 export const createSHA256Hash = (uniqueByte?: string) => {
   /**
-   * We want to use a unique byte like [documentId + docName]
+   * We want to use a unique byte like [documentId + docName] + randomByte
    * Or any other combination we have to generate the hashToken, else we
    * use the randomBytes if uniqueBytes is undefined or null
    */
-  const hashToken = !uniqueByte ? randomByte() : uniqueByte;
+  const hashToken = !uniqueByte ? randomByte() : uniqueByte + randomByte();
+  console.log(hashToken, '[utils.createSHA256Hash] - Generate Hash Token');
   return crypto.createHash('sha256').update(hashToken).digest('hex');
 };
 

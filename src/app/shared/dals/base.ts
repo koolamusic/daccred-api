@@ -3,7 +3,15 @@ import { IsBoolean, IsDefined, IsNotEmpty, IsNumber, IsOptional, IsString } from
 
 export class BaseResponseDTO {
   @IsString()
-  message?: string;
+  @IsNotEmpty()
+  message!: string;
+
+  @IsString()
+  @IsOptional()
+  created?: string;
+
+  @IsString()
+  updated?: string;
 }
 
 export class BaseQueryResponseDTO {
