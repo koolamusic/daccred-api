@@ -41,6 +41,11 @@ const schema = new Schema<AccredDocProp>(
       index: true,
       unique: true,
     },
+    /**
+     * @property status
+     * Status is the one that defines whether this document can be updated
+     * Once a document is published, it's metadata can never be changed again.
+     */
     status: {
       type: String,
       default: DocumentStatus.DRAFT,

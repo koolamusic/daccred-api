@@ -1,10 +1,10 @@
 import { isEmpty } from 'lodash';
 import { NotFoundError } from 'routing-controllers';
-import ServerError from '../../../infra/errors';
+import ServerError, { ConflictError } from '../../../infra/errors';
 import { GetDocumentQueryParams, ListDocumentsQueryParams } from '../../shared/dals/query/doc.query';
 import { AccredDocProp, AccredDocument, AccredModel } from './doc.model';
 
-export interface UpdateDocumentProps {
+export interface MutateDocumentProps {
   owner: string;
   payload: Partial<AccredDocProp>;
 }
@@ -54,7 +54,7 @@ export class DocumentRepository extends AccredModel {
    * @name updateOneDocument
    * @return AccredDocument - an updated credential document
    */
-  static async updateOneDocument({ owner, payload }: UpdateDocumentProps): Promise<AccredDocument> {
+  static async updateOneDocument({ owner, payload }: MutateDocumentProps): Promise<AccredDocument> {
     try {
       const doc = await AccredModel.findOne({
         owner: owner,
@@ -75,6 +75,35 @@ export class DocumentRepository extends AccredModel {
       /* Save document after manual population */
       return await doc.save();
       // return updatedDoc
+    } catch (error) {
+      console.error(error, `error log from [DocumentRepository:updateOneDocument]`);
+      throw new ServerError(error);
+    }
+  }
+  /**
+   * Create a new Credential document
+   *
+   * @name createAccredDocument
+   * @return AccredDocument - an new credential document
+   */
+  static async createAccredDocument({ owner, payload }: MutateDocumentProps): Promise<AccredDocument> {
+    try {
+      /* Build payload for creating new document */
+      const createNewDocInput = {
+        name: payload.name,
+        decription: payload.description,
+        editorSchema: payload.editorSchema,
+        networkName: payload.networkName,
+        networkId: payload.networkId,
+      };
+
+      /* Handle doc creation to persistence */
+      const doc = await AccredModel.findOne({
+        ...createNewDocInput,
+        owner: owner,
+      });
+      if (!doc) throw new ConflictError('Cannot create credential');
+      return doc;
     } catch (error) {
       console.error(error, `error log from [DocumentRepository:updateOneDocument]`);
       throw new ServerError(error);
