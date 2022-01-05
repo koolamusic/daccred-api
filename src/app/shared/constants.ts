@@ -25,10 +25,10 @@ export const SIGNING_MESSAGE_PREFIX = 'Authorize access to daccred.io with code:
 
 export enum ResourceModelSubject {
   USER = 'daccred:user',
-  CREDENTIAL = 'daccred:credential',
-  LIST = 'daccred:recipient_list',
-  LIST_ENTRY = 'daccred:list_entry',
   TEAM = 'daccred:team',
+  LIST = 'daccred:recipient_list',
+  RECIPIENTS = 'daccred:recipients',
+  CREDENTIAL = 'daccred:credential',
   POLICY = 'daccred:policy',
 }
 
