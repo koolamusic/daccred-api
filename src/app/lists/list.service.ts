@@ -6,7 +6,6 @@ import { CreateListCommand, FormIngressCommandInput } from '../shared/dals/comma
 import { NotFoundError } from 'routing-controllers';
 import { RecipientRepository } from '../shared/entities';
 import { DataIngress } from '../shared/definitions';
-import { RecipientListQueryParams } from '../shared/dals/query/list.query';
 
 export class ListService {
   private logger = logger;

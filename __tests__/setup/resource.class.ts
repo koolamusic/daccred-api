@@ -47,13 +47,13 @@ export class List {
  * @description A resource class to infer fields and conditions to Credentials API
  */
 export class Credential {
-  public ownerId!: string;
+  public owner!: string;
   public subscriberId!: string | null | undefined;
   public role: UserRoleEnum;
 
   constructor(options: PolicyTemplateArgs) {
     /* Assign variables for rule conditions */
-    this.ownerId = options.user_id;
+    this.owner = options.user_id;
     this.subscriberId = options.subscriber_id;
     this.role = options.role;
   }

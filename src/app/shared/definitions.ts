@@ -20,6 +20,16 @@ export enum DataIngress {
 }
 
 /**
+ * @dev DocumentStatus
+ * Use to define the publish status of the document, off-chain and on-chain
+ */
+export enum DocumentStatus {
+  DRAFT = 'draft',
+  ARCHIVED = 'archived',
+  PUBLISHED = 'published',
+}
+
+/**
  * @name ListUniqueIdentifier
  * We need unique values for recipients in a list, so we enable the users
  * to define what stays unique, wallet address or email and lock it to the list definition
@@ -83,14 +93,14 @@ export type IAMPolicyRuleDefinition<Sub> = IAMClaimRule & IAMPolicyCondition<Sub
 export interface SubscriberPolicyInterface {
   subscriberId: string;
   role: UserRoleEnum;
-  ownerId: string;
+  owner: string;
 }
 
 /* Subject Generic for IAM */
 export interface CredentialPolicyInterface {
   workspaceId: string;
   role: UserRoleEnum;
-  ownerId: string;
+  owner: string;
   userId: string;
 }
 

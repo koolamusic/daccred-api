@@ -68,7 +68,7 @@
 //     it('can create subscriber definition', () => {
 //       expect(ability.can('create', resource)).toBeTruthy();
 //     });
-//     it('can delete subscriber definition where ownerId condition matches', () => {
+//     it('can delete subscriber definition where owner condition matches', () => {
 //       expect(ability.can('delete', resource)).toBeTruthy();
 //     });
 //   });

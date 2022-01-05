@@ -11,7 +11,7 @@ export interface ListProp {
   identifier: ListUniqueIdentifier;
   integrations: DataIngress;
   documents: Schema.Types.ObjectId[];
-  ownerId: Schema.Types.ObjectId;
+  owner: Schema.Types.ObjectId;
 }
 
 // Create a Schema corresponding to the document interface.
@@ -43,14 +43,17 @@ const schema = new Schema<ListProp>({
   },
   /**
    * @description a lists of all the documents to be affiliated with this list
-   * We could deprecate this sooner in favor of only ownerId, essentially the idea
+   * We could deprecate this sooner in favor of only owner, essentially the idea
    * would be for lists to be re-usable across various documents, credentials, badges and certificates
+   *
+   * Also we could do an aggregate find on the credentials/ document and get all documents
+   * that has listId as a value in their data ingress properties
    */
   documents: {
     type: [Schema.Types.ObjectId],
     required: true,
   },
-  ownerId: {
+  owner: {
     type: Schema.Types.ObjectId,
     required: true,
   },

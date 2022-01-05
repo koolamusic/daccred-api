@@ -85,7 +85,7 @@ export const subscriber = {
       {
         subscriberId: 'subx2eDEYJM2zBFOv0UkHdufybR3',
         role: 'subscriber',
-        ownerId: '60979658cd1c804e241b772f',
+        owner: '60979658cd1c804e241b772f',
       },
     ],
     [
@@ -101,7 +101,7 @@ export const subscriber = {
       {
         subscriberId: 'subx2eDEYJM2zBFOv0UkHdufybR3',
         role: 'subscriber',
-        ownerId: '60979658cd1c804e241b772f',
+        owner: '60979658cd1c804e241b772f',
       },
     ],
     [

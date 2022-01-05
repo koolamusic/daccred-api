@@ -13,20 +13,30 @@ import { BaseResponseDTO } from '../base';
 import { Type } from 'class-transformer';
 
 /*---------------------------------------------------------------------------- 
-        API query to list
+        API query to document
 ----------------------------------------------------------------------------*/
 
-export class RecipientListQueryParams {
+export class GetDocumentQueryParams {
   @IsString()
-  owner!: string | undefined;
+  @IsNotEmpty()
+  owner!: string;
 
   @IsString()
-  listId!: string | undefined;
+  @IsNotEmpty()
+  slug!: string;
+}
+
+export class ListDocumentsQueryParams {
+  @IsNotEmpty()
+  @IsString()
+  ownerId!: string;
 
   @IsNumber()
+  @IsNotEmpty()
   limit!: number;
 
   @IsNumber()
+  @IsNotEmpty()
   offset!: number;
 }
 

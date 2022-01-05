@@ -25,7 +25,7 @@ export const randomByte = (length = 20) => crypto.randomBytes(length).toString('
  * @returns string
  * @example 64298fd6a518013a4c4ea3b91ae9938d2b6051468f4de6fc107af0f2f74db441
  */
-export const createSHA256Hash = (uniqueByte: string) => {
+export const createSHA256Hash = (uniqueByte?: string) => {
   /**
    * We want to use a unique byte like [documentId + docName]
    * Or any other combination we have to generate the hashToken, else we

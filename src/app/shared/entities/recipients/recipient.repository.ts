@@ -55,10 +55,10 @@ export class RecipientRepository extends RecipientModel {
    * @name getRecipientsByOwner
    * @return [RecipientDocument] - a list of recipients by wallet addres / workspace
    */
-  static async getRecipientsByOwner({ ownerId, limit, offset }: RecipientListQueryParams) {
+  static async getRecipientsByOwner({ owner, limit, offset }: RecipientListQueryParams) {
     try {
       const query: Partial<ListIngressProp> = {
-        listOwnerId: ownerId,
+        listOwnerId: owner,
       };
       const options = {
         limit: limit ?? 10,
@@ -66,13 +66,13 @@ export class RecipientRepository extends RecipientModel {
       };
 
       const collection = await RecipientModel.paginate(query, options);
-      if (isEmpty(collection.docs)) throw new NotFoundError('Recipients not found');
+      if (isEmpty(collection.result)) throw new NotFoundError('Recipients not found');
 
       console.log(collection);
       /* Handle response */
       return collection;
     } catch (error) {
-      console.error(error, `error log from [RecipientRepository:getRecipientsByListId]`);
+      console.error(error, `error log from [RecipientRepository:getRecipientsByOwner]`);
       throw new ServerError(error);
     }
   }
@@ -99,7 +99,7 @@ export class RecipientRepository extends RecipientModel {
       const recipient: Partial<ListIngressProp> = {};
 
       recipient.listId = listDocument.id;
-      recipient.listOwnerId = listDocument.ownerId;
+      recipient.listOwnerId = listDocument.owner;
       recipient.jsonResponse = jsonResponse;
       recipient.pipeline = medium;
 

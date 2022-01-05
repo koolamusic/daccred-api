@@ -17,7 +17,7 @@ const schema = new Schema<User>({
   /**
    * @property publicAddress
    * This is the address from the user wallet (metamask, portic etc)
-   * We also use this as the reference to this account in `ownerId` of other collections
+   * We also use this as the reference to this account in `owner` of other collections
    */
   publicAddress: {
     type: String,

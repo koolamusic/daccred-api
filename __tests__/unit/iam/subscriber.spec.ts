@@ -100,7 +100,7 @@
 //     it('can create own subscriber definition', () => {
 //       expect(ability.can('create', resource)).toBeTruthy();
 //     });
-//     it('can delete own subscriber definition where ownerId condition matches', () => {
+//     it('can delete own subscriber definition where owner condition matches', () => {
 //       expect(ability.can('delete', resource)).toBeTruthy();
 //     });
 
@@ -138,7 +138,7 @@
 //     it('can create own employee definition', () => {
 //       expect(ability.can('create', resource)).toBeTruthy();
 //     });
-//     it('can delete own employee definition where ownerId condition matches', () => {
+//     it('can delete own employee definition where owner condition matches', () => {
 //       expect(ability.can('delete', resource)).toBeTruthy();
 //     });
 

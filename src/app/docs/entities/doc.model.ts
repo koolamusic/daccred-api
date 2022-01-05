@@ -1,11 +1,14 @@
-import { HydratedDocument, Schema, model } from 'mongoose';
-import { generateUrlSlug } from '../../shared/utils/crypto.utils';
+import { HydratedDocument, Schema, model, PaginateModel } from 'mongoose';
+import { createSHA256Hash } from '../../shared/utils/crypto.utils';
+import mongoosePaginate from 'mongoose-paginate-v2';
+import { DocumentStatus } from '../../shared/definitions';
 
 export interface AccredDocProp {
   _id: Schema.Types.ObjectId;
   name: string;
   description: string;
   slug: string;
+  status: DocumentStatus;
   editorSchema: object;
   contractAddress: string;
   transactionHash: string;
@@ -13,7 +16,7 @@ export interface AccredDocProp {
   networkId: string; // '0x0' = Ethereum
   publishDate: Date;
   recipientsListId: Schema.Types.ObjectId[];
-  ownerId: Schema.Types.ObjectId;
+  owner: string;
 }
 
 /* Custom config for timestamps, etc */
@@ -34,14 +37,29 @@ const schema = new Schema<AccredDocProp>(
     description: String,
     slug: {
       type: String,
-      default: generateUrlSlug(24),
+      default: createSHA256Hash(),
       index: true,
       unique: true,
     },
-    contractAddress: String,
+    status: {
+      type: String,
+      default: DocumentStatus.DRAFT,
+      index: true,
+      enum: [DocumentStatus.DRAFT, DocumentStatus.ARCHIVED, DocumentStatus.PUBLISHED],
+    },
+    contractAddress: {
+      type: String,
+      index: true,
+    },
     transactionHash: String,
-    networkName: String,
-    networkId: String,
+    networkName: {
+      type: String,
+      index: true,
+    },
+    networkId: {
+      type: String,
+      index: true,
+    },
     publishDate: Date,
     editorSchema: {
       type: Object,
@@ -53,8 +71,8 @@ const schema = new Schema<AccredDocProp>(
     recipientsListId: {
       type: [Schema.Types.ObjectId],
     },
-    ownerId: {
-      type: Schema.Types.ObjectId,
+    owner: {
+      type: String,
       required: true,
     },
   },
@@ -63,8 +81,14 @@ const schema = new Schema<AccredDocProp>(
   }
 );
 
+/**
+ * @see database.ts for global pagination configurations
+ * Integrate pagination plugin into model before model setup
+ */
+schema.plugin(mongoosePaginate);
+
 /* Create the Mongoose Model for Certificate Claims / Broadcast List */
-export const AccredModel = model<AccredDocProp>('accred_doc', schema);
+export const AccredModel = model<AccredDocProp, PaginateModel<AccredDocProp>>('accreddoc', schema);
 
 /**
  * @see HydratedDocument<T> represents a hydrated Mongoose document,

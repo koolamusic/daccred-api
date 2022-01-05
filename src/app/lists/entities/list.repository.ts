@@ -58,7 +58,7 @@ export class ListRepository extends ListModel {
    * @param ListProp
    *
    * @example
-   * await this.createNewListRecord({ documents, ownerId })
+   * await this.createNewListRecord({ documents, owner })
    *
    */
   static async createNewListRecord(payload: CreateListCommand): Promise<ListDocument> {
@@ -68,7 +68,7 @@ export class ListRepository extends ListModel {
         slug: `lqf${generateUrlSlug()}`,
         schema: this._schema,
         documents: [payload.documentId],
-        ownerId: payload.publicAddress,
+        owner: payload.publicAddress,
       });
 
       return list;
