@@ -5,7 +5,13 @@ import { GetDocumentQueryParams, ListDocumentsQueryParams } from '../../shared/d
 import { AccredDocProp, AccredDocument, AccredModel } from './doc.model';
 import { createSHA256Hash } from '../../shared/utils/crypto.utils';
 
+export interface CreateDocumentProps {
+  owner: string;
+  payload: Partial<AccredDocProp>;
+}
+
 export interface MutateDocumentProps {
+  slug: string;
   owner: string;
   payload: Partial<AccredDocProp>;
 }
@@ -55,11 +61,11 @@ export class DocumentRepository extends AccredModel {
    * @name updateOneDocument
    * @return AccredDocument - an updated credential document
    */
-  static async updateOneDocument({ owner, payload }: MutateDocumentProps): Promise<AccredDocument> {
+  static async updateOneDocument({ slug, owner, payload }: MutateDocumentProps): Promise<AccredDocument> {
     try {
       const doc = await AccredModel.findOne({
         owner: owner,
-        slug: payload.slug,
+        slug: slug,
       });
       if (!doc) throw new NotFoundError('Not a valid document');
 
@@ -88,7 +94,7 @@ export class DocumentRepository extends AccredModel {
    * @name createAccredDocument
    * @return AccredDocument - an new credential document
    */
-  static async createAccredDocument({ owner, payload }: MutateDocumentProps): Promise<AccredDocument> {
+  static async createAccredDocument({ owner, payload }: CreateDocumentProps): Promise<AccredDocument> {
     try {
       /* Build payload for creating new document */
       const createNewDocInput: Partial<AccredDocProp> = {

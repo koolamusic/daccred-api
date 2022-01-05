@@ -1,12 +1,18 @@
 import logger from '../../infra/logger';
 import { ListRepository } from '../lists';
 import ServerError, { UnprocessableEntityError } from '../../infra/errors';
-import { CreateDocumentCommand } from '../shared/dals/command/doc.command';
+import { CreateDocumentCommand, MutateDocumentCommand } from '../shared/dals/command/doc.command';
 import { DocumentRepository } from './entities/doc.repository';
 import { AccredDocument } from './entities/doc.model';
 import { GetDocumentQueryParams } from '../shared/dals';
 
-export interface BoostrapDocumentOpts {
+export interface MutateDocOptions {
+  owner: string;
+  hash: string;
+  payload: MutateDocumentCommand;
+}
+
+export interface DocBootstrapOptions {
   owner: string;
   payload: CreateDocumentCommand;
 }
@@ -14,7 +20,7 @@ export interface BoostrapDocumentOpts {
 export class DocumentService {
   private logger = logger;
 
-  async bootstrapNewAccredDocument({ owner, payload }: BoostrapDocumentOpts) {
+  async bootstrapNewAccredDocument({ owner, payload }: DocBootstrapOptions) {
     try {
       // Handle creation of the document
       const doc = await DocumentRepository.createAccredDocument({ owner, payload });
@@ -50,8 +56,17 @@ export class DocumentService {
     }
   }
 
-  async updateDocumentMetadata({ owner, payload }) {
-    return undefined;
+  async updateDocumentMetadata({ hash, owner, payload }: MutateDocOptions) {
+    try {
+      return await DocumentRepository.updateOneDocument({
+        slug: hash,
+        owner: owner,
+        payload: payload,
+      });
+    } catch (error) {
+      this.logger.error(`${error} - [DocumentService:updateDocumentMetadata]`);
+      throw new ServerError(error);
+    }
   }
 
   async getOneAccredDocument({ owner, hash }: GetDocumentQueryParams): Promise<AccredDocument> {

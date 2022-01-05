@@ -20,6 +20,7 @@ import {
   DocumentCommandOutput,
   DocumentQueryResponse,
   DocumentQueryOutput,
+  MutateDocumentCommand,
 } from '../shared/dals';
 import { User } from '../shared/entities';
 
@@ -102,13 +103,34 @@ export class DocsController {
     return undefined;
   }
 
-  @Patch('/meta')
+  @Patch('/:slug')
   @HttpCode(200)
   @OnUndefined(204)
   @Authorized()
-  @ResponseSchema(CreateDocumentCommandResponse)
-  async updateMetadataForDocument(): // @Body({ required: true, validate: true }) input: any
-  Promise<undefined> {
-    return undefined;
+  @ResponseSchema(DocumentQueryResponse)
+  async updateMetadataForDocument(
+    @CurrentUser({ required: true }) user: User,
+    @Param('slug') slug: string,
+    @Body({ required: true, validate: true }) input: MutateDocumentCommand
+  ): Promise<DocumentQueryResponse> {
+    const handler = await this.documentService.updateDocumentMetadata({
+      owner: user.publicAddress,
+      payload: input,
+      hash: slug,
+    });
+
+    return this.result.patch<DocumentQueryOutput>({
+      id: handler.id,
+      name: handler.name,
+      slug: handler.slug,
+      status: handler.status,
+      owner: handler.owner,
+      networkId: handler.networkId,
+      description: handler.description,
+      networkName: handler.networkName,
+      editorSchema: handler.editorSchema,
+      deployerAddress: handler.deployerAddress,
+      recipientListId: handler.recipientsListId.toString(),
+    });
   }
 }

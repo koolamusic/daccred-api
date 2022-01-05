@@ -23,6 +23,7 @@ export class DocumentCommandOutput {
   name!: string;
 
   @IsString()
+  @IsOptional()
   description!: string;
 
   /* JSON stringified Design Editor Schema */
@@ -65,7 +66,8 @@ export class CreateDocumentCommand {
   name!: string;
 
   @IsString()
-  description!: string;
+  @IsOptional()
+  description?: string;
 
   /* JSON stringified Design Editor Schema */
   @IsString()
@@ -93,8 +95,49 @@ export class CreateDocumentCommandResponse extends BaseResponseDTO {
 }
 
 /*---------------------------------------------------------------------------- 
-    DTO for add recipient to list using form ingress entry
+    DTO for Mutations [update, delete etc]
 ----------------------------------------------------------------------------*/
+
+export class MutateDocumentCommand {
+  @IsString()
+  @IsOptional()
+  id!: string;
+
+  @IsString()
+  @IsOptional()
+  name!: string;
+
+  @IsOptional()
+  @IsString()
+  description!: string;
+
+  @IsOptional()
+  @IsString()
+  editorSchema!: string;
+
+  @IsOptional()
+  @IsString()
+  networkName!: string;
+
+  @IsOptional()
+  @IsString()
+  networkId!: string; // 0x0 = Ethereum
+
+  @IsOptional()
+  @IsString()
+  deployerAddress!: string;
+
+  @IsOptional()
+  @IsString()
+  slug!: string;
+
+  @IsEnum(DocumentStatus)
+  status!: DocumentStatus;
+
+  @IsString()
+  @IsOptional()
+  recipientListId?: string;
+}
 
 // export class FormIngressCommandInput {
 //   @IsString()
