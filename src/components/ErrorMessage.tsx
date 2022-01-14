@@ -7,5 +7,5 @@ interface ErrorMessageProps {
 }
 
 export default function ErrorMessage({ error }: ErrorMessageProps) {
-  return <span className='flex w-full text-sm text-red-600'>{error || ''}</span>;
+  return <span className='flex w-full text-sm text-red-600'>{JSON.stringify(error) || ''}</span>;
 }
