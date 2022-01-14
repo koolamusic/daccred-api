@@ -39,7 +39,6 @@ export default function Button({
             variant === 'primary',
         },
         'disabled:cursor-not-allowed',
-        !disabled && 'animated-underline',
         isLoading && 'relative text-transparent hover:!text-transparent !cursor-wait transition-none',
         className
       )}
