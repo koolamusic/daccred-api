@@ -4,7 +4,7 @@ import Layout from '@/components/layout/WizardLayout';
 // import View from '@/views/app/Cred';
 
 import dynamic from 'next/dynamic';
-const View = dynamic(() => import('../../views/app/Cred'), { ssr: false });
+const View = dynamic(() => import('../../views/Cred'), { ssr: false });
 
 export default function Default() {
   return (
