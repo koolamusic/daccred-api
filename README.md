@@ -3,8 +3,31 @@
 ## Contract Address Tracker
 
 Sample 1 Ropsten:
-> router: 0xefDc8C07d6D4C5C0A9Ce90dd40139299A3Da47f7
-> factory: 0x5b786Eb7E275A6FeC3EF1B3C237276c0e9c40254
+
+```sh
+   Deploying 'Router'
+   ------------------
+   > transaction hash:    0x1268c42a189ffe465f9ff97384a91d3b98a7caaa187a7621f5f3d82588a9a5da
+   > Blocks: 4            Seconds: 25
+   > contract address:    0xF57Df2884e977dB3f5271218EBd6f1B2144A18B3
+   > block number:        11826047
+   > block timestamp:     1642349172
+   > account:             0x59E52C70470f44BD0d01E4CE332A05dB5AeCD93C
+   > balance:             2.833773364946142416
+   > gas used:            3458876 (0x34c73c)
+   > gas price:           18.218814986 gwei
+   > value sent:          0 ETH
+   > total cost:          0.063016621903515736 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 11826050)
+   > confirmation number: 2 (block: 11826051)
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.063016621903515736 ETH
+
+```
 
 Sample Payload `createContractForClient`
 
@@ -74,4 +97,4 @@ Sample Payload `createContractForClient`
       }
     }
   }
-  ```
+```

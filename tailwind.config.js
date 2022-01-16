@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { fontFamily } = require('tailwindcss/defaultTheme');
-const colors = require('tailwindcss/colors')
-  
+const colors = require('tailwindcss/colors');
 
 function withOpacity(variableName) {
   return ({ opacityValue }) => {
@@ -44,15 +43,15 @@ module.exports = {
         rose: colors.rose,
         dark: '#111111',
         gray: {
-          '100': '#f5f5f5',
-          '200': '#eeeeee',
-          '300': '#e0e0e0',
-          '400': '#F2F2F2',
-          '500': '#9e9e9e',
-          '600': '#424242',
-          '700': '#333333',
-          '800': '#222222',
-          '900': '#111111',
+          100: '#f5f5f5',
+          200: '#eeeeee',
+          300: '#e0e0e0',
+          400: '#F2F2F2',
+          500: '#9e9e9e',
+          600: '#424242',
+          700: '#333333',
+          800: '#222222',
+          900: '#111111',
         },
         secondary: colors.yellow,
         neutral: colors.gray,
@@ -78,5 +77,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/aspect-ratio'),],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/aspect-ratio')],
 };

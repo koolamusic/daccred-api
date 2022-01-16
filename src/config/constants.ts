@@ -1,5 +1,5 @@
-export const MORALIS_APP_ID = 'yYmAdNgqUQ3P8vPViKYjYE82EPjGAa8HCC7FZqDL';
-export const MORALIS_SERVER_URL = 'https://09zmv9mmxz2l.usemoralis.com:2053/server';
+export const MORALIS_APP_ID = 'd0m6xFfujHle8woQPej1RdOJXumwHewkuvkUHBJh';
+export const MORALIS_SERVER_URL = 'https://wi7goqcjsyns.usemoralis.com:2053/server';
 export const DEFAULT_MAINNET = '0x1'; // Ethereum
 export const DEFAULT_TESTNET = '0x3'; // Ropsten
 export const HARMONY_TESTNET = '0x6357d2e0'; // Harmony Testnet 1666700000 converted to Hex

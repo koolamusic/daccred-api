@@ -9,9 +9,6 @@ module.exports = {
 
   // add domain whitelist
   images: {
-    domains: [
-      'res.cloudinary.com',
-      'images.unsplash.com'
-    ],
+    domains: ['res.cloudinary.com', 'images.unsplash.com'],
   },
 };
