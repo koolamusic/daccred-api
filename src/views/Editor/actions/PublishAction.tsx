@@ -11,7 +11,7 @@ import { Moralis } from 'moralis';
 
 const options = {
   abi: ABI.leanRouter,
-  contractAddress: DACRED_ROUTER_HARMONY,
+  contractAddress: DACRED_ROUTER_ROPSTEN,
   functionName: 'createContractForClient',
   params: {
     name: 'Var School Fall 2020',

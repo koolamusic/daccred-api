@@ -34,8 +34,8 @@ export default function Auth(): JSX.Element {
     handleWeb3();
   }, []);
 
-  if(web3EnableError) {
-    return <h3>Use a Web3 supported browser</h3>
+  if (web3EnableError) {
+    return <h3>Use a Web3 supported browser</h3>;
   }
 
   if (!isWeb3Enabled || !isAuthenticated) {
@@ -73,21 +73,19 @@ export default function Auth(): JSX.Element {
                         })
                       }
                       className='relative flex justify-center w-full px-4 py-4 mt-4 text-sm font-medium text-white bg-gray-800 border rounded-md group hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'
-                      >
+                    >
                       <React.Fragment>
                         <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
                           <LockClosedIcon
                             className='w-5 h-5 text-gray-500 group-hover:text-gray-400'
                             aria-hidden='true'
-                            />
+                          />
                         </span>
                         {isAuthenticated ? 'You are logged in' : 'Login with Metamask'}
                       </React.Fragment>
                     </button>
                   </div>
-                            {/* ------ Trigger buttons --------- */}
-
-          
+                  {/* ------ Trigger buttons --------- */}
                 </div>
               </div>
               <div className='-mt-6 aspect-w-5 aspect-h-3 md:aspect-w-2 md:aspect-h-1'>
@@ -112,28 +110,25 @@ export default function Auth(): JSX.Element {
             <h2 className='mt-6 text-3xl font-extrabold text-center text-gray-900 capitalize'>Access your account</h2>
           </div>
 
-              {/* ------ Trigger buttons --------- */}
+          {/* ------ Trigger buttons --------- */}
 
-              <div>
-                    <button
-                      onClick={() =>
-                        authenticate({
-                          signingMessage: 'Authenticate your Account with code:',
-                          onSuccess: (user) => NextAuth.login(user),
-                        })
-                      }
-                      className='relative flex justify-center w-full px-4 py-4 mt-4 text-sm font-medium text-white bg-gray-800 border rounded-md group hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'
-                      >
-                        <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
-                          <LockClosedIcon
-                            className='w-5 h-5 text-gray-500 group-hover:text-gray-400'
-                            aria-hidden='true'
-                            />
-                        </span>
-                        Access your Account
-                    </button>
-                  </div>
-                            {/* ------ Trigger buttons --------- */}
+          <div>
+            <button
+              onClick={() =>
+                authenticate({
+                  signingMessage: 'Authenticate your Account with code:',
+                  onSuccess: (user) => NextAuth.login(user),
+                })
+              }
+              className='relative flex justify-center w-full px-4 py-4 mt-4 text-sm font-medium text-white bg-gray-800 border rounded-md group hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'
+            >
+              <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
+                <LockClosedIcon className='w-5 h-5 text-gray-500 group-hover:text-gray-400' aria-hidden='true' />
+              </span>
+              Access your Account
+            </button>
+          </div>
+          {/* ------ Trigger buttons --------- */}
         </div>
       </div>
     </section>

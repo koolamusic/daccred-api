@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { SectionTab } from 'realmono/side-panel';
 import { MdOutlinePublish } from 'react-icons/md';
 import { recipientVariables } from '@/config/defaults/recipient.default';
-import PublishAction from '../../views/app/Editor/actions/PublishAction';
+import PublishAction from '@/views/Editor/actions/PublishAction';
 import { formatAddress, getAddressTxt } from '@/lib/helper';
 import { ClipboardCopyIcon, ExternalLinkIcon } from '@heroicons/react/outline';
 

@@ -76,7 +76,7 @@ export default function ClaimBox({ preview, claimHandler, isLoading }: ClaimPage
                 </p>
                 <div className='mt-6'>
                   <Button onClick={claimHandler} disabled={isLoading} isLoading={isLoading} className='w-full'>
-                    Publish
+                    Claim Your Badge
                   </Button>
                   {/* <div className='rounded-md shadow'>
                     <a

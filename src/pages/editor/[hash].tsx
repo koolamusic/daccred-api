@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import * as NextAuth from '@/lib/auth.helper';
 import Layout from '@/components/layout/Layout';
 
-const View = dynamic(() => import('../../views/app/Editor'), { ssr: false });
+const View = dynamic(() => import('../../views/Editor'), { ssr: false });
 
 export default function Default() {
   return (

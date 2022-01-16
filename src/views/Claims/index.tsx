@@ -91,7 +91,7 @@ export default function ClaimView({ contractAddress }: ClaimViewProps) {
         pdfDataURI: pdf,
         chainAccount: account as string,
         chainId: chainId as string,
-        documentContractAddress: contractAddress
+        documentContractAddress: contractAddress,
       })) as any;
 
       // console.log(response)

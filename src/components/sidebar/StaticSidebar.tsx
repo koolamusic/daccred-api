@@ -33,8 +33,8 @@ export const StaticSidebar = ({ options }: LayoutNavProps) => {
                       alt=''
                     />
                     <span className='flex flex-col flex-1 min-w-0'>
-                      <span className='text-sm font-medium text-gray-900 truncate'>Daccred Admin</span>
-                      <span className='text-sm text-gray-500 truncate'>@0x0</span>
+                      <span className='text-sm font-medium text-gray-900 truncate'>Vitalik Joy</span>
+                      <span className='text-sm text-gray-500 truncate'>@0xb72430b16657a7463aB6e6b</span>
                     </span>
                   </span>
                   <SelectorIcon

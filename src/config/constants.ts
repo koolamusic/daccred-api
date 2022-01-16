@@ -14,10 +14,9 @@ export const LF_CERTWIZ_VAR = 'credentials--state';
 export const AUTH = {
   loginRoute: '/authorize',
   defaultRoute: '/',
-  rootRoute: '/studio',
+  rootRoute: '/dashboard',
   key: '__app.sid__',
 };
-
 
 export const LF_STORE_KEY = 'ILvcJpQFhD5AC6AVd7P2';
 
@@ -31,7 +30,6 @@ export const DACRED_ROUTER_ROPSTEN = '0x46e0e42b9d952c3d894d12139aed33fa5d318bff
 // Harmony https://explorer.pops.one/address/0xd332989aa911045bd4c15c3b57bef80d01f4d699
 export const DACRED_ROUTER_HARMONY = '0xd332989aa911045bd4c15c3b57bef80d01f4d699';
 
-
 /* ----------------------------------------------------------------------- */
 /*                navigation routes def for working with layouts           */
 /* ----------------------------------------------------------------------- */
@@ -39,15 +37,11 @@ import { BookmarkIcon, HomeIcon } from '@heroicons/react/outline';
 
 import routes from '@/config/routes';
 
-export const subnav = [
-  { name: 'Lorem Ipsum', href: routes.open.forms, bgColorClass: 'bg-indigo-500' },
-  { name: 'Lorem Ipsum', href: routes.open.forms, bgColorClass: 'bg-green-500' },
-  { name: 'Lorem Ipsum', href: routes.open.forms, bgColorClass: 'bg-yellow-500' },
-];
+export const subnav = [{ name: 'Create Badge', href: routes.certs.create, bgColorClass: 'bg-indigo-500' }];
 
 export const navigation = [
   { icon: HomeIcon, name: 'Dashboard', href: '/', current: true },
-  { icon: BookmarkIcon, name: 'Certifications', href: routes.certs.index, current: false },
+  { icon: BookmarkIcon, name: 'Certifications', href: routes.certs.create, current: false },
 ];
 
 export const userNavigation = [{ name: 'Sign out', href: '#' }];

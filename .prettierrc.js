@@ -5,4 +5,16 @@ module.exports = {
   jsxSingleQuote: true,
   tabWidth: 2,
   semi: true,
+  "overrides": [
+    {
+      "files": "src/contracts/*.sol",
+      "options": {
+        "printWidth": 160,
+        "useTabs": true,
+        "tabWidth": 4,
+        "bracketSpacing": true,
+        "explicitTypes": "always"
+      }
+    }
+  ]
 };

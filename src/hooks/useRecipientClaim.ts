@@ -9,7 +9,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useMoralis } from 'react-moralis';
 
-
 const _metadataMock = {
   id: 18845238,
   name: 'Var School Class of 2020',
@@ -51,7 +50,7 @@ export interface TemplateSaveOptions {
   imageDataURI: string; // Base64
   pdfDataURI: string; // Base64
   suppliers: string;
-  documentContractAddress: string // Contract Address from page props
+  documentContractAddress: string; // Contract Address from page props
   img?: Moralis.File;
   pdf?: Moralis.File;
   metadata?: Moralis.File;

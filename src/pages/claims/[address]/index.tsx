@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 const View = dynamic(() => import('../../../views/Claims'), { ssr: false });
 
 interface ClaimPageProps {
-  address: string
+  address: string;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -24,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   // return await NextAuth.handleAuthenticatedRequest(context);
   return {
     props: {
-     ...context.params
+      ...context.params,
     },
   };
 };
