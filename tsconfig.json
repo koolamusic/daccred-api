@@ -21,6 +21,6 @@
     "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/views/Editor/*.jsx"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "src/lib/ipfs"],
   "moduleResolution": ["node_modules", ".next", "node"]
 }
