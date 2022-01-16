@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 // import * as NextAuth from '@/lib/auth.helper';
 
 // import View from '@/views/public/Claims';
-const View = dynamic(() => import('../../../views/public/Claims'), { ssr: false });
+const View = dynamic(() => import('../../../views/Claims'), { ssr: false });
 
 interface ClaimPageProps {
   address: string
