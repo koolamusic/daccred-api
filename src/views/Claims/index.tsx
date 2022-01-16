@@ -4,7 +4,7 @@
 import ClaimBox from './ClaimBox';
 import localforage from 'localforage';
 import { createStore } from 'realmono/model/store';
-import { LF_EDITOR_VAR, LF_STORE_KEY } from '@/config/constants';
+import { DEFAULT_TESTNET, LF_EDITOR_VAR, LF_STORE_KEY } from '@/config/constants';
 import { Workspace } from 'realmono/canvas/workspace';
 import { useEffect, useState } from 'react';
 import { interpolateVariablesOf } from '@/lib/templates';
@@ -29,8 +29,8 @@ interface ClaimViewProps {
 }
 
 export default function ClaimView({ contractAddress }: ClaimViewProps) {
-  const { enableWeb3, isWeb3Enabled } = useMoralis();
-  const { chainId, account } = useChain();
+  const { enableWeb3, isWeb3Enabled, authenticate } = useMoralis();
+  const { chainId, account, switchNetwork } = useChain();
   const [pdf, setPdf] = useState(null);
   const [isProcessing, setProcessing] = useState(false);
   const [img, setImg] = useState('');
@@ -38,7 +38,14 @@ export default function ClaimView({ contractAddress }: ClaimViewProps) {
   const { execute, isSubmitting, response } = useRecipientClaim();
 
   useEffect(() => {
-    enableWeb3();
+    authenticate({
+      signingMessage: 'Verify your Address',
+      onSuccess: (_user) => {
+        enableWeb3()
+      switchNetwork(DEFAULT_TESTNET);
+
+      }
+    })
     localforage.getItem(LF_EDITOR_VAR, async function (_err, json) {
       if (json) {
         store.loadJSON(json);
