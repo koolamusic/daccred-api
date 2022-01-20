@@ -1,6 +1,7 @@
 import { HydratedDocument, Schema, model, PaginateModel } from 'mongoose';
 import { DataIngress } from '../../definitions';
-import mongoosePaginate from 'mongoose-paginate-v2';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 export interface ListIngressProp {
   _id?: Schema.Types.ObjectId | string;

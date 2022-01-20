@@ -12,9 +12,9 @@
     "dev": "cross-env NODE_ENV=development nodemon src/entry.ts",
     "dev:watch": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only src/entry.ts",
     "format": "prettier --write \"{,!(node_modules)/**/}*.{ts,js}\"",
-    "lint": "eslint . --ext .ts",
+    "lint": "yarn lint:ts && yarn lint:es",
     "lint:ts": "tsc --pretty",
-    "lint:fix": "eslint . --ext .ts --fix",
+    "lint:es": "eslint . --ext .ts --fix",
     "restart": "run-s build && node dist/entry.js",
     "start": "node dist/entry.js",
     "test": "cross-env NODE_ENV=test jest --no-cache --runInBand --testTimeout 20000",
@@ -80,12 +80,12 @@
     "ts-node": "^10.4.0",
     "ts-node-dev": "^1.1.8",
     "types__mongoose-paginate-v2": "^1.4.2",
-    "typescript": "^4.5.4"
+    "typescript": "4.4.3"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "yarn lint:ts && yarn test"
+      "pre-push": "yarn build && yarn test"
     }
   },
   "jest": {
