@@ -16,16 +16,11 @@
     "lint:fix": "eslint src --fix && yarn format",
     "lint:strict": "eslint --max-warnings=0 src",
     "lint:ts": "tsc --pretty --noEmit",
-    "migrate:dev": "rm -rf build/migrations && tsc migrations/*.ts --outDir build/migrations && truffle migrate --network development",
-    "migrate:ropsten": " tsc migrations/*.ts --outDir build/migrations && truffle migrate --network ropsten",
     "push-release": "git push --follow-tags origin main",
     "release": "standard-version",
     "start": "next start",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "truffle": "truffle",
-    "typegen": "typechain --target=truffle-v5 --out-dir contracts/types 'build/contracts/*.json'",
-    "verify": "truffle run verify Router --network"
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@flatfile/react": "0.3.5",

@@ -19,7 +19,7 @@ export interface AuthProps {
 /* -------------------------------------------------------------------------- */
 
 export default function Auth(): JSX.Element {
-  const { isAuthenticated, web3EnableError, isWeb3Enabled, authenticate } = useMoralis();
+  const { isAuthenticated, web3EnableError, authenticate } = useMoralis();
   const { enableWeb3 } = useMoralis();
   const { switchNetwork } = useChain();
 
@@ -34,11 +34,8 @@ export default function Auth(): JSX.Element {
     handleWeb3();
   }, []);
 
-  if (web3EnableError) {
-    return <h3>Use a Web3 supported browser</h3>;
-  }
 
-  if (!isWeb3Enabled || !isAuthenticated) {
+  if (!isAuthenticated) {
     return (
       <section className='flex justify-center w-full mx-auto mt-12 '>
         {web3EnableError && <ErrorMessage error={web3EnableError} />}
