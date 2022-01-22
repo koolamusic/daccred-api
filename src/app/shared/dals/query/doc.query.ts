@@ -100,7 +100,7 @@ export class DocumentQueryOutput {
 
   @IsString()
   @IsOptional()
-  recipientListId?: string;
+  recipientListSlug?: string;
 }
 
 export class DocumentQueryResponse extends BaseResponseDTO {

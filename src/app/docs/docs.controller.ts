@@ -57,7 +57,7 @@ export class DocsController {
       networkName: handler.networkName,
       editorSchema: handler.editorSchema,
       deployerAddress: handler.deployerAddress,
-      recipientListId: handler.recipientsListId.toString(),
+      recipientListSlug: handler.waitlist.slug
     });
   }
 
@@ -89,7 +89,7 @@ export class DocsController {
       networkName: handler.networkName,
       editorSchema: handler.editorSchema,
       deployerAddress: handler.deployerAddress,
-      recipientListId: handler.recipientsListId.toString(),
+      recipientListSlug: handler.waitlist.slug
     });
   }
 
@@ -130,7 +130,7 @@ export class DocsController {
       networkName: handler.networkName,
       editorSchema: handler.editorSchema,
       deployerAddress: handler.deployerAddress,
-      recipientListId: handler.recipientsListId.toString(),
+      recipientListSlug: handler.waitlist.slug
     });
   }
 }

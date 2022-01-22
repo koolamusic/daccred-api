@@ -58,7 +58,7 @@ export class DocumentCommandOutput {
 
   @IsString()
   @IsOptional()
-  recipientListId?: string;
+  recipientListSlug?: string;
 }
 
 export class CreateDocumentCommand {
@@ -136,7 +136,7 @@ export class MutateDocumentCommand {
 
   @IsString()
   @IsOptional()
-  recipientListId?: string;
+  recipientListSlug?: string;
 }
 
 // export class FormIngressCommandInput {

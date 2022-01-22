@@ -30,7 +30,7 @@ const routeControllerOptions: RoutingControllersOptions = {
 const server = express();
 
 /* The JSON files from Design Editor are large, so we have to compromise */
-server.use(bodyParser.json({ limit: '10mb' }))
+server.use(bodyParser.json({ limit: '7mb' }));
 
 /* Parse routing-controllers classes into OpenAPI spec: */
 const storage = getMetadataArgsStorage();

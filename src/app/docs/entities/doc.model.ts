@@ -15,7 +15,10 @@ export interface AccredDocProp {
   networkName: string;
   networkId: string; // '0x0' = Ethereum
   publishDate: Date;
-  recipientsListId: Schema.Types.ObjectId;
+  waitlist: {
+    id: Schema.Types.ObjectId,
+    slug: string
+  } 
   owner: string;
 }
 
@@ -74,8 +77,9 @@ const schema = new Schema<AccredDocProp>(
     /**
      * @description a lists of all the recipient lists that we make eligible for this certificate
      */
-    recipientsListId: {
-      type: Schema.Types.ObjectId,
+    waitlist: {
+      id: Schema.Types.ObjectId,
+      slug: String
     },
     owner: {
       type: String,
