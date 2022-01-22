@@ -8,7 +8,7 @@ export interface AccredDocProp {
   description: string;
   slug: string;
   status: DocumentStatus;
-  editorSchema: string;
+  editorSchema: object;
   contractAddress: string;
   deployerAddress: string;
   transactionHash: string;

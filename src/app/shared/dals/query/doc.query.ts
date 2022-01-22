@@ -8,7 +8,7 @@
 /********************************************************************* */
 
 import 'reflect-metadata';
-import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { BaseResponseDTO } from '../base.dal';
 import { Type } from 'class-transformer';
 import { DocumentStatus } from '../../definitions';
@@ -58,9 +58,9 @@ export class DocumentQueryOutput {
   description!: string;
 
   /* JSON stringified Design Editor Schema */
-  @IsString()
+  @IsObject()
   @IsNotEmpty()
-  editorSchema!: string;
+  editorSchema!: object;
 
   @IsNotEmpty()
   @IsString()

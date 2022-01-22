@@ -26,10 +26,11 @@ export class DocumentCommandOutput {
   @IsOptional()
   description!: string;
 
-  /* JSON stringified Design Editor Schema */
+  /* JSON stringified or Object Payload for Design Editor Schema */
   @IsString()
   @IsNotEmpty()
-  editorSchema!: string;
+  @IsObject()
+  editorSchema!: object;
 
   @IsNotEmpty()
   @IsString()
@@ -111,8 +112,8 @@ export class MutateDocumentCommand {
   description!: string;
 
   @IsOptional()
-  @IsString()
-  editorSchema!: string;
+  @IsObject()
+  editorSchema!: object;
 
   @IsOptional()
   @IsString()

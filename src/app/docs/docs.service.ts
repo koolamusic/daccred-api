@@ -25,8 +25,6 @@ export class DocumentService {
       // Handle creation of the document
       const doc = await DocumentRepository.createAccredDocument({ owner, payload });
 
-      console.log(doc)
-
       // use document info to create a new recipient list
       const recipientList = await ListRepository.createNewListRecord({
         documentId: doc.id,

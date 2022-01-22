@@ -41,14 +41,11 @@ export class DocsController {
     @Body({ required: true }) input: CreateDocumentCommand,
     @CurrentUser({ required: true }) user: User
   ) {
-
-    
     const handler = await this.documentService.bootstrapNewAccredDocument({
       owner: user.publicAddress,
       payload: input,
     });
-    
-    console.log(handler, "reached the controller")
+
     /* Return response from Controller using HttpResult format */
     return this.result.post<DocumentCommandOutput>({
       name: handler.name,
