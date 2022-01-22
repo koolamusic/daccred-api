@@ -48,8 +48,8 @@ export class CreateListCommandOutput {
   @IsString()
   slug!: string;
 
-  @IsString()
-  schema!: string;
+  @IsObject()
+  schema!: object;
 }
 
 export class CreateListCommandResponse extends BaseResponseDTO {

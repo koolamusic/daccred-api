@@ -47,7 +47,7 @@ export class ListController {
       id: handler.id,
       name: handler.name,
       slug: handler.slug,
-      schema: JSON.stringify(handler.schema),
+      schema: handler.schema,
     };
 
     /* Return response from Controller using HttpResult format */
@@ -75,7 +75,7 @@ export class ListController {
     /* Return response from Controller using HttpResult format */
     return this.result.get<ListSlugQueryOutput>({
       slug: handler.slug,
-      schema: JSON.stringify(handler.schema),
+      schema: handler.schema,
     });
   }
 

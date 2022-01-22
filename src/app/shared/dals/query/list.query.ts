@@ -8,7 +8,7 @@
 /********************************************************************* */
 
 import 'reflect-metadata';
-import { IsNotEmpty, IsNumber, IsString, ValidateNested } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsObject, IsString, ValidateNested } from 'class-validator';
 import { BaseResponseDTO } from '../base.dal';
 import { Type } from 'class-transformer';
 
@@ -39,8 +39,8 @@ export class ListSlugQueryOutput {
   @IsString()
   slug!: string;
 
-  @IsString()
-  schema!: string;
+  @IsObject()
+  schema!: object;
 }
 
 export class ListSlugQueryResponse extends BaseResponseDTO {

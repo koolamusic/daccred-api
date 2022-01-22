@@ -38,7 +38,10 @@ export class DocumentService {
       }
 
       /* Update accred document with attachment to a recipient list and return */
-      doc.recipientsListId = recipientList.id;
+      doc.waitlist.id = recipientList['id'];
+      doc.waitlist.slug = recipientList['slug'];
+
+      /* update document with new references */
       return await doc.save();
     } catch (error) {
       this.logger.error(`${error} - [DocumentService:bootstrapNewAccredDocument]`);
