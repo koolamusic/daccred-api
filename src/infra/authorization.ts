@@ -26,6 +26,7 @@ const validateUserByToken = async (req: Action['request']): Promise<User> => {
   try {
     // Get the User Token from Header
     const token = req.headers['authorization'].split(' ')[1];
+    console.log(req.headers, "Cookie from Request")
 
     /* Define if claim is cached else return result and cache token */
     if (JWT_CACHE.has(token)) return JWT_CACHE.get(token) as User;

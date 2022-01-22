@@ -9,7 +9,7 @@
 
 import 'reflect-metadata';
 import { Type } from 'class-transformer';
-import { IsEnum, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsObject, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { BaseResponseDTO } from '../base.dal';
 import { DocumentStatus } from '../../definitions';
 
@@ -70,9 +70,8 @@ export class CreateDocumentCommand {
   description?: string;
 
   /* JSON stringified Design Editor Schema */
-  @IsString()
-  @IsNotEmpty()
-  editorSchema!: string;
+  @IsObject()
+  editorSchema!: object;
 
   @IsNotEmpty()
   @IsString()

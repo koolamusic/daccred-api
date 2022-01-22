@@ -14,6 +14,7 @@ import { ClaimController } from './app/claims';
 import { swaggerSpecOptions } from './infra/openapi';
 import * as Authorization from './infra/authorization';
 import config from './infra/config';
+import bodyParser from 'body-parser';
 
 /* API Routes, Middlewares and Controllers */
 const routeControllerOptions: RoutingControllersOptions = {
@@ -27,6 +28,9 @@ const routeControllerOptions: RoutingControllersOptions = {
 };
 
 const server = express();
+
+/* The JSON files from Design Editor are large, so we have to compromise */
+server.use(bodyParser.json({ limit: '10mb' }))
 
 /* Parse routing-controllers classes into OpenAPI spec: */
 const storage = getMetadataArgsStorage();

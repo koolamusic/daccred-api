@@ -70,7 +70,7 @@ const schema = new Schema<AccredDocProp>(
       index: true,
     },
     publishDate: Date,
-    editorSchema: String,
+    editorSchema: Object,
     /**
      * @description a lists of all the recipient lists that we make eligible for this certificate
      */
