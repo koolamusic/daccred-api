@@ -1,6 +1,6 @@
-# Autheticator
-Manage Authenticator and Authorization scopes in the API
+# OpenAPI Daccred
 
+Manage Metadata, File uploads and transformation in the cloud.
 
 ## Notes
 
@@ -66,3 +66,24 @@ The execMap defines which binary nodemon uses to execute `*.ts` file extensions 
 // NODE_ENV=development TS_NODE_FILES=true TS_NODE_TRANSPILE_ONLY=true yarn ts-node src/entry.ts
 
 ```
+
+```js
+    store.pages.forEach((page) => {
+      page.children.forEach((el) => {
+        // skip non text
+        if (el.type !== "text") {
+          return;
+        }
+        // skip if no special value
+        if (!el.custom?.variableText) {
+          return;
+        }
+        const changed = el.text !== el.custom?.variableText;
+        if (changed) {
+          el.set({
+            text: el.custom?.variableText
+          });
+        }
+      });
+    });
+  ```

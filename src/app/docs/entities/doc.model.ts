@@ -16,9 +16,9 @@ export interface AccredDocProp {
   networkId: string; // '0x0' = Ethereum
   publishDate: Date;
   waitlist: {
-    id: Schema.Types.ObjectId,
-    slug: string
-  } 
+    id: Schema.Types.ObjectId;
+    slug: string;
+  };
   owner: string;
 }
 
@@ -79,7 +79,7 @@ const schema = new Schema<AccredDocProp>(
      */
     waitlist: {
       id: Schema.Types.ObjectId,
-      slug: String
+      slug: String,
     },
     owner: {
       type: String,
